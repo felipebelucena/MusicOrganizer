@@ -61,8 +61,12 @@ public class TelaPrincipal extends JFrame {
 	    	  System.out.println(e.getMessage());
 	      } catch (UnsupportedLookAndFeelException e) {
 	    	  System.out.println(e.getMessage());
-	      }
-	      SwingUtilities.updateComponentTreeUI(this);
+	      }SwingUtilities.updateComponentTreeUI(this);
+
+		// Barra de Menu
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menuFile = new JMenu("File");
+		menuBar.add(menuFile);
 	      
 	      JLabel labelArtista = new JLabel("Artista");
 	      JLabel labelAlbum = new JLabel("Album");
@@ -81,11 +85,11 @@ public class TelaPrincipal extends JFrame {
 	      
 	      //Set up do layout
 	      JPanel painelCentral = new JPanel();
-	      painelCentral.setLayout(new GridLayout(2, 0));
+	      painelCentral.setLayout(new BorderLayout());
 	      
 	      JPanel painelNorte = new JPanel();
 	      painelNorte.setLayout(new GridLayout(0, 2));
-	      painelCentral.add(painelNorte);
+	      painelCentral.add(painelNorte, BorderLayout.NORTH);
 	      
 	      JPanel painelEsquerda = new JPanel();
 	      painelEsquerda.setLayout(new GridBagLayout());
@@ -122,76 +126,56 @@ public class TelaPrincipal extends JFrame {
 	      painelNorte.add(painelEsquerda);
 	      
 	      JPanel painelDireita = new JPanel();
-//	      painelDireita.setBackground(new Color(255, 255, 0));
 	      painelDireita.setLayout(null);
 	      painelNorte.add(painelDireita);
 	      
 	      JPanel painelSul = new JPanel();
-	      painelSul.setBackground(new Color(0, 255, 0));
-	      painelSul.setLayout(new GridBagLayout());
-	      painelCentral.add(painelSul);
+	      painelSul.setLayout(new BorderLayout());
+	      painelCentral.add(painelSul,BorderLayout.CENTER);
+	      
+	      JPanel painelFaixas = new JPanel();
+	      painelFaixas.setLayout(new GridBagLayout());
+	      painelSul.add(painelFaixas, BorderLayout.NORTH);
+	      
 	      
 	      ArrayList<JLabel> labels = new ArrayList<JLabel>();
-	      ArrayList<JTextField> textFields = new ArrayList<JTextField>();
+	      ArrayList<JTextField> textFieldsNumero = new ArrayList<JTextField>();
+	      ArrayList<JTextField> textFieldsFaixas = new ArrayList<JTextField>();
 	      
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i <1 ; i++) {
 
-			for (int j = 0; j < 2; j++) {
-				labels.add(new JLabel());
-				textFields.add(new JTextField(3));
-				textFields.add(new JTextField(10));
-			}
+			labels.add(new JLabel());
+			textFieldsNumero.add(new JTextField(3));
+			textFieldsFaixas.add(new JTextField(10));
 
-			JLabel labelFaixa1 = labels.get(0);
-			labelFaixa1.setText("nome01");
-			JLabel labelFaixa2 = labels.get(1);
-			labelFaixa2.setText("Faixa02");
+			JLabel labelFaixa1 = labels.get(i);
+			labelFaixa1.setText("A Cor Do Som - Transe Total - 02 - Palco.mp3 --"+i);
 
-			JTextField textFieldNumero1 = textFields.get(0);
-			JTextField textFieldFaixa1 = textFields.get(1);
-			JTextField textFieldNumero2 = textFields.get(2);
-			JTextField textFieldFaixa2 = textFields.get(3);
+			JTextField textFieldNumero = textFieldsNumero.get(i);
+			textFieldNumero.setText("N"+i);
+			JTextField textFieldFaixa = textFieldsFaixas.get(i);
+			textFieldFaixa.setText("Tag"+i);
 
 			gbc.gridx = 0;
-			gbc.gridy = 0;
+			gbc.gridy = i;
 			gbc.weightx = 0;
 			gbc.weighty = 0;
-			gbc.anchor = GridBagConstraints.NORTH;
-			gbc.insets = new Insets(10, 10, 0, 5);
-			painelSul.add(labelFaixa1, gbc);
-			gbc.gridy = 0;
-			gbc.gridx = 1;
-			gbc.insets = new Insets(10, 0, 0, 5);
-			painelSul.add(textFieldNumero1, gbc);
-			gbc.gridy = 0;
-			gbc.gridx = 2;
-			painelSul.add(textFieldFaixa1, gbc);
-			gbc.gridy = 0;
-			gbc.gridx = 3;
-			gbc.insets = new Insets(10, 20, 0, 5);
-			painelSul.add(labelFaixa2, gbc);
-			gbc.gridy = 0;
-			gbc.gridx = 4;
-			gbc.insets = new Insets(10, 0, 0, 5);
-			painelSul.add(textFieldNumero2, gbc);
-			gbc.gridy = 0;
-			gbc.gridx = 5;
+			gbc.gridwidth = 1;
+			gbc.gridheight = 1;
+			gbc.anchor = GridBagConstraints.NORTHWEST;
+			gbc.insets = new Insets(15, 10, 0, 5);
+			painelFaixas.add(labelFaixa1, gbc);
+			gbc.gridx++;
+			gbc.insets = new Insets(10, 0, 10, 5);
+			painelFaixas.add(textFieldNumero, gbc);
+			gbc.gridx++;
 			gbc.weighty = 1;
 			gbc.weightx = 1;
-			gbc.anchor = GridBagConstraints.NORTHWEST;
-			gbc.insets = new Insets(10, 0, 0, 20);
-			painelSul.add(textFieldFaixa2, gbc);
+			painelFaixas.add(textFieldFaixa, gbc);
 
 		}
 	      
-	    //Barra de Menu
-	    JMenuBar menuBar = new JMenuBar();
-	    JMenu menuFile = new JMenu("File");
-	    menuBar.add(menuFile);
-	    
 	    this.setJMenuBar(menuBar);
-//	    this.add(painelCentral, BorderLayout.NORTH);
-	    
 	    JScrollPane scrollPane = new JScrollPane(painelCentral, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	    this.add(scrollPane, BorderLayout.CENTER);
 	    
