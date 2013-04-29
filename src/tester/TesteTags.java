@@ -35,12 +35,12 @@ public class TesteTags {
 			File musica = new File("sample/outrascoisas-fumaca.mp3");
 			AudioFile f = AudioFileIO.read(musica);
 			Tag tag = f.getTag();
-			String album = tag.getFirst(FieldKey.ALBUM);
-			String artista = tag.getFirst(FieldKey.ARTIST);
+//			String album = tag.getFirst(FieldKey.ALBUM);
+//			String artista = tag.getFirst(FieldKey.ARTIST);
 			String title = tag.getFirst(FieldKey.TITLE);
 			String track = tag.getFirst(FieldKey.TRACK);
 			
-			System.out.println(track+" - "+title+" "+artista+" "+album);
+			System.out.println(track+" - "+title);
 			
 		} catch (CannotReadException e) {
 			e.printStackTrace();

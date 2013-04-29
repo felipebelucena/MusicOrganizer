@@ -3,18 +3,29 @@ package gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Base.Tags;
+import Exception.ListaVaziaException;
+import Facade.Facade;
+
 public class PainelTagsGerais extends JPanel {
 
 	private GridBagConstraints gbc;
+	private Facade facade;
+	private JTextField textFieldArtista;
+	private JTextField textFieldAlbum;
+	private JTextField textFieldAno;
+	private JTextField textFieldGenero;
 
 	public PainelTagsGerais() {
 		gbc = new GridBagConstraints();
+		facade = Facade.getInstace();
 		initComponents();
 	}
 
@@ -25,19 +36,19 @@ public class PainelTagsGerais extends JPanel {
 		JLabel labelAno = new JLabel("Ano");
 		JLabel labelGenero = new JLabel("Genero");
 
-		JTextField TextFieldArtista = new JTextField(10);
-		JTextField TextFieldAlbum = new JTextField(10);
-		JTextField TextFieldAno = new JTextField(10);
-		JTextField TextFieldGenero = new JTextField(10);
+		textFieldArtista = new JTextField(10);
+		textFieldAlbum = new JTextField(10);
+		textFieldAno = new JTextField(10);
+		textFieldGenero = new JTextField(10);
 
-		labelArtista.setLabelFor(TextFieldArtista);
-		labelAlbum.setLabelFor(TextFieldAlbum);
-		labelAno.setLabelFor(TextFieldAno);
-		labelGenero.setLabelFor(TextFieldGenero);
+		labelArtista.setLabelFor(textFieldArtista);
+		labelAlbum.setLabelFor(textFieldAlbum);
+		labelAno.setLabelFor(textFieldAno);
+		labelGenero.setLabelFor(textFieldGenero);
 
 		this.setLayout(new GridBagLayout());
 		this.setBorder(BorderFactory.createTitledBorder("Tags Gerais"));
-		
+
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.anchor = GridBagConstraints.WEST;
@@ -45,19 +56,19 @@ public class PainelTagsGerais extends JPanel {
 		this.add(labelArtista, gbc);
 		gbc.gridx = 1;
 		gbc.gridy = 0;
-		this.add(TextFieldArtista, gbc);
+		this.add(textFieldArtista, gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		this.add(labelAlbum, gbc);
 		gbc.gridx = 1;
 		gbc.gridy = 1;
-		this.add(TextFieldAlbum, gbc);
+		this.add(textFieldAlbum, gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		this.add(labelAno, gbc);
 		gbc.gridx = 1;
 		gbc.gridy = 2;
-		this.add(TextFieldAno, gbc);
+		this.add(textFieldAno, gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		gbc.anchor = GridBagConstraints.NORTH;
@@ -67,7 +78,29 @@ public class PainelTagsGerais extends JPanel {
 		gbc.weighty = 1;
 		gbc.weightx = 1;
 		gbc.anchor = GridBagConstraints.NORTHWEST;
-		this.add(TextFieldGenero, gbc);
+		this.add(textFieldGenero, gbc);
+	}
+
+	public void updateValues(ArrayList<Tags> listaTags) throws ListaNulaException, ListaVaziaException {
+		Tags tag = new Tags();
+		try {
+			tag = listaTags.get(0);
+			String artista = tag.getArtista();
+			String album = tag.getAlbum();
+			String ano = tag.getAno();
+			String genero = tag.getGenero();
+
+			textFieldArtista.setText(artista);
+			textFieldAlbum.setText(album);
+			textFieldAno.setText(ano);
+			textFieldGenero.setText(genero);
+
+		} catch (NullPointerException e) {
+			 throw new ListaNulaException();
+		}catch (ArrayIndexOutOfBoundsException e) {
+			throw new ListaVaziaException();
+		}
+
 	}
 
 }
