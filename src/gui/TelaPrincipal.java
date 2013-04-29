@@ -107,7 +107,7 @@ public class TelaPrincipal extends JFrame {
 		painelSul.setLayout(new BorderLayout());
 		painelCentral.add(painelSul, BorderLayout.CENTER);
 
-		PainelFaixas painelFaixas = new PainelFaixas();
+		final PainelFaixas painelFaixas = new PainelFaixas();
 		painelSul.add(painelFaixas, BorderLayout.NORTH);
 
 		PainelBotoes painelBotoes = new PainelBotoes();
@@ -140,7 +140,7 @@ public class TelaPrincipal extends JFrame {
 		menuItemAbrir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DialogOpenDisco dialogOpenDisco = new DialogOpenDisco(painelTagsGerais);
+				DialogOpenDisco dialogOpenDisco = new DialogOpenDisco(painelTagsGerais, painelFaixas);
 //				repaint();
 			}
 		});

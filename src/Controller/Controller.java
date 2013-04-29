@@ -1,12 +1,16 @@
 package Controller;
 
-import gui.PopUp;
+import gui.PainelFaixas;
+import gui.PainelTagsGerais;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -18,50 +22,57 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 
 import Base.Tags;
-import Base.TipoPopUp;
+import Exception.ListaNulaException;
+import Exception.ListaVaziaException;
 
 public class Controller {
 
-	private ArrayList<Tags> listaTags;
-
 	public Controller() {
-		listaTags = new ArrayList<Tags>();
+
 	}
 
-	public ArrayList<Tags> parserFileToTagsList(File disco) {
+	public <T> ArrayList<Tags> parserFileToTagsList(File disco) {
 		File[] files = disco.listFiles();
-		Tags tags = new Tags();
-		System.out.println(files[0].getName());
 		AudioFile audioFile = null;
+		ArrayList<Tags> listaTags = new ArrayList<Tags>();
 
 		try {
-			 for (int i = 0; i < files.length; i++) {
+			for (int i = 0; i < files.length; i++) {
 
-			if (validator(files[i])) {
-				audioFile = AudioFileIO.read(files[i]);
-				Tag tag = audioFile.getTag();
-				String album = tag.getFirst(FieldKey.ALBUM);
-				String artista = tag.getFirst(FieldKey.ARTIST);
-				String ano = tag.getFirst(FieldKey.YEAR);
-				String genero = tag.getFirst(FieldKey.GENRE);
-				String nomeDaMusica = tag.getFirst(FieldKey.TITLE);
-				String numero = tag.getFirst(FieldKey.TRACK);
+				Tags tags = new Tags();
 
-				tags.setArtista(artista);
-				tags.setAlbum(album);
-				tags.setAno(ano);
-				tags.setGenero(genero);
-				tags.setNomeDaMusica(nomeDaMusica);
-				tags.setNumero(numero);
+				if (validator(files[i])) {
+					audioFile = AudioFileIO.read(files[i]);
+					Tag tag = audioFile.getTag();
+					String album = tag.getFirst(FieldKey.ALBUM);
+					String artista = tag.getFirst(FieldKey.ARTIST);
+					String ano = tag.getFirst(FieldKey.YEAR);
+					String genero = tag.getFirst(FieldKey.GENRE);
+					String nomeDaMusica = tag.getFirst(FieldKey.TITLE);
+					String numero = tag.getFirst(FieldKey.TRACK);
+					String nomeDoArquivo = files[i].getName();
 
-				System.out.println("artista = " + artista + ", " + " album = "
-						+ album + ", " + " Ano = " + ano + ", Genero = "
-						+ genero + ", titulo = " + nomeDaMusica + ", numero = "
-						+ numero);
+					tags.setArtista(artista);
+					tags.setAlbum(album);
+					tags.setAno(ano);
+					tags.setGenero(genero);
+					tags.setNomeDaMusica(nomeDaMusica);
+					tags.setNumero(numero);
+					tags.setNomeDoArquivo(nomeDoArquivo);
 
-				listaTags.add(tags);
+					// System.out.println("artista = " + artista + ", "
+					// + " album = " + album + ", " + " Ano = " + ano
+					// + ", Genero = " + genero + ", titulo = "
+					// + nomeDaMusica + ", numero = " + numero);
+					// System.out.println("Nome do arquivo = "+nomeDoArquivo);
+
+				} else {
+					tags = null;
+				}
+
+				listaTags.add(i, tags);
+
 			}
-			 }
 
 		} catch (CannotReadException e) {
 			System.out.println(e.getMessage());
@@ -90,12 +101,82 @@ public class Controller {
 		return result;
 	}
 
-	public ArrayList<Tags> getListaTags() {
-		return listaTags;
-	}
+	public void updateValues(File[] arquivos,
+			PainelTagsGerais painelTagsGerais, PainelFaixas painelFaixas,
+			ArrayList<Tags> listaTags) throws ListaNulaException,
+			ListaVaziaException {
 
-	public void setListaTags(ArrayList<Tags> listaTags) {
-		this.listaTags = listaTags;
-	}
+		Tags tag = new Tags();
+		String artista = "";
+		String album = "";
+		String ano = "";
+		String genero = "";
+		try {
 
+			if (listaTags.get(0) != null) {
+				tag = listaTags.get(0);
+				artista = tag.getArtista();
+				album = tag.getAlbum();
+				ano = tag.getAno();
+				genero = tag.getGenero();
+			}
+
+			ArrayList<JLabel> labels = new ArrayList<JLabel>();
+			ArrayList<JTextField> textFieldsNumero = new ArrayList<JTextField>();
+			ArrayList<JTextField> textFieldsFaixas = new ArrayList<JTextField>();
+
+			String nomeDoArquivo = "";
+			String numero = "";
+			String faixas = "";
+
+			for (int i = 0; i < listaTags.size(); i++) {
+				labels.add(new JLabel());
+				textFieldsNumero.add(new JTextField(3));
+				textFieldsFaixas.add(new JTextField(15));
+			}
+
+			for (int i = 0; i < listaTags.size(); i++) {
+
+				if (listaTags.get(i) != null) {
+
+					nomeDoArquivo = listaTags.get(i).getNomeDoArquivo();
+					numero = listaTags.get(i).getNumero();
+					faixas = listaTags.get(i).getNomeDaMusica();
+
+					labels.get(i).setText(nomeDoArquivo);
+					textFieldsNumero.get(i).setText(numero);
+					textFieldsFaixas.get(i).setText(faixas);
+
+				} else {
+					listaTags.remove(i);
+					labels.remove(i);
+					textFieldsNumero.remove(i);
+					textFieldsFaixas.remove(i);
+
+					nomeDoArquivo = listaTags.get(i).getNomeDoArquivo();
+					numero = listaTags.get(i).getNumero();
+					faixas = listaTags.get(i).getNomeDaMusica();
+
+					labels.get(i).setText(nomeDoArquivo);
+					textFieldsNumero.get(i).setText(numero);
+					textFieldsFaixas.get(i).setText(faixas);
+				}
+
+			}
+
+			//TODO [MELHORIA] Ordenar a lista pelo numero, para ela aparecer bonitinha
+			
+			// Atualizando a UI
+			//TODO [BUG] remover os filhos dos paines, antes de atualiza-los
+			painelTagsGerais.updateValues(artista, album, ano, genero);
+			painelFaixas.updateValues(labels, textFieldsNumero,
+					textFieldsFaixas);
+
+		} catch (NullPointerException e) {
+			throw new ListaNulaException();
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new ListaVaziaException();
+		}
+
+	}
 }

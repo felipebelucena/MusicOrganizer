@@ -1,5 +1,7 @@
 package Base;
 
+import java.util.Comparator;
+
 public class Tags {
 	
 	private String numero;
@@ -8,6 +10,7 @@ public class Tags {
 	private String album;
 	private String ano;
 	private String genero;
+	private String nomeDoArquivo;
 	
 	public Tags() {
 		
@@ -61,4 +64,12 @@ public class Tags {
 		this.genero = genero;
 	}
 	
+	public String getNomeDoArquivo() {
+		return nomeDoArquivo;
+	}
+
+	public void setNomeDoArquivo(String nomeDoArquivo) {
+		this.nomeDoArquivo = nomeDoArquivo;
+	}
+
 }

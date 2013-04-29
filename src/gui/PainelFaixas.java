@@ -13,33 +13,23 @@ import javax.swing.JTextField;
 public class PainelFaixas extends JPanel {
 
 	private GridBagConstraints gbc;
-	
 	public PainelFaixas() {
 		gbc = new GridBagConstraints();
-		initComponents();
 	}
 
-	private void initComponents() {
+	public void updateValues(ArrayList<JLabel> labels,
+			ArrayList<JTextField> textFieldsNumero,
+			ArrayList<JTextField> textFieldsFaixas) {
+		
+		int quantidadeDeMusicas = labels.size();
 		this.setBorder(BorderFactory.createTitledBorder("Musicas"));
 		this.setLayout(new GridBagLayout());
 		
-	      ArrayList<JLabel> labels = new ArrayList<JLabel>();
-	      ArrayList<JTextField> textFieldsNumero = new ArrayList<JTextField>();
-	      ArrayList<JTextField> textFieldsFaixas = new ArrayList<JTextField>();
-	      
-		for (int i = 0; i < 20 ; i++) {
+		for (int i = 0; i < quantidadeDeMusicas ; i++) {
 
-			labels.add(new JLabel());
-			textFieldsNumero.add(new JTextField(3));
-			textFieldsFaixas.add(new JTextField(15));
-
-			JLabel labelFaixa1 = labels.get(i);
-			labelFaixa1.setText("A Cor Do Som - Transe Total - 02 - Palco.mp3 --"+i);
-
+			JLabel labelFaixa = labels.get(i);
 			JTextField textFieldNumero = textFieldsNumero.get(i);
-			textFieldNumero.setText("N"+i);
 			JTextField textFieldFaixa = textFieldsFaixas.get(i);
-			textFieldFaixa.setText("Tag"+i);
 
 			gbc.gridx = 0;
 			gbc.gridy = i;
@@ -49,7 +39,7 @@ public class PainelFaixas extends JPanel {
 			gbc.gridheight = 1;
 			gbc.anchor = GridBagConstraints.NORTHWEST;
 			gbc.insets = new Insets(15, 10, 0, 5);
-			this.add(labelFaixa1, gbc);
+			this.add(labelFaixa, gbc);
 			gbc.gridx++;
 			gbc.insets = new Insets(10, 0, 10, 5);
 			this.add(textFieldNumero, gbc);

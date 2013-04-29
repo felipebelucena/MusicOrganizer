@@ -80,27 +80,28 @@ public class PainelTagsGerais extends JPanel {
 		gbc.anchor = GridBagConstraints.NORTHWEST;
 		this.add(textFieldGenero, gbc);
 	}
+	
+	public void updateValues(String artista, String album, String ano, String genero){
+		textFieldArtista.setText(artista);
+		textFieldAlbum.setText(album);
+		textFieldAno.setText(ano);
+		textFieldGenero.setText(genero);
+	}
+	
+	public JTextField getTextFieldArtista() {
+		return textFieldArtista;
+	}
 
-	public void updateValues(ArrayList<Tags> listaTags) throws ListaNulaException, ListaVaziaException {
-		Tags tag = new Tags();
-		try {
-			tag = listaTags.get(0);
-			String artista = tag.getArtista();
-			String album = tag.getAlbum();
-			String ano = tag.getAno();
-			String genero = tag.getGenero();
+	public JTextField getTextFieldAlbum() {
+		return textFieldAlbum;
+	}
 
-			textFieldArtista.setText(artista);
-			textFieldAlbum.setText(album);
-			textFieldAno.setText(ano);
-			textFieldGenero.setText(genero);
+	public JTextField getTextFieldAno() {
+		return textFieldAno;
+	}
 
-		} catch (NullPointerException e) {
-			 throw new ListaNulaException();
-		}catch (ArrayIndexOutOfBoundsException e) {
-			throw new ListaVaziaException();
-		}
-
+	public JTextField getTextFieldGenero() {
+		return textFieldGenero;
 	}
 
 }

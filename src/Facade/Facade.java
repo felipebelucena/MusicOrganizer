@@ -1,10 +1,15 @@
 package Facade;
 
+import gui.PainelFaixas;
+import gui.PainelTagsGerais;
+
 import java.io.File;
 import java.util.ArrayList;
 
 import Base.Tags;
 import Controller.Controller;
+import Exception.ListaNulaException;
+import Exception.ListaVaziaException;
 
 public class Facade {
 
@@ -25,6 +30,12 @@ public class Facade {
 
 	public ArrayList<Tags> parserFileToTagsList(File disco) {
 		return controller.parserFileToTagsList(disco);
+	}
+	
+	public void updateValues(File[] arquivos, PainelTagsGerais painelTagsGerais,
+			PainelFaixas painelFaixas, ArrayList<Tags> listaTags)
+			throws ListaNulaException, ListaVaziaException {
+		controller.updateValues(arquivos, painelTagsGerais, painelFaixas, listaTags);
 	}
 
 }

@@ -7,6 +7,7 @@ import javax.swing.JFileChooser;
 
 import Base.Tags;
 import Controller.Controller;
+import Exception.ListaNulaException;
 import Exception.ListaVaziaException;
 import Facade.Facade;
 
@@ -14,9 +15,11 @@ public class DialogOpenDisco extends JFileChooser {
 
 	private Facade facade;
 	private PainelTagsGerais painelTagsGerais;
+	private PainelFaixas painelFaixas;
 
-	public DialogOpenDisco(PainelTagsGerais painelTagsGerais) {
+	public DialogOpenDisco(PainelTagsGerais painelTagsGerais, PainelFaixas painelFaixas) {
 		this.painelTagsGerais = painelTagsGerais;
+		this.painelFaixas = painelFaixas;
 		facade = Facade.getInstace();
 		init();
 	}
@@ -29,8 +32,9 @@ public class DialogOpenDisco extends JFileChooser {
 			File disco = this.getSelectedFile();
 			ArrayList<Tags> listaTags = new ArrayList<Tags>();
 			listaTags = facade.parserFileToTagsList(disco);
+			
 			try {
-				painelTagsGerais.updateValues(listaTags);
+				facade.updateValues(disco.listFiles(), painelTagsGerais, painelFaixas, listaTags);
 			} catch (ListaNulaException e) {
 				System.out.println(e.getMessage());
 			} catch (ListaVaziaException e) {

@@ -1,4 +1,4 @@
-package gui;
+package Exception;
 
 public class ListaNulaException extends Exception {
 	
