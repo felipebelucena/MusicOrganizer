@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JFileChooser;
 
 import Base.Tags;
+import Base.TipoPopUp;
 import Controller.Controller;
 import Exception.ListaNulaException;
 import Exception.ListaVaziaException;
@@ -30,7 +31,7 @@ public class DialogOpenDisco extends JFileChooser {
 		int returnValue = this.showOpenDialog(null);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			File disco = this.getSelectedFile();
-			ArrayList<Tags> listaTags = new ArrayList<Tags>();
+			ArrayList<Tags> listaTags = null;
 			listaTags = facade.parserFileToTagsList(disco);
 			
 			try {
@@ -39,6 +40,7 @@ public class DialogOpenDisco extends JFileChooser {
 				System.out.println(e.getMessage());
 			} catch (ListaVaziaException e) {
 				System.out.println(e.getMessage());
+				new PopUp("Selecione um disco válido", TipoPopUp.ERROR);
 			}
 		}
 	}

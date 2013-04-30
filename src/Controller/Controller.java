@@ -80,7 +80,7 @@ public class Controller {
 		} catch (InvalidAudioFrameException e) {
 			System.out.println(e.getMessage());
 		}
-
+		
 		return listaTags;
 	}
 
@@ -166,6 +166,8 @@ public class Controller {
 		} catch (NullPointerException e) {
 			throw new ListaNulaException();
 		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new ListaVaziaException();
+		}catch (IndexOutOfBoundsException e) {
 			throw new ListaVaziaException();
 		}
 	}
