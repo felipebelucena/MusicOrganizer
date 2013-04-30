@@ -6,10 +6,11 @@ import java.awt.GridBagConstraints;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
@@ -18,39 +19,55 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import Facade.Facade;
+
 public class PainelImagem extends JPanel {
 
 	private GridBagConstraints gbc;
 	private JRadioButton radioURL;
 	private JRadioButton radioArquivo;
+	private Image imagemOriginal = null;
+	private Facade facade;
 	
 	public PainelImagem() {
 		gbc = new GridBagConstraints();
+		facade = Facade.getInstace();
 		initComponents();
 	}
 
-	private void initComponents() {
-		Image imagemOriginal = null;
+	private void initComponents(){
+		
+		Image imagem = getScaledImage(imagemOriginal, 150, 150);
+		Box boxRadios = Box.createVerticalBox();
+		ButtonGroup grupoRadios = new ButtonGroup();
+		radioURL = new JRadioButton("pegar da URL",true);
+		radioArquivo = new JRadioButton("pegar de um arquivo",false);
+		grupoRadios.add(radioURL);
+		grupoRadios.add(radioArquivo);
+		boxRadios.add(radioURL);
+		boxRadios.add(radioArquivo);
+		
+		this.setBorder(BorderFactory.createTitledBorder("Imagem"));
+		this.setLayout(new BorderLayout());
+		this.add(new JLabel(new ImageIcon(imagem)),BorderLayout.CENTER);
+		this.add(boxRadios,BorderLayout.SOUTH);
+	}
+	
+	public void updateValues(byte[] image) {
+		
+		this.removeAll();
 		try {
-			imagemOriginal = ImageIO.read(new File("sample/outras-coisas.jpg"));
+			if (image != null) {
+			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(image);
+			ImageInputStream imageInputStream = ImageIO.createImageInputStream(byteArrayInputStream);
+			imagemOriginal = ImageIO.read(imageInputStream);
+			initComponents();
+			}else{
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	      Image imagem = getScaledImage(imagemOriginal, 150, 150);
 	      
-	      Box boxRadios = Box.createVerticalBox();
-	      ButtonGroup grupoRadios = new ButtonGroup();
-	      radioURL = new JRadioButton("pegar da URL",true);
-	      radioArquivo = new JRadioButton("pegar de um arquivo",false);
-	      grupoRadios.add(radioURL);
-	      grupoRadios.add(radioArquivo);
-	      boxRadios.add(radioURL);
-	      boxRadios.add(radioArquivo);
-	      
-	      this.setBorder(BorderFactory.createTitledBorder("Imagem"));
-	      this.setLayout(new BorderLayout());
-	      this.add(new JLabel(new ImageIcon(imagem)),BorderLayout.CENTER);
-	      this.add(boxRadios,BorderLayout.SOUTH);
 	}
 	
 	private Image getScaledImage(Image imagemOriginal, int largura, int altura) {

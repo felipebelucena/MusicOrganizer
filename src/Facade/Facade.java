@@ -1,6 +1,7 @@
 package Facade;
 
 import gui.PainelFaixas;
+import gui.PainelImagem;
 import gui.PainelTagsGerais;
 
 import java.io.File;
@@ -33,9 +34,9 @@ public class Facade {
 	}
 	
 	public void updateValues(File[] arquivos, PainelTagsGerais painelTagsGerais,
-			PainelFaixas painelFaixas, ArrayList<Tags> listaTags)
+			PainelFaixas painelFaixas, PainelImagem painelImagem, ArrayList<Tags> listaTags)
 			throws ListaNulaException, ListaVaziaException {
-		controller.updateValues(arquivos, painelTagsGerais, painelFaixas, listaTags);
+		controller.updateValues(arquivos, painelTagsGerais, painelFaixas,painelImagem, listaTags);
 	}
-
+	
 }

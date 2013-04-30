@@ -1,6 +1,7 @@
 package Controller;
 
 import gui.PainelFaixas;
+import gui.PainelImagem;
 import gui.PainelTagsGerais;
 
 import java.io.File;
@@ -18,6 +19,7 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
+import org.jaudiotagger.tag.datatype.Artwork;
 
 import Base.Tags;
 import Exception.ListaNulaException;
@@ -33,16 +35,17 @@ public class Controller {
 		File[] files = disco.listFiles();
 		AudioFile audioFile = null;
 		ArrayList<Tags> listaTags = new ArrayList<Tags>();
-
+		
 		try {
 			int j = 0;
 			for (int i = 0; i < files.length; i++) {
 
 				Tags tags = new Tags();
-
+				byte[] image = null;
 				if (validator(files[i])) {
 					audioFile = AudioFileIO.read(files[i]);
 					Tag tag = audioFile.getTag();
+					
 					String album = tag.getFirst(FieldKey.ALBUM);
 					String artista = tag.getFirst(FieldKey.ARTIST);
 					String ano = tag.getFirst(FieldKey.YEAR);
@@ -50,7 +53,10 @@ public class Controller {
 					String nomeDaMusica = tag.getFirst(FieldKey.TITLE);
 					String numero = tag.getFirst(FieldKey.TRACK);
 					String nomeDoArquivo = files[i].getName();
-
+					
+					 Artwork artwork = tag.getFirstArtwork();
+					 image = artwork.getBinaryData();
+					
 					tags.setArtista(artista);
 					tags.setAlbum(album);
 					tags.setAno(ano);
@@ -58,12 +64,8 @@ public class Controller {
 					tags.setNomeDaMusica(nomeDaMusica);
 					tags.setNumero(numero);
 					tags.setNomeDoArquivo(nomeDoArquivo);
+					tags.setImage(image);
 
-					// System.out.println("artista = " + artista + ", "
-					// + " album = " + album + ", " + " Ano = " + ano
-					// + ", Genero = " + genero + ", titulo = "
-					// + nomeDaMusica + ", numero = " + numero);
-					// System.out.println("Nome do arquivo = "+nomeDoArquivo);
 					listaTags.add(j, tags);
 					j++;
 				}
@@ -98,10 +100,9 @@ public class Controller {
 
 	public void updateValues(File[] arquivos,
 			PainelTagsGerais painelTagsGerais, PainelFaixas painelFaixas,
-			ArrayList<Tags> listaTags) throws ListaNulaException,
+			PainelImagem painelImagem, ArrayList<Tags> listaTags) throws ListaNulaException,
 			ListaVaziaException {
 
-		Tags tag = new Tags();
 		String artista = "";
 		String album = "";
 		String ano = "";
@@ -109,13 +110,12 @@ public class Controller {
 		try {
 
 			if (listaTags.get(0) != null) {
-				tag = listaTags.get(0);
-				artista = tag.getArtista();
-				album = tag.getAlbum();
-				ano = tag.getAno();
-				genero = tag.getGenero();
+				artista = listaTags.get(0).getArtista();
+				album = listaTags.get(0).getAlbum();
+				ano = listaTags.get(0).getAno();
+				genero = listaTags.get(0).getGenero();
 			}
-
+			
 			ArrayList<JLabel> labels = new ArrayList<JLabel>();
 			ArrayList<JTextField> textFieldsNumero = new ArrayList<JTextField>();
 			ArrayList<JTextField> textFieldsFaixas = new ArrayList<JTextField>();
@@ -141,9 +141,10 @@ public class Controller {
 				textFieldsFaixas.get(i).setText(faixas);
 			}
 
-			// Ordenação - Bubble Sort
-			// TODO [MELHORIA] melhorar o algoritmo de ordenação, para outro
-			// mais eficiente que o Bubble
+			/*
+			 * Ordenação - Bubble Sort
+			 * TODO [MELHORIA] melhorar o algoritmo de ordenação, para outro mais eficiente que o Bubble
+			 */
 			int contador = 1;
 			do {
 				for (int i = 0; i < textFieldsNumero.size() - 1; i++) {
@@ -158,10 +159,15 @@ public class Controller {
 				contador ++;
 			} while (contador < textFieldsNumero.size());
 			
+			byte[] image = listaTags.get(0).getImage();
+			Tags tag = new Tags();
+			tag.setImage(image);
+			
 			// Atualizando a UI
 			painelTagsGerais.updateValues(artista, album, ano, genero);
 			painelFaixas.updateValues(labels, textFieldsNumero,
 					textFieldsFaixas);
+			painelImagem.updateValues(tag.getImage());
 
 		} catch (NullPointerException e) {
 			throw new ListaNulaException();
@@ -179,3 +185,4 @@ public class Controller {
 		lista.set(i + 1, tmp);
 	}
 }
+	

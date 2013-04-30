@@ -11,6 +11,7 @@ public class Tags {
 	private String ano;
 	private String genero;
 	private String nomeDoArquivo;
+	private byte[] image;
 	
 	public Tags() {
 		
@@ -71,5 +72,13 @@ public class Tags {
 	public void setNomeDoArquivo(String nomeDoArquivo) {
 		this.nomeDoArquivo = nomeDoArquivo;
 	}
+	
+	public byte[] getImage() {
+		return image;
+	}
 
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+	
 }
