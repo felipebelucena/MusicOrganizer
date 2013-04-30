@@ -141,9 +141,23 @@ public class Controller {
 				textFieldsFaixas.get(i).setText(faixas);
 			}
 
-			// TODO [MELHORIA] Ordenar a lista pelo numero, para ela aparecer
-			// bonitinha
-
+			// Ordenação - Bubble Sort
+			// TODO [MELHORIA] melhorar o algoritmo de ordenação, para outro
+			// mais eficiente que o Bubble
+			int contador = 1;
+			do {
+				for (int i = 0; i < textFieldsNumero.size() - 1; i++) {
+					int valor = Integer.parseInt(textFieldsNumero.get(i).getText());
+					int next = Integer.parseInt(textFieldsNumero.get(i + 1).getText());
+					if (valor > next) {
+						trocaValores(textFieldsNumero, i);
+						trocaValores(textFieldsFaixas, i);
+						trocaValores(labels, i);
+					}
+				}
+				contador ++;
+			} while (contador < textFieldsNumero.size());
+			
 			// Atualizando a UI
 			painelTagsGerais.updateValues(artista, album, ano, genero);
 			painelFaixas.updateValues(labels, textFieldsNumero,
@@ -154,6 +168,12 @@ public class Controller {
 		} catch (ArrayIndexOutOfBoundsException e) {
 			throw new ListaVaziaException();
 		}
+	}
 
+	private <Tipo> void trocaValores(ArrayList<Tipo> lista, int i) {
+		Tipo tmp;
+		tmp = lista.get(i);
+		lista.set(i, lista.get(i + 1));
+		lista.set(i + 1, tmp);
 	}
 }
