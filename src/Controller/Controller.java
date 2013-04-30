@@ -6,8 +6,6 @@ import gui.PainelTagsGerais;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -31,12 +29,13 @@ public class Controller {
 
 	}
 
-	public <T> ArrayList<Tags> parserFileToTagsList(File disco) {
+	public ArrayList<Tags> parserFileToTagsList(File disco) {
 		File[] files = disco.listFiles();
 		AudioFile audioFile = null;
 		ArrayList<Tags> listaTags = new ArrayList<Tags>();
 
 		try {
+			int j = 0;
 			for (int i = 0; i < files.length; i++) {
 
 				Tags tags = new Tags();
@@ -65,13 +64,9 @@ public class Controller {
 					// + ", Genero = " + genero + ", titulo = "
 					// + nomeDaMusica + ", numero = " + numero);
 					// System.out.println("Nome do arquivo = "+nomeDoArquivo);
-
-				} else {
-					tags = null;
+					listaTags.add(j, tags);
+					j++;
 				}
-
-				listaTags.add(i, tags);
-
 			}
 
 		} catch (CannotReadException e) {
@@ -137,37 +132,19 @@ public class Controller {
 
 			for (int i = 0; i < listaTags.size(); i++) {
 
-				if (listaTags.get(i) != null) {
+				nomeDoArquivo = listaTags.get(i).getNomeDoArquivo();
+				numero = listaTags.get(i).getNumero();
+				faixas = listaTags.get(i).getNomeDaMusica();
 
-					nomeDoArquivo = listaTags.get(i).getNomeDoArquivo();
-					numero = listaTags.get(i).getNumero();
-					faixas = listaTags.get(i).getNomeDaMusica();
-
-					labels.get(i).setText(nomeDoArquivo);
-					textFieldsNumero.get(i).setText(numero);
-					textFieldsFaixas.get(i).setText(faixas);
-
-				} else {
-					listaTags.remove(i);
-					labels.remove(i);
-					textFieldsNumero.remove(i);
-					textFieldsFaixas.remove(i);
-
-					nomeDoArquivo = listaTags.get(i).getNomeDoArquivo();
-					numero = listaTags.get(i).getNumero();
-					faixas = listaTags.get(i).getNomeDaMusica();
-
-					labels.get(i).setText(nomeDoArquivo);
-					textFieldsNumero.get(i).setText(numero);
-					textFieldsFaixas.get(i).setText(faixas);
-				}
-
+				labels.get(i).setText(nomeDoArquivo);
+				textFieldsNumero.get(i).setText(numero);
+				textFieldsFaixas.get(i).setText(faixas);
 			}
 
-			//TODO [MELHORIA] Ordenar a lista pelo numero, para ela aparecer bonitinha
-			
+			// TODO [MELHORIA] Ordenar a lista pelo numero, para ela aparecer
+			// bonitinha
+
 			// Atualizando a UI
-			//TODO [BUG] remover os filhos dos paines, antes de atualiza-los
 			painelTagsGerais.updateValues(artista, album, ano, genero);
 			painelFaixas.updateValues(labels, textFieldsNumero,
 					textFieldsFaixas);

@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 public class PainelFaixas extends JPanel {
 
 	private GridBagConstraints gbc;
+
 	public PainelFaixas() {
 		gbc = new GridBagConstraints();
 	}
@@ -20,12 +21,14 @@ public class PainelFaixas extends JPanel {
 	public void updateValues(ArrayList<JLabel> labels,
 			ArrayList<JTextField> textFieldsNumero,
 			ArrayList<JTextField> textFieldsFaixas) {
+
+		this.removeAll();
 		
 		int quantidadeDeMusicas = labels.size();
 		this.setBorder(BorderFactory.createTitledBorder("Musicas"));
 		this.setLayout(new GridBagLayout());
-		
-		for (int i = 0; i < quantidadeDeMusicas ; i++) {
+
+		for (int i = 0; i < quantidadeDeMusicas; i++) {
 
 			JLabel labelFaixa = labels.get(i);
 			JTextField textFieldNumero = textFieldsNumero.get(i);
@@ -47,6 +50,9 @@ public class PainelFaixas extends JPanel {
 			gbc.weighty = 1;
 			gbc.weightx = 1;
 			this.add(textFieldFaixa, gbc);
+			
+			this.revalidate();
+			this.repaint();
 
 		}
 	}
