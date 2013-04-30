@@ -6,6 +6,9 @@ import gui.PainelTagsGerais;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -54,8 +57,13 @@ public class Controller {
 					String numero = tag.getFirst(FieldKey.TRACK);
 					String nomeDoArquivo = files[i].getName();
 					
-					 Artwork artwork = tag.getFirstArtwork();
-					 image = artwork.getBinaryData();
+					try {
+						Artwork artwork = tag.getFirstArtwork();
+						image = artwork.getBinaryData();
+					} catch (NullPointerException e) {
+						Path path = Paths.get("imagem-padrao.jpg");
+					    image = Files.readAllBytes(path);
+					}
 					
 					tags.setArtista(artista);
 					tags.setAlbum(album);
