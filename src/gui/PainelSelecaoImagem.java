@@ -3,28 +3,37 @@ package gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JTextField;
+
+import Base.TipoBotaoImagem;
+import Facade.Facade;
 
 public class PainelSelecaoImagem extends JPanel {
 
 	private GridBagConstraints gbc;
 	private JLabel labelSelecaoImagem;
 	private JButton botaoSelecaoImagem;
+	private JTextField textFieldSelecaoImagem;
+	private Facade facade;
 
 	public PainelSelecaoImagem() {
 		gbc = new GridBagConstraints();
+		facade = Facade.getInstace();
 		initComponents();
 	}
 
 	private void initComponents() {
 		this.setBorder(BorderFactory.createTitledBorder("Selecione a imagem"));
 		this.setLayout(new GridBagLayout());
-		JTextField textFieldSelecaoImagem = new JTextField(15);
+		textFieldSelecaoImagem = new JTextField(15);
 		labelSelecaoImagem = new JLabel("Informe a URL da imagem");
 		botaoSelecaoImagem = new JButton("OK");
 		gbc.gridx = 0;
@@ -41,6 +50,19 @@ public class PainelSelecaoImagem extends JPanel {
 		gbc.gridx = 1;
 		gbc.gridy = 1;
 		this.add(botaoSelecaoImagem, gbc);
+		
+		botaoSelecaoImagem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(e.getActionCommand().equalsIgnoreCase("ok")){
+					String url = textFieldSelecaoImagem.getText();
+					facade.updateImage(url, TipoBotaoImagem.OK);
+				}else{
+					
+				}
+			}
+		});
 	}
 
 	public JLabel getLabelSelecaoImagem() {

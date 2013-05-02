@@ -7,7 +7,10 @@ import gui.PainelTagsGerais;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.swing.JProgressBar;
+
 import Base.Tags;
+import Base.TipoBotaoImagem;
 import Controller.Controller;
 import Exception.ListaNulaException;
 import Exception.ListaVaziaException;
@@ -37,6 +40,10 @@ public class Facade {
 			PainelFaixas painelFaixas, PainelImagem painelImagem, ArrayList<Tags> listaTags)
 			throws ListaNulaException, ListaVaziaException {
 		controller.updateValues(arquivos, painelTagsGerais, painelFaixas,painelImagem, listaTags);
+	}
+
+	public void updateImage(String url,TipoBotaoImagem tipoBotaoImagem) {
+		controller.updateImage(url,tipoBotaoImagem);
 	}
 	
 }

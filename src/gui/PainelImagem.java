@@ -51,6 +51,8 @@ public class PainelImagem extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(new JLabel(new ImageIcon(imagem)),BorderLayout.CENTER);
 		this.add(boxRadios,BorderLayout.SOUTH);
+		this.repaint();
+		this.validate();
 	}
 	
 	public void updateValues(byte[] image) {
@@ -62,10 +64,10 @@ public class PainelImagem extends JPanel {
 			ImageInputStream imageInputStream = ImageIO.createImageInputStream(byteArrayInputStream);
 			imagemOriginal = ImageIO.read(imageInputStream);
 			initComponents();
-			}else{
 			}
+			
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	      
 	}

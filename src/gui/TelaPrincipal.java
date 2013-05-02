@@ -136,7 +136,7 @@ public class TelaPrincipal extends JFrame {
 				painelSelecaoImagem.getBotaoSelecaoImagem().setText("Procurar");
 			}
 		});
-
+		
 		menuItemAbrir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

@@ -3,15 +3,24 @@ package Controller;
 import gui.PainelFaixas;
 import gui.PainelImagem;
 import gui.PainelTagsGerais;
+import gui.PopUp;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
+import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 
 import org.jaudiotagger.audio.AudioFile;
@@ -25,20 +34,25 @@ import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.datatype.Artwork;
 
 import Base.Tags;
+import Base.TipoBotaoImagem;
+import Base.TipoPopUp;
 import Exception.ListaNulaException;
 import Exception.ListaVaziaException;
 
 public class Controller {
 
-	public Controller() {
+	private Tags tag;
+	private PainelImagem painelImagem;
 
+	public Controller() {
+		tag = new Tags();
 	}
 
 	public ArrayList<Tags> parserFileToTagsList(File disco) {
 		File[] files = disco.listFiles();
 		AudioFile audioFile = null;
 		ArrayList<Tags> listaTags = new ArrayList<Tags>();
-		
+
 		try {
 			int j = 0;
 			for (int i = 0; i < files.length; i++) {
@@ -48,7 +62,7 @@ public class Controller {
 				if (validator(files[i])) {
 					audioFile = AudioFileIO.read(files[i]);
 					Tag tag = audioFile.getTag();
-					
+
 					String album = tag.getFirst(FieldKey.ALBUM);
 					String artista = tag.getFirst(FieldKey.ARTIST);
 					String ano = tag.getFirst(FieldKey.YEAR);
@@ -56,15 +70,15 @@ public class Controller {
 					String nomeDaMusica = tag.getFirst(FieldKey.TITLE);
 					String numero = tag.getFirst(FieldKey.TRACK);
 					String nomeDoArquivo = files[i].getName();
-					
+
 					try {
 						Artwork artwork = tag.getFirstArtwork();
 						image = artwork.getBinaryData();
 					} catch (NullPointerException e) {
 						Path path = Paths.get("imagem-padrao.jpg");
-					    image = Files.readAllBytes(path);
+						image = Files.readAllBytes(path);
 					}
-					
+
 					tags.setArtista(artista);
 					tags.setAlbum(album);
 					tags.setAno(ano);
@@ -90,7 +104,7 @@ public class Controller {
 		} catch (InvalidAudioFrameException e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		return listaTags;
 	}
 
@@ -108,9 +122,10 @@ public class Controller {
 
 	public void updateValues(File[] arquivos,
 			PainelTagsGerais painelTagsGerais, PainelFaixas painelFaixas,
-			PainelImagem painelImagem, ArrayList<Tags> listaTags) throws ListaNulaException,
-			ListaVaziaException {
+			PainelImagem painelImagem, ArrayList<Tags> listaTags)
+			throws ListaNulaException, ListaVaziaException {
 
+		this.painelImagem = painelImagem;
 		String artista = "";
 		String album = "";
 		String ano = "";
@@ -123,7 +138,7 @@ public class Controller {
 				ano = listaTags.get(0).getAno();
 				genero = listaTags.get(0).getGenero();
 			}
-			
+
 			ArrayList<JLabel> labels = new ArrayList<JLabel>();
 			ArrayList<JTextField> textFieldsNumero = new ArrayList<JTextField>();
 			ArrayList<JTextField> textFieldsFaixas = new ArrayList<JTextField>();
@@ -150,38 +165,39 @@ public class Controller {
 			}
 
 			/*
-			 * Ordenação - Bubble Sort
-			 * TODO [MELHORIA] melhorar o algoritmo de ordenação, para outro mais eficiente que o Bubble
+			 * Ordenação - Bubble Sort TODO [MELHORIA] melhorar o algoritmo de
+			 * ordenação, para outro mais eficiente que o Bubble
 			 */
 			int contador = 1;
 			do {
 				for (int i = 0; i < textFieldsNumero.size() - 1; i++) {
-					int valor = Integer.parseInt(textFieldsNumero.get(i).getText());
-					int next = Integer.parseInt(textFieldsNumero.get(i + 1).getText());
+					int valor = Integer.parseInt(textFieldsNumero.get(i)
+							.getText());
+					int next = Integer.parseInt(textFieldsNumero.get(i + 1)
+							.getText());
 					if (valor > next) {
 						trocaValores(textFieldsNumero, i);
 						trocaValores(textFieldsFaixas, i);
 						trocaValores(labels, i);
 					}
 				}
-				contador ++;
+				contador++;
 			} while (contador < textFieldsNumero.size());
-			
+
 			byte[] image = listaTags.get(0).getImage();
-			Tags tag = new Tags();
 			tag.setImage(image);
-			
+
 			// Atualizando a UI
 			painelTagsGerais.updateValues(artista, album, ano, genero);
 			painelFaixas.updateValues(labels, textFieldsNumero,
 					textFieldsFaixas);
-			painelImagem.updateValues(tag.getImage());
+			this.painelImagem.updateValues(tag.getImage());
 
 		} catch (NullPointerException e) {
 			throw new ListaNulaException();
 		} catch (ArrayIndexOutOfBoundsException e) {
 			throw new ListaVaziaException();
-		}catch (IndexOutOfBoundsException e) {
+		} catch (IndexOutOfBoundsException e) {
 			throw new ListaVaziaException();
 		}
 	}
@@ -192,5 +208,58 @@ public class Controller {
 		lista.set(i, lista.get(i + 1));
 		lista.set(i + 1, tmp);
 	}
+
+	public void updateImage(String url,TipoBotaoImagem tipoBotaoImagem) {
+
+		if (this.painelImagem == null) {
+			new PopUp("Selecione um disco primeiro", TipoPopUp.INFO);
+		} else {
+			//TODO adicionar uma JProgressBar
+			tag.setImage(downloadImage(url));
+			this.painelImagem.updateValues(tag.getImage());
+		}
+	}
+
+	private byte[] downloadImage(String url) {
+		byte[] imagemBaixada = null;
+		InputStream in = null;
+		ByteArrayOutputStream out = null;
+		try {
+
+			URL endereco = new URL(url);
+			int tamanho = endereco.openConnection().getContentLength();
+			in = new BufferedInputStream(endereco.openStream());
+			out = new ByteArrayOutputStream();
+
+			byte[] buffer = new byte[1024];
+			int numRead = 0;
+			int current = 0;
+			while ((numRead = in.read(buffer)) != -1) {
+				current = 0;
+				out.write(buffer, current, numRead);
+				current = current + numRead;
+			}
+			out.close();
+			in.close();
+			imagemBaixada = out.toByteArray();
+		} catch (UnknownHostException e) {
+			new PopUp("Problemas com a conexao com a internet", TipoPopUp.ERROR);
+		} catch (MalformedURLException e) {
+			new PopUp("Selecione uma URL válida", TipoPopUp.INFO);
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (in != null) {
+					in.close();
+				}
+				if (out != null) {
+					out.close();
+				}
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return imagemBaixada;
+	}
 }
-	
