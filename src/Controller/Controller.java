@@ -5,6 +5,7 @@ import gui.PainelImagem;
 import gui.PainelTagsGerais;
 import gui.PopUp;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -19,6 +20,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
@@ -35,6 +37,7 @@ import org.jaudiotagger.tag.datatype.Artwork;
 
 import Base.Tags;
 import Base.TipoBotaoImagem;
+import Base.TipoImagemFile;
 import Base.TipoPopUp;
 import Exception.ListaNulaException;
 import Exception.ListaVaziaException;
@@ -214,10 +217,62 @@ public class Controller {
 		if (this.painelImagem == null) {
 			new PopUp("Selecione um disco primeiro", TipoPopUp.INFO);
 		} else {
-			//TODO adicionar uma JProgressBar
-			tag.setImage(downloadImage(url));
-			this.painelImagem.updateValues(tag.getImage());
+			switch (tipoBotaoImagem) {
+			case URL:
+				//TODO adicionar uma JProgressBar
+				tag.setImage(downloadImage(url));
+				this.painelImagem.updateValues(tag.getImage());
+				break;
+			case ARQUIVO:
+				byte[] imagem = null;
+				if(url.endsWith("jpg")){
+					imagem = loadImageFromFile(url, TipoImagemFile.JPG);
+				}else if(url.endsWith("png")){
+					imagem = loadImageFromFile(url, TipoImagemFile.PNG);
+				}else{
+					new PopUp("Selecione uma imagem JPG ou PNG", TipoPopUp.INFO);
+				}
+				tag.setImage(imagem);
+				this.painelImagem.updateValues(tag.getImage());
+				break;
+			}
 		}
+	}
+
+	private byte[] loadImageFromFile(String url, TipoImagemFile tipoImagemFile){
+		BufferedImage img = null;
+		byte[] imagem = null;
+		try {
+			img = ImageIO.read(new File(url));
+			imagem = parserToByte(img,tipoImagemFile);
+		} catch (IOException e) {
+//			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return imagem;
+	}
+	
+	private byte[] parserToByte(BufferedImage img, TipoImagemFile tipoImagemFile) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] imagem = null;
+		try {
+			switch (tipoImagemFile) {
+			case JPG:
+				ImageIO.write(img, "jpg", baos);
+				break;
+			case PNG:
+				ImageIO.write(img, "png", baos);
+				break;
+			}
+			baos.flush();
+			imagem = baos.toByteArray();
+			baos.close();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}finally{
+			
+		}
+		return imagem;
 	}
 
 	private byte[] downloadImage(String url) {
@@ -227,7 +282,6 @@ public class Controller {
 		try {
 
 			URL endereco = new URL(url);
-			int tamanho = endereco.openConnection().getContentLength();
 			in = new BufferedInputStream(endereco.openStream());
 			out = new ByteArrayOutputStream();
 

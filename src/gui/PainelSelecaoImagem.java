@@ -57,9 +57,10 @@ public class PainelSelecaoImagem extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equalsIgnoreCase("ok")){
 					String url = textFieldSelecaoImagem.getText();
-					facade.updateImage(url, TipoBotaoImagem.OK);
+					facade.updateImage(url, TipoBotaoImagem.URL);
 				}else{
-					
+					String url = textFieldSelecaoImagem.getText();
+					facade.updateImage(url, TipoBotaoImagem.ARQUIVO);
 				}
 			}
 		});
