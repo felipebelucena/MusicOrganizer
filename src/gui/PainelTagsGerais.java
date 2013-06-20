@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import util.Textos;
+
 import Base.Tags;
 import Exception.ListaVaziaException;
 import Facade.Facade;
@@ -31,10 +33,10 @@ public class PainelTagsGerais extends JPanel {
 
 	private void initComponents() {
 
-		JLabel labelArtista = new JLabel("Artista");
-		JLabel labelAlbum = new JLabel("Album");
-		JLabel labelAno = new JLabel("Ano");
-		JLabel labelGenero = new JLabel("Genero");
+		JLabel labelArtista = new JLabel(Textos.LABEL_ARTISTA);
+		JLabel labelAlbum = new JLabel(Textos.LABEL_ARLBUM);
+		JLabel labelAno = new JLabel(Textos.LABEL_ANO);
+		JLabel labelGenero = new JLabel(Textos.LABEL_GENERO);
 
 		textFieldArtista = new JTextField(10);
 		textFieldAlbum = new JTextField(10);
@@ -47,7 +49,7 @@ public class PainelTagsGerais extends JPanel {
 		labelGenero.setLabelFor(textFieldGenero);
 
 		this.setLayout(new GridBagLayout());
-		this.setBorder(BorderFactory.createTitledBorder("Tags Gerais"));
+		this.setBorder(BorderFactory.createTitledBorder(Textos.BORDA_TAGS_GERAIS));
 
 		gbc.gridx = 0;
 		gbc.gridy = 0;

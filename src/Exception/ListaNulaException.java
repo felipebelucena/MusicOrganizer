@@ -1,9 +1,11 @@
 package Exception;
 
+import util.Textos;
+
 public class ListaNulaException extends Exception {
 	
 	public ListaNulaException() {
-		super("Lista nula");
+		super(Textos.ERRO_LISTA_NULA);
 	}
 
 }

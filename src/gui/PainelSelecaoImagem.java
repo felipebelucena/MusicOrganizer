@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 
+import util.Textos;
+
 import Base.TipoBotaoImagem;
 import Facade.Facade;
 
@@ -31,10 +33,10 @@ public class PainelSelecaoImagem extends JPanel {
 	}
 
 	private void initComponents() {
-		this.setBorder(BorderFactory.createTitledBorder("Selecione a imagem"));
+		this.setBorder(BorderFactory.createTitledBorder(Textos.BORDA_SELECIONE_UM_IMAGEM));
 		this.setLayout(new GridBagLayout());
 		textFieldSelecaoImagem = new JTextField(15);
-		labelSelecaoImagem = new JLabel("Informe a URL da imagem");
+		labelSelecaoImagem = new JLabel(Textos.INFORME_URL_IMAGEM);
 		botaoSelecaoImagem = new JButton("OK");
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -55,7 +57,7 @@ public class PainelSelecaoImagem extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand().equalsIgnoreCase("ok")){
+				if(e.getActionCommand().equalsIgnoreCase(Textos.OK)){
 					String url = textFieldSelecaoImagem.getText();
 					facade.updateImage(url, TipoBotaoImagem.URL);
 				}else{

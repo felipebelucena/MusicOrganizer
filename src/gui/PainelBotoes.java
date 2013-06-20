@@ -7,6 +7,8 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import util.Textos;
+
 public class PainelBotoes extends JPanel {
 
 	private GridBagConstraints gbc;
@@ -18,8 +20,8 @@ public class PainelBotoes extends JPanel {
 
 	private void initComponents() {
 		this.setLayout(new GridBagLayout());
-		JButton botaoSalvar = new JButton("Salvar");
-		JButton botaoNome2Tag = new JButton("Nome > Tag");
+		JButton botaoSalvar = new JButton(Textos.BOTAO_SALVAR);
+		JButton botaoNome2Tag = new JButton(Textos.BOTAO_NOME2TAG);
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.weightx = 0;

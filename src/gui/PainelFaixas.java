@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import util.Textos;
+
 public class PainelFaixas extends JPanel {
 
 	private GridBagConstraints gbc;
@@ -25,7 +27,7 @@ public class PainelFaixas extends JPanel {
 		this.removeAll();
 		
 		int quantidadeDeMusicas = labels.size();
-		this.setBorder(BorderFactory.createTitledBorder("Musicas"));
+		this.setBorder(BorderFactory.createTitledBorder(Textos.BORDA_MUSICAS));
 		this.setLayout(new GridBagLayout());
 
 		for (int i = 0; i < quantidadeDeMusicas; i++) {

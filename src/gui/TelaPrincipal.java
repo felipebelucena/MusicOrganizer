@@ -38,6 +38,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 
+import util.Textos;
+
 import Facade.Facade;
 
 public class TelaPrincipal extends JFrame {
@@ -60,7 +62,7 @@ public class TelaPrincipal extends JFrame {
 		this.setLocation(x, y);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
-		this.setTitle("Music Organizer");
+		this.setTitle(Textos.TITULO);
 
 		// Look and Feel
 		try {
@@ -78,8 +80,8 @@ public class TelaPrincipal extends JFrame {
 
 		// Barra de Menu
 		JMenuBar menuBar = new JMenuBar();
-		JMenu menuFile = new JMenu("File");
-		JMenuItem menuItemAbrir = new JMenuItem("Abrir");
+		JMenu menuFile = new JMenu(Textos.MENU_FILE);
+		JMenuItem menuItemAbrir = new JMenuItem(Textos.MENU_ITEM_OPEN);
 		menuFile.add(menuItemAbrir);
 		menuBar.add(menuFile);
 		
@@ -123,8 +125,8 @@ public class TelaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				painelSelecaoImagem.getLabelSelecaoImagem().setText(
-						"Informe a URL da imagem");
-				painelSelecaoImagem.getBotaoSelecaoImagem().setText("Ok");
+						Textos.INFORME_URL_IMAGEM);
+				painelSelecaoImagem.getBotaoSelecaoImagem().setText(Textos.OK);
 			}
 		});
 
@@ -132,15 +134,15 @@ public class TelaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				painelSelecaoImagem.getLabelSelecaoImagem().setText(
-						"Selecione o arquivo da imagem");
-				painelSelecaoImagem.getBotaoSelecaoImagem().setText("Procurar");
+						Textos.SELECIONE_ARQUIVO_IMAGEM);
+				painelSelecaoImagem.getBotaoSelecaoImagem().setText(Textos.PROCURAR);
 			}
 		});
 		
 		menuItemAbrir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DialogOpenDisco dialogOpenDisco = new DialogOpenDisco(painelTagsGerais, painelFaixas, painelImagem);
+				new DialogOpenDisco(painelTagsGerais, painelFaixas, painelImagem);
 			}
 		});
 		

@@ -35,6 +35,8 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.datatype.Artwork;
 
+import util.Textos;
+
 import Base.Tags;
 import Base.TipoBotaoImagem;
 import Base.TipoImagemFile;
@@ -78,7 +80,7 @@ public class Controller {
 						Artwork artwork = tag.getFirstArtwork();
 						image = artwork.getBinaryData();
 					} catch (NullPointerException e) {
-						Path path = Paths.get("imagem-padrao.jpg");
+						Path path = Paths.get(Textos.IMAGEM_PADRAO);
 						image = Files.readAllBytes(path);
 					}
 
@@ -112,7 +114,7 @@ public class Controller {
 	}
 
 	private boolean validator(File file) {
-		String[] extensoes = new String[] { "mp3" };
+		String[] extensoes = new String[] { Textos.FORMATO_MP3 };
 		boolean result = false;
 
 		for (String extensao : extensoes) {
@@ -129,10 +131,10 @@ public class Controller {
 			throws ListaNulaException, ListaVaziaException {
 
 		this.painelImagem = painelImagem;
-		String artista = "";
-		String album = "";
-		String ano = "";
-		String genero = "";
+		String artista = Textos.STRING_VAZIA;
+		String album = Textos.STRING_VAZIA;
+		String ano = Textos.STRING_VAZIA;
+		String genero = Textos.STRING_VAZIA;
 		try {
 
 			if (listaTags.get(0) != null) {
@@ -146,9 +148,9 @@ public class Controller {
 			ArrayList<JTextField> textFieldsNumero = new ArrayList<JTextField>();
 			ArrayList<JTextField> textFieldsFaixas = new ArrayList<JTextField>();
 
-			String nomeDoArquivo = "";
-			String numero = "";
-			String faixas = "";
+			String nomeDoArquivo = Textos.STRING_VAZIA;
+			String numero = Textos.STRING_VAZIA;
+			String faixas = Textos.STRING_VAZIA;
 
 			for (int i = 0; i < listaTags.size(); i++) {
 				labels.add(new JLabel());
@@ -168,8 +170,8 @@ public class Controller {
 			}
 
 			/*
-			 * Ordenação - Bubble Sort TODO [MELHORIA] melhorar o algoritmo de
-			 * ordenação, para outro mais eficiente que o Bubble
+			 * Ordena√ß√£o - Bubble Sort TODO [MELHORIA] melhorar o algoritmo de
+			 * ordena√ß√£o, para outro mais eficiente que o Bubble
 			 */
 			int contador = 1;
 			do {
@@ -215,7 +217,7 @@ public class Controller {
 	public void updateImage(String url,TipoBotaoImagem tipoBotaoImagem) {
 
 		if (this.painelImagem == null) {
-			new PopUp("Selecione um disco primeiro", TipoPopUp.INFO);
+			new PopUp(Textos.POPUP_SELECIONE_UM_DISCO, TipoPopUp.INFO);
 		} else {
 			switch (tipoBotaoImagem) {
 			case URL:
@@ -225,12 +227,12 @@ public class Controller {
 				break;
 			case ARQUIVO:
 				byte[] imagem = null;
-				if(url.endsWith("jpg")){
+				if(url.endsWith(Textos.FORMATO_JPG)){
 					imagem = loadImageFromFile(url, TipoImagemFile.JPG);
-				}else if(url.endsWith("png")){
+				}else if(url.endsWith(Textos.FORMATO_PNG)){
 					imagem = loadImageFromFile(url, TipoImagemFile.PNG);
 				}else{
-					new PopUp("Selecione uma imagem JPG ou PNG", TipoPopUp.INFO);
+					new PopUp(Textos.POPUP_SELECIONE_UMA_IMAGEM, TipoPopUp.INFO);
 				}
 				tag.setImage(imagem);
 				this.painelImagem.updateValues(tag.getImage());
@@ -258,10 +260,10 @@ public class Controller {
 		try {
 			switch (tipoImagemFile) {
 			case JPG:
-				ImageIO.write(img, "jpg", baos);
+				ImageIO.write(img, Textos.FORMATO_JPG, baos);
 				break;
 			case PNG:
-				ImageIO.write(img, "png", baos);
+				ImageIO.write(img, Textos.FORMATO_PNG, baos);
 				break;
 			}
 			baos.flush();
@@ -297,9 +299,9 @@ public class Controller {
 			in.close();
 			imagemBaixada = out.toByteArray();
 		} catch (UnknownHostException e) {
-			new PopUp("Problemas com a conexao com a internet", TipoPopUp.ERROR);
+			new PopUp(Textos.ERRO_PROBLEMA_COM_A_INTERNET, TipoPopUp.ERROR);
 		} catch (MalformedURLException e) {
-			new PopUp("Selecione uma URL válida", TipoPopUp.INFO);
+			new PopUp(Textos.ERRO_URL_INVALIDA, TipoPopUp.INFO);
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		} finally {
