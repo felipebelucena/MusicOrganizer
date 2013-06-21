@@ -3,6 +3,8 @@ package gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -33,6 +35,14 @@ public class PainelBotoes extends JPanel {
 		gbc.gridy = 1;
 		gbc.weighty = 1;
 		this.add(botaoNome2Tag, gbc);
+		
+		botaoSalvar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("evento - botao salvar");
+			}
+		});
 	}
 
 }

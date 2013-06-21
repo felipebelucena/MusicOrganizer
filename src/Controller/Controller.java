@@ -118,7 +118,7 @@ public class Controller {
 		boolean result = false;
 
 		for (String extensao : extensoes) {
-			if (file.getName().toLowerCase().endsWith(extensao)) {
+			if (file.getName().toLowerCase().trim().endsWith(extensao)) {
 				result = true;
 			}
 		}
@@ -271,8 +271,6 @@ public class Controller {
 			baos.close();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
-		}finally{
-			
 		}
 		return imagem;
 	}
