@@ -64,20 +64,6 @@ public class TelaPrincipal extends JFrame {
 		this.setLayout(new BorderLayout());
 		this.setTitle(Textos.TITULO);
 
-		// Look and Feel
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException e) {
-			System.out.println(e.getMessage());
-		} catch (InstantiationException e) {
-			System.out.println(e.getMessage());
-		} catch (IllegalAccessException e) {
-			System.out.println(e.getMessage());
-		} catch (UnsupportedLookAndFeelException e) {
-			System.out.println(e.getMessage());
-		}
-		SwingUtilities.updateComponentTreeUI(this);
-
 		// Barra de Menu
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menuFile = new JMenu(Textos.MENU_FILE);
