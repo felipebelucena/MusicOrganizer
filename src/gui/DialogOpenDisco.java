@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 
-import util.Textos;
 
 import Base.Tags;
 import Base.TipoPopUp;
@@ -30,7 +29,7 @@ public class DialogOpenDisco extends JFileChooser {
 	}
 
 	private void init() {
-		this.setDialogTitle(Textos.DIALOG_ESCOLHA_UM_CD);
+		this.setDialogTitle(ConstantesUI.DIALOG_ESCOLHA_UM_CD);
 		this.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		int returnValue = this.showOpenDialog(null);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -45,7 +44,7 @@ public class DialogOpenDisco extends JFileChooser {
 				System.out.println(e.getMessage());
 			} catch (ListaVaziaException e) {
 				System.out.println(e.getMessage());
-				new PopUp(Textos.POPUP_DISCO_INVALIDO, TipoPopUp.ERROR);
+				new PopUp(ConstantesUI.POPUP_DISCO_INVALIDO, TipoPopUp.ERROR);
 			}
 		}
 	}

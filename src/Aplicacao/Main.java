@@ -1,37 +1,63 @@
 package Aplicacao;
 
-import java.awt.EventQueue;
-import java.awt.Font;
-
-import javax.swing.LookAndFeel;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-
+import gui.LookAndFeelTipos;
 import gui.TelaPrincipal;
 
+import java.awt.EventQueue;
+
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
+
 public class Main {
-	
-	private static final String LOOK_AND_FEEL = "Nimbus";
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				try {
-					for(LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
-						if(LOOK_AND_FEEL.equals(info.getName())){
-							UIManager.setLookAndFeel(info.getClassName());
-							break;
-						}
-						//Caso queira setar uma fonte padrao
-//						UIManager.getLookAndFeelDefaults().put("defaultFont", new Font("Segoei UI", Font.TRUETYPE_FONT, 12));
-					}
+				setLookAndFeel(LookAndFeelTipos.SYSTEM);
 					new TelaPrincipal();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 			}
 		});
+	}
+	
+	private static void setLookAndFeel(LookAndFeelTipos lookAndFeel){
+		try {
+			switch (lookAndFeel) {
+			case NIMBUS:
+				installLookAndFeel(lookAndFeel);
+				break;
+			case METAL:
+				installLookAndFeel(lookAndFeel);
+				break;
+			case MOTIF:
+				installLookAndFeel(lookAndFeel);
+				break;
+			case MAC:
+				installLookAndFeel(lookAndFeel);
+				break;
+			case GTK:
+				installLookAndFeel(lookAndFeel);
+				break;
+			case SYSTEM:
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void installLookAndFeel(LookAndFeelTipos lookAndFeel)
+			throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException, UnsupportedLookAndFeelException {
+		for(LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
+			if(lookAndFeel.getValor().equals(info.getName())){
+				UIManager.setLookAndFeel(info.getClassName());
+				break;
+			}
+			//Caso queira setar uma fonte padrao
+//			UIManager.getLookAndFeelDefaults().put("defaultFont", new Font("Segoei UI", Font.TRUETYPE_FONT, 12));
+		}
 	}
 
 }

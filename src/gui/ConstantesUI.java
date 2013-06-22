@@ -1,6 +1,6 @@
-package util;
+package gui;
 
-public class Textos {
+public class ConstantesUI {
 	
 	public static String STRING_VAZIA = "";
 	

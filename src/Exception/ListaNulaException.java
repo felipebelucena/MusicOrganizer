@@ -1,11 +1,11 @@
 package Exception;
 
-import util.Textos;
+import gui.ConstantesUI;
 
 public class ListaNulaException extends Exception {
 	
 	public ListaNulaException() {
-		super(Textos.ERRO_LISTA_NULA);
+		super(ConstantesUI.ERRO_LISTA_NULA);
 	}
 
 }

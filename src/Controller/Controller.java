@@ -4,6 +4,7 @@ import gui.PainelFaixas;
 import gui.PainelImagem;
 import gui.PainelTagsGerais;
 import gui.PopUp;
+import gui.ConstantesUI;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
@@ -35,7 +36,6 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.datatype.Artwork;
 
-import util.Textos;
 
 import Base.Tags;
 import Base.TipoBotaoImagem;
@@ -80,7 +80,7 @@ public class Controller {
 						Artwork artwork = tag.getFirstArtwork();
 						image = artwork.getBinaryData();
 					} catch (NullPointerException e) {
-						Path path = Paths.get(Textos.IMAGEM_PADRAO);
+						Path path = Paths.get(ConstantesUI.IMAGEM_PADRAO);
 						image = Files.readAllBytes(path);
 					}
 
@@ -114,7 +114,7 @@ public class Controller {
 	}
 
 	private boolean validator(File file) {
-		String[] extensoes = new String[] { Textos.FORMATO_MP3 };
+		String[] extensoes = new String[] { ConstantesUI.FORMATO_MP3 };
 		boolean result = false;
 
 		for (String extensao : extensoes) {
@@ -131,10 +131,10 @@ public class Controller {
 			throws ListaNulaException, ListaVaziaException {
 
 		this.painelImagem = painelImagem;
-		String artista = Textos.STRING_VAZIA;
-		String album = Textos.STRING_VAZIA;
-		String ano = Textos.STRING_VAZIA;
-		String genero = Textos.STRING_VAZIA;
+		String artista = ConstantesUI.STRING_VAZIA;
+		String album = ConstantesUI.STRING_VAZIA;
+		String ano = ConstantesUI.STRING_VAZIA;
+		String genero = ConstantesUI.STRING_VAZIA;
 		try {
 
 			if (listaTags.get(0) != null) {
@@ -148,9 +148,9 @@ public class Controller {
 			ArrayList<JTextField> textFieldsNumero = new ArrayList<JTextField>();
 			ArrayList<JTextField> textFieldsFaixas = new ArrayList<JTextField>();
 
-			String nomeDoArquivo = Textos.STRING_VAZIA;
-			String numero = Textos.STRING_VAZIA;
-			String faixas = Textos.STRING_VAZIA;
+			String nomeDoArquivo = ConstantesUI.STRING_VAZIA;
+			String numero = ConstantesUI.STRING_VAZIA;
+			String faixas = ConstantesUI.STRING_VAZIA;
 
 			for (int i = 0; i < listaTags.size(); i++) {
 				labels.add(new JLabel());
@@ -217,7 +217,7 @@ public class Controller {
 	public void updateImage(String url,TipoBotaoImagem tipoBotaoImagem) {
 
 		if (this.painelImagem == null) {
-			new PopUp(Textos.POPUP_SELECIONE_UM_DISCO, TipoPopUp.INFO);
+			new PopUp(ConstantesUI.POPUP_SELECIONE_UM_DISCO, TipoPopUp.INFO);
 		} else {
 			switch (tipoBotaoImagem) {
 			case URL:
@@ -227,12 +227,12 @@ public class Controller {
 				break;
 			case ARQUIVO:
 				byte[] imagem = null;
-				if(url.endsWith(Textos.FORMATO_JPG)){
+				if(url.endsWith(ConstantesUI.FORMATO_JPG)){
 					imagem = loadImageFromFile(url, TipoImagemFile.JPG);
-				}else if(url.endsWith(Textos.FORMATO_PNG)){
+				}else if(url.endsWith(ConstantesUI.FORMATO_PNG)){
 					imagem = loadImageFromFile(url, TipoImagemFile.PNG);
 				}else{
-					new PopUp(Textos.POPUP_SELECIONE_UMA_IMAGEM, TipoPopUp.INFO);
+					new PopUp(ConstantesUI.POPUP_SELECIONE_UMA_IMAGEM, TipoPopUp.INFO);
 				}
 				tag.setImage(imagem);
 				this.painelImagem.updateValues(tag.getImage());
@@ -260,10 +260,10 @@ public class Controller {
 		try {
 			switch (tipoImagemFile) {
 			case JPG:
-				ImageIO.write(img, Textos.FORMATO_JPG, baos);
+				ImageIO.write(img, ConstantesUI.FORMATO_JPG, baos);
 				break;
 			case PNG:
-				ImageIO.write(img, Textos.FORMATO_PNG, baos);
+				ImageIO.write(img, ConstantesUI.FORMATO_PNG, baos);
 				break;
 			}
 			baos.flush();
@@ -297,9 +297,9 @@ public class Controller {
 			in.close();
 			imagemBaixada = out.toByteArray();
 		} catch (UnknownHostException e) {
-			new PopUp(Textos.ERRO_PROBLEMA_COM_A_INTERNET, TipoPopUp.ERROR);
+			new PopUp(ConstantesUI.ERRO_PROBLEMA_COM_A_INTERNET, TipoPopUp.ERROR);
 		} catch (MalformedURLException e) {
-			new PopUp(Textos.ERRO_URL_INVALIDA, TipoPopUp.INFO);
+			new PopUp(ConstantesUI.ERRO_URL_INVALIDA, TipoPopUp.INFO);
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		} finally {

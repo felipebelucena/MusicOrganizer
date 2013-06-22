@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import util.Textos;
 
 public class PainelBotoes extends JPanel {
 
@@ -22,8 +21,8 @@ public class PainelBotoes extends JPanel {
 
 	private void initComponents() {
 		this.setLayout(new GridBagLayout());
-		JButton botaoSalvar = new JButton(Textos.BOTAO_SALVAR);
-		JButton botaoNome2Tag = new JButton(Textos.BOTAO_NOME2TAG);
+		JButton botaoSalvar = new JButton(ConstantesUI.BOTAO_SALVAR);
+		JButton botaoNome2Tag = new JButton(ConstantesUI.BOTAO_NOME2TAG);
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.weightx = 0;

@@ -38,7 +38,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 
-import util.Textos;
 
 import Facade.Facade;
 
@@ -62,15 +61,22 @@ public class TelaPrincipal extends JFrame {
 		this.setLocation(x, y);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
-		this.setTitle(Textos.TITULO);
+		this.setTitle(ConstantesUI.TITULO);
+
+//		// Look and Feel padrão do S.O
+//		try {
+//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//		SwingUtilities.updateComponentTreeUI(this);
 
 		// Barra de Menu
 		JMenuBar menuBar = new JMenuBar();
-		JMenu menuFile = new JMenu(Textos.MENU_FILE);
-		JMenuItem menuItemAbrir = new JMenuItem(Textos.MENU_ITEM_OPEN);
+		JMenu menuFile = new JMenu(ConstantesUI.MENU_FILE);
+		JMenuItem menuItemAbrir = new JMenuItem(ConstantesUI.MENU_ITEM_OPEN);
 		menuFile.add(menuItemAbrir);
 		menuBar.add(menuFile);
-		
 
 		// Set up do layout
 		JPanel painelCentral = new JPanel();
@@ -111,8 +117,8 @@ public class TelaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				painelSelecaoImagem.getLabelSelecaoImagem().setText(
-						Textos.INFORME_URL_IMAGEM);
-				painelSelecaoImagem.getBotaoSelecaoImagem().setText(Textos.OK);
+						ConstantesUI.INFORME_URL_IMAGEM);
+				painelSelecaoImagem.getBotaoSelecaoImagem().setText(ConstantesUI.OK);
 			}
 		});
 
@@ -120,8 +126,8 @@ public class TelaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				painelSelecaoImagem.getLabelSelecaoImagem().setText(
-						Textos.SELECIONE_ARQUIVO_IMAGEM);
-				painelSelecaoImagem.getBotaoSelecaoImagem().setText(Textos.PROCURAR);
+						ConstantesUI.SELECIONE_ARQUIVO_IMAGEM);
+				painelSelecaoImagem.getBotaoSelecaoImagem().setText(ConstantesUI.PROCURAR);
 			}
 		});
 		

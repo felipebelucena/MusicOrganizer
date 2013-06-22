@@ -19,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import util.Textos;
 
 import Facade.Facade;
 
@@ -42,14 +41,14 @@ public class PainelImagem extends JPanel {
 		Image imagem = getScaledImage(imagemOriginal, 150, 150);
 		Box boxRadios = Box.createVerticalBox();
 		ButtonGroup grupoRadios = new ButtonGroup();
-		radioURL = new JRadioButton(Textos.RADIOBUTTON_PEGAR_DA_URL,true);
+		radioURL = new JRadioButton(ConstantesUI.RADIOBUTTON_PEGAR_DA_URL,true);
 		radioArquivo = new JRadioButton("pegar de um arquivo",false);
 		grupoRadios.add(radioURL);
 		grupoRadios.add(radioArquivo);
 		boxRadios.add(radioURL);
 		boxRadios.add(radioArquivo);
 		
-		this.setBorder(BorderFactory.createTitledBorder(Textos.BORDA_IMAGEM));
+		this.setBorder(BorderFactory.createTitledBorder(ConstantesUI.BORDA_IMAGEM));
 		this.setLayout(new BorderLayout());
 		this.add(new JLabel(new ImageIcon(imagem)),BorderLayout.CENTER);
 		this.add(boxRadios,BorderLayout.SOUTH);
