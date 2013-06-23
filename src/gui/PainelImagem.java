@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics2D;
-import java.awt.GridBagConstraints;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
@@ -12,50 +11,37 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 
-
-import Facade.Facade;
-
+@SuppressWarnings("serial")
 public class PainelImagem extends JPanel {
 
-	private GridBagConstraints gbc;
-	private JRadioButton radioURL;
-	private JRadioButton radioArquivo;
 	private Image imagemOriginal = null;
-	private Facade facade;
 	
 	public PainelImagem() {
-		gbc = new GridBagConstraints();
-		facade = Facade.getInstace();
 		initComponents();
 	}
 
+	/**
+	 * Inicializa componentes visuais
+	 */
 	private void initComponents(){
 		
 		Image imagem = getScaledImage(imagemOriginal, 150, 150);
-		Box boxRadios = Box.createVerticalBox();
-		ButtonGroup grupoRadios = new ButtonGroup();
-		radioURL = new JRadioButton(ConstantesUI.RADIOBUTTON_PEGAR_DA_URL,true);
-		radioArquivo = new JRadioButton("pegar de um arquivo",false);
-		grupoRadios.add(radioURL);
-		grupoRadios.add(radioArquivo);
-		boxRadios.add(radioURL);
-		boxRadios.add(radioArquivo);
-		
 		this.setBorder(BorderFactory.createTitledBorder(ConstantesUI.BORDA_IMAGEM));
 		this.setLayout(new BorderLayout());
 		this.add(new JLabel(new ImageIcon(imagem)),BorderLayout.CENTER);
-		this.add(boxRadios,BorderLayout.SOUTH);
 		this.repaint();
 		this.validate();
 	}
 	
+	/**
+	 * Método para atualizar a imagem
+	 * @param image
+	 */
+	//Esse método está aqui na UI, e nao no controller, pq esse método chama o initComponent dentro dele
 	public void updateValues(byte[] image) {
 		
 		this.removeAll();
@@ -73,6 +59,13 @@ public class PainelImagem extends JPanel {
 	      
 	}
 	
+	/**
+	 * Método para redimensionar a imagem, indepenente do tamanho que ela venha
+	 * @param imagemOriginal
+	 * @param largura
+	 * @param altura
+	 * @return Imagem redimensionada
+	 */
 	private Image getScaledImage(Image imagemOriginal, int largura, int altura) {
 		  BufferedImage resizedImg = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
 		    Graphics2D g2 = resizedImg.createGraphics();
@@ -80,14 +73,6 @@ public class PainelImagem extends JPanel {
 		    g2.drawImage(imagemOriginal, 0, 0,largura, altura, null);
 		    g2.dispose();
 		    return resizedImg;
-	}
-	
-	public JRadioButton getRadioURL() {
-		return radioURL;
-	}
-
-	public JRadioButton getRadioArquivo() {
-		return radioArquivo;
 	}
 	
 }

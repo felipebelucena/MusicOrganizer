@@ -9,13 +9,15 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel;
+
 public class Main {
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				setLookAndFeel(LookAndFeelTipos.SYSTEM);
+				setLookAndFeel(LookAndFeelTipos.NIMBUS);
 					new TelaPrincipal();
 			}
 		});
@@ -41,6 +43,8 @@ public class Main {
 				break;
 			case SYSTEM:
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			case BLACK_EYES:
+				UIManager.setLookAndFeel(new SyntheticaBlackEyeLookAndFeel());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

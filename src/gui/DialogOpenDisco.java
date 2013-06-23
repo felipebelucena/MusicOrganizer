@@ -5,14 +5,13 @@ import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 
-
 import Base.Tags;
 import Base.TipoPopUp;
-import Controller.Controller;
 import Exception.ListaNulaException;
 import Exception.ListaVaziaException;
 import Facade.Facade;
 
+@SuppressWarnings("serial")
 public class DialogOpenDisco extends JFileChooser {
 
 	private Facade facade;
@@ -28,6 +27,9 @@ public class DialogOpenDisco extends JFileChooser {
 		init();
 	}
 
+	/**
+	 * Inicializa o JFileChooser, para carregar o disco
+	 */
 	private void init() {
 		this.setDialogTitle(ConstantesUI.DIALOG_ESCOLHA_UM_CD);
 		this.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);

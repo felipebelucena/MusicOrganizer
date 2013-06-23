@@ -1,57 +1,29 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Insets;
-import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 
-
-import Facade.Facade;
-
+@SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
 
-	private GridBagConstraints gbc;
-	private Facade facade;
-
 	public TelaPrincipal() {
-		facade = facade.getInstace();
-		gbc = new GridBagConstraints();
 		initframe();
 	}
 
+	/**
+	 * Inicializa componentes visuais
+	 */
 	private void initframe() {
 		// centralizando o Frame
 		this.setSize(950, 600);
@@ -62,14 +34,6 @@ public class TelaPrincipal extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		this.setTitle(ConstantesUI.TITULO);
-
-//		// Look and Feel padrão do S.O
-//		try {
-//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
-//		SwingUtilities.updateComponentTreeUI(this);
 
 		// Barra de Menu
 		JMenuBar menuBar = new JMenuBar();
@@ -113,24 +77,6 @@ public class TelaPrincipal extends JFrame {
 		final PainelSelecaoImagem painelSelecaoImagem = new PainelSelecaoImagem();
 		painelDireita.add(painelSelecaoImagem, BorderLayout.CENTER);
 
-		painelImagem.getRadioURL().addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				painelSelecaoImagem.getLabelSelecaoImagem().setText(
-						ConstantesUI.INFORME_URL_IMAGEM);
-				painelSelecaoImagem.getBotaoSelecaoImagem().setText(ConstantesUI.OK);
-			}
-		});
-
-		painelImagem.getRadioArquivo().addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				painelSelecaoImagem.getLabelSelecaoImagem().setText(
-						ConstantesUI.SELECIONE_ARQUIVO_IMAGEM);
-				painelSelecaoImagem.getBotaoSelecaoImagem().setText(ConstantesUI.PROCURAR);
-			}
-		});
-		
 		menuItemAbrir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

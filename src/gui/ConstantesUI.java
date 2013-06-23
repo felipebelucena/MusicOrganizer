@@ -14,6 +14,7 @@ public class ConstantesUI {
 	public static final String BOTAO_SALVAR = "Salvar";
 	public static final String BOTAO_NOME2TAG = "Nome > Tag";
 	public static final String RADIOBUTTON_PEGAR_DA_URL = "pegar da URL";
+	public static final String RADIOBUTTON_PEGAR_DE_ARQUIVO = "pegar de um arquivo";
 	public static final String BORDA_MUSICAS = "Musicas";
 	public static final String BORDA_IMAGEM = "Imagem";
 	public static final String BORDA_SELECIONE_UM_IMAGEM = "Selecione a imagem";
