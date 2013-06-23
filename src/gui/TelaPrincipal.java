@@ -26,7 +26,7 @@ public class TelaPrincipal extends JFrame {
 	 */
 	private void initframe() {
 		// centralizando o Frame
-		this.setSize(950, 600);
+		this.setSize(ConstantesUI.LARGURA_TELA, ConstantesUI.ALTURA_TELA);
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (int) (((dimension.getWidth() / 2) - (this.getWidth() / 2)));
 		int y = (int) (((dimension.getHeight() / 2) - (this.getHeight() / 2)));
@@ -74,13 +74,13 @@ public class TelaPrincipal extends JFrame {
 		final PainelImagem painelImagem = new PainelImagem();
 		painelEsquerda.add(painelImagem, BorderLayout.WEST);
 
-		final PainelSelecaoImagem painelSelecaoImagem = new PainelSelecaoImagem();
+		final PainelSelecaoImagem painelSelecaoImagem = new PainelSelecaoImagem(painelImagem);
 		painelDireita.add(painelSelecaoImagem, BorderLayout.CENTER);
 
 		menuItemAbrir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new DialogOpenDisco(painelTagsGerais, painelFaixas, painelImagem);
+				new DialogOpenDisco(painelTagsGerais, painelFaixas, painelImagem, painelSelecaoImagem);
 			}
 		});
 		

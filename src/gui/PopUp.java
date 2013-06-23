@@ -15,9 +15,6 @@ public class PopUp {
 		case INFO:
 			JOptionPane.showMessageDialog(null, msg, ConstantesUI.POPUP_INFO, JOptionPane.INFORMATION_MESSAGE);
 			break;
-
-		default:
-			break;
 		}
 	}
 

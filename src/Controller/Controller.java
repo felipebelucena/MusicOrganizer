@@ -2,6 +2,7 @@ package Controller;
 
 import gui.PainelFaixas;
 import gui.PainelImagem;
+import gui.PainelSelecaoImagem;
 import gui.PainelTagsGerais;
 import gui.PopUp;
 import gui.ConstantesUI;
@@ -47,12 +48,16 @@ import Exception.ListaVaziaException;
 public class Controller {
 
 	private Tags tag;
-	private PainelImagem painelImagem;
 
 	public Controller() {
 		tag = new Tags();
 	}
 
+	/**
+	 * [Parser] Extrai todas as tags de um disco, em um ArrayList
+	 * @param disco
+	 * @return ArrayList de tags
+	 */
 	public ArrayList<Tags> parserFileToTagsList(File disco) {
 		File[] files = disco.listFiles();
 		AudioFile audioFile = null;
@@ -80,8 +85,7 @@ public class Controller {
 						Artwork artwork = tag.getFirstArtwork();
 						image = artwork.getBinaryData();
 					} catch (NullPointerException e) {
-						Path path = Paths.get(ConstantesUI.IMAGEM_PADRAO);
-						image = Files.readAllBytes(path);
+						image = loadDefaultImage();
 					}
 
 					tags.setArtista(artista);
@@ -113,6 +117,22 @@ public class Controller {
 		return listaTags;
 	}
 
+	public byte[] loadDefaultImage() {
+		byte[] image = null;
+		Path path = Paths.get(ConstantesUI.IMAGEM_PADRAO);
+		try {
+			image = Files.readAllBytes(path);
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		return image;
+	}
+
+	/**
+	 * Valida o disco
+	 * @param file
+	 * @return true se for válido e false se nao for
+	 */
 	private boolean validator(File file) {
 		String[] extensoes = new String[] { ConstantesUI.FORMATO_MP3 };
 		boolean result = false;
@@ -125,12 +145,22 @@ public class Controller {
 		return result;
 	}
 
-	public void updateValues(File[] arquivos,
+	/**
+	 * Atualiza o <code>PainelFaixas</code> com as tags carregadas do disco,e monta a UI
+	 * @param arquivos
+	 * @param painelTagsGerais
+	 * @param painelFaixas
+	 * @param painelImagem
+	 * @param painelSelecaoImagem 
+	 * @param listaTags
+	 * @throws ListaNulaException
+	 * @throws ListaVaziaException
+	 */
+	public void carregaMusicas(File[] arquivos,
 			PainelTagsGerais painelTagsGerais, PainelFaixas painelFaixas,
-			PainelImagem painelImagem, ArrayList<Tags> listaTags)
+			PainelImagem painelImagem, PainelSelecaoImagem painelSelecaoImagem, ArrayList<Tags> listaTags)
 			throws ListaNulaException, ListaVaziaException {
 
-		this.painelImagem = painelImagem;
 		String artista = ConstantesUI.STRING_VAZIA;
 		String album = ConstantesUI.STRING_VAZIA;
 		String ano = ConstantesUI.STRING_VAZIA;
@@ -196,7 +226,8 @@ public class Controller {
 			painelTagsGerais.updateValues(artista, album, ano, genero);
 			painelFaixas.updateValues(labels, textFieldsNumero,
 					textFieldsFaixas);
-			this.painelImagem.updateValues(tag.getImage());
+			painelSelecaoImagem.habilitarComponentes(true);
+			painelImagem.updateImage(tag.getImage());
 
 		} catch (NullPointerException e) {
 			throw new ListaNulaException();
@@ -207,113 +238,15 @@ public class Controller {
 		}
 	}
 
+	/**
+	 * Método para inverter os valores do ArrayList de tags, auxilia na ordenação
+	 * @param lista
+	 * @param i
+	 */
 	private <Tipo> void trocaValores(ArrayList<Tipo> lista, int i) {
 		Tipo tmp;
 		tmp = lista.get(i);
 		lista.set(i, lista.get(i + 1));
 		lista.set(i + 1, tmp);
-	}
-
-	public void updateImage(String url,TipoBotaoImagem tipoBotaoImagem) {
-
-		if (this.painelImagem == null) {
-			new PopUp(ConstantesUI.POPUP_SELECIONE_UM_DISCO, TipoPopUp.INFO);
-		} else {
-			switch (tipoBotaoImagem) {
-			case URL:
-				//TODO adicionar uma JProgressBar
-				tag.setImage(downloadImage(url));
-				this.painelImagem.updateValues(tag.getImage());
-				break;
-			case ARQUIVO:
-				byte[] imagem = null;
-				if(url.endsWith(ConstantesUI.FORMATO_JPG)){
-					imagem = loadImageFromFile(url, TipoImagemFile.JPG);
-				}else if(url.endsWith(ConstantesUI.FORMATO_PNG)){
-					imagem = loadImageFromFile(url, TipoImagemFile.PNG);
-				}else{
-					new PopUp(ConstantesUI.POPUP_SELECIONE_UMA_IMAGEM, TipoPopUp.INFO);
-				}
-				tag.setImage(imagem);
-				this.painelImagem.updateValues(tag.getImage());
-				break;
-			}
-		}
-	}
-
-	private byte[] loadImageFromFile(String url, TipoImagemFile tipoImagemFile){
-		BufferedImage img = null;
-		byte[] imagem = null;
-		try {
-			img = ImageIO.read(new File(url));
-			imagem = parserToByte(img,tipoImagemFile);
-		} catch (IOException e) {
-//			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
-		return imagem;
-	}
-	
-	private byte[] parserToByte(BufferedImage img, TipoImagemFile tipoImagemFile) {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		byte[] imagem = null;
-		try {
-			switch (tipoImagemFile) {
-			case JPG:
-				ImageIO.write(img, ConstantesUI.FORMATO_JPG, baos);
-				break;
-			case PNG:
-				ImageIO.write(img, ConstantesUI.FORMATO_PNG, baos);
-				break;
-			}
-			baos.flush();
-			imagem = baos.toByteArray();
-			baos.close();
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-		return imagem;
-	}
-
-	private byte[] downloadImage(String url) {
-		byte[] imagemBaixada = null;
-		InputStream in = null;
-		ByteArrayOutputStream out = null;
-		try {
-
-			URL endereco = new URL(url);
-			in = new BufferedInputStream(endereco.openStream());
-			out = new ByteArrayOutputStream();
-
-			byte[] buffer = new byte[1024];
-			int numRead = 0;
-			int current = 0;
-			while ((numRead = in.read(buffer)) != -1) {
-				current = 0;
-				out.write(buffer, current, numRead);
-				current = current + numRead;
-			}
-			out.close();
-			in.close();
-			imagemBaixada = out.toByteArray();
-		} catch (UnknownHostException e) {
-			new PopUp(ConstantesUI.ERRO_PROBLEMA_COM_A_INTERNET, TipoPopUp.ERROR);
-		} catch (MalformedURLException e) {
-			new PopUp(ConstantesUI.ERRO_URL_INVALIDA, TipoPopUp.INFO);
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			try {
-				if (in != null) {
-					in.close();
-				}
-				if (out != null) {
-					out.close();
-				}
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		return imagemBaixada;
 	}
 }

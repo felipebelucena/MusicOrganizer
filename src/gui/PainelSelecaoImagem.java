@@ -27,9 +27,11 @@ public class PainelSelecaoImagem extends JPanel {
 	private JTextField textFieldSelecaoImagem;
 	private JRadioButton radioURL;
 	private JRadioButton radioArquivo;
+	private PainelImagem painelImagem;
 	private Facade facade;
 
-	public PainelSelecaoImagem() {
+	public PainelSelecaoImagem(PainelImagem painelImagem) {
+		this.painelImagem = painelImagem;
 		gbc = new GridBagConstraints();
 		facade = Facade.getInstace();
 		initComponents();
@@ -48,6 +50,7 @@ public class PainelSelecaoImagem extends JPanel {
 		ButtonGroup grupoRadios = new ButtonGroup();
 		radioURL = new JRadioButton(ConstantesUI.RADIOBUTTON_PEGAR_DA_URL,true);
 		radioArquivo = new JRadioButton(ConstantesUI.RADIOBUTTON_PEGAR_DE_ARQUIVO,false);
+		habilitarComponentes(false);
 		grupoRadios.add(radioURL);
 		grupoRadios.add(radioArquivo);
 		boxRadios.add(radioURL);
@@ -70,14 +73,22 @@ public class PainelSelecaoImagem extends JPanel {
 		this.add(boxRadios, gbc);
 		
 		botaoSelecaoImagem.addActionListener(new ActionListener() {
+			byte[] imagem = null;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals(ConstantesUI.OK)){
 					String url = textFieldSelecaoImagem.getText();
-					facade.updateImage(url, TipoBotaoImagem.URL);
+					imagem = facade.loadImage(url, TipoBotaoImagem.URL);
+					updateImage();
 				}else{
 					String url = textFieldSelecaoImagem.getText();
-					facade.updateImage(url, TipoBotaoImagem.ARQUIVO);
+					imagem = facade.loadImage(url, TipoBotaoImagem.ARQUIVO);
+					updateImage();
+				}
+			}
+			private void updateImage() {
+				if(imagem != null){
+				painelImagem.updateImage(imagem);
 				}
 			}
 		});
@@ -97,6 +108,15 @@ public class PainelSelecaoImagem extends JPanel {
 				botaoSelecaoImagem.setText(ConstantesUI.PROCURAR);
 			}
 		});
+	}
+	
+	public void habilitarComponentes(boolean habilitar){
+		textFieldSelecaoImagem.setEnabled(habilitar);
+		labelSelecaoImagem.setEnabled(habilitar);
+		botaoSelecaoImagem.setEnabled(habilitar);
+		botaoSelecaoImagem.setEnabled(habilitar);
+		radioURL.setEnabled(habilitar);
+		radioArquivo.setEnabled(habilitar);
 	}
 
 }

@@ -29,7 +29,7 @@ public class PainelImagem extends JPanel {
 	 */
 	private void initComponents(){
 		
-		Image imagem = getScaledImage(imagemOriginal, 150, 150);
+		Image imagem = getScaledImage(imagemOriginal, ConstantesUI.LARGURA_IMAGEM, ConstantesUI.ALTURA_IMAGEM);
 		this.setBorder(BorderFactory.createTitledBorder(ConstantesUI.BORDA_IMAGEM));
 		this.setLayout(new BorderLayout());
 		this.add(new JLabel(new ImageIcon(imagem)),BorderLayout.CENTER);
@@ -41,8 +41,7 @@ public class PainelImagem extends JPanel {
 	 * Método para atualizar a imagem
 	 * @param image
 	 */
-	//Esse método está aqui na UI, e nao no controller, pq esse método chama o initComponent dentro dele
-	public void updateValues(byte[] image) {
+	public void updateImage(byte[] image) {
 		
 		this.removeAll();
 		try {
@@ -56,7 +55,6 @@ public class PainelImagem extends JPanel {
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
-	      
 	}
 	
 	/**
@@ -74,5 +72,4 @@ public class PainelImagem extends JPanel {
 		    g2.dispose();
 		    return resizedImg;
 	}
-	
 }

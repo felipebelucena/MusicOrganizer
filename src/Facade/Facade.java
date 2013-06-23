@@ -2,16 +2,16 @@ package Facade;
 
 import gui.PainelFaixas;
 import gui.PainelImagem;
+import gui.PainelSelecaoImagem;
 import gui.PainelTagsGerais;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import javax.swing.JProgressBar;
-
 import Base.Tags;
 import Base.TipoBotaoImagem;
 import Controller.Controller;
+import Controller.ControllerImage;
 import Exception.ListaNulaException;
 import Exception.ListaVaziaException;
 
@@ -19,9 +19,11 @@ public class Facade {
 
 	private static Facade facade;
 	private Controller controller;
+	private ControllerImage controllerImage;
 
 	private Facade() {
 		controller = new Controller();
+		controllerImage = new ControllerImage();
 	}
 
 	public static Facade getInstace() {
@@ -36,14 +38,17 @@ public class Facade {
 		return controller.parserFileToTagsList(disco);
 	}
 	
-	public void updateValues(File[] arquivos, PainelTagsGerais painelTagsGerais,
-			PainelFaixas painelFaixas, PainelImagem painelImagem, ArrayList<Tags> listaTags)
+	public void carregaMusicas(File[] arquivos, PainelTagsGerais painelTagsGerais,
+			PainelFaixas painelFaixas, PainelImagem painelImagem, PainelSelecaoImagem painelSelecaoImagem, ArrayList<Tags> listaTags)
 			throws ListaNulaException, ListaVaziaException {
-		controller.updateValues(arquivos, painelTagsGerais, painelFaixas,painelImagem, listaTags);
+		controller.carregaMusicas(arquivos, painelTagsGerais, painelFaixas,painelImagem, painelSelecaoImagem, listaTags);
 	}
 
-	public void updateImage(String url,TipoBotaoImagem tipoBotaoImagem) {
-		controller.updateImage(url,tipoBotaoImagem);
+	public byte[] loadImage(String url,TipoBotaoImagem tipoBotaoImagem) {
+		return controllerImage.loadImage(url,tipoBotaoImagem);
 	}
 	
+	public byte[] loadDefaultImage() {
+		return controller.loadDefaultImage();
+	}	
 }

@@ -18,11 +18,13 @@ public class DialogOpenDisco extends JFileChooser {
 	private PainelTagsGerais painelTagsGerais;
 	private PainelFaixas painelFaixas;
 	private PainelImagem painelImagem;
+	private PainelSelecaoImagem painelSelecaoImagem;
 
-	public DialogOpenDisco(PainelTagsGerais painelTagsGerais, PainelFaixas painelFaixas, PainelImagem painelImagem) {
+	public DialogOpenDisco(PainelTagsGerais painelTagsGerais, PainelFaixas painelFaixas, PainelImagem painelImagem, PainelSelecaoImagem painelSelecaoImagem) {
 		this.painelTagsGerais = painelTagsGerais;
 		this.painelFaixas = painelFaixas;
 		this.painelImagem = painelImagem;
+		this.painelSelecaoImagem = painelSelecaoImagem;
 		facade = Facade.getInstace();
 		init();
 	}
@@ -41,7 +43,7 @@ public class DialogOpenDisco extends JFileChooser {
 			listaTags = facade.parserFileToTagsList(disco);
 			
 			try {
-				facade.updateValues(disco.listFiles(), painelTagsGerais, painelFaixas,painelImagem, listaTags);
+				facade.carregaMusicas(disco.listFiles(), painelTagsGerais, painelFaixas,painelImagem, painelSelecaoImagem, listaTags);
 			} catch (ListaNulaException e) {
 				System.out.println(e.getMessage());
 			} catch (ListaVaziaException e) {
