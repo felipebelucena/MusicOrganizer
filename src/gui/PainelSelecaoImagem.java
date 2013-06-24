@@ -109,7 +109,11 @@ public class PainelSelecaoImagem extends JPanel {
 			}
 		});
 	}
-	
+	/**
+	 * Método para habilitar e desabilitar todos os componentes do <code>PainelSelececaoImagem</code>. 
+	 * Habilita se já tiver carregado um disco, e desabilita se nao tiver nenhum disco carregado
+	 * @param boolean
+	 */
 	public void habilitarComponentes(boolean habilitar){
 		textFieldSelecaoImagem.setEnabled(habilitar);
 		labelSelecaoImagem.setEnabled(habilitar);

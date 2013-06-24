@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
+@SuppressWarnings("serial")
 public class PainelFaixas extends JPanel {
 
 	private GridBagConstraints gbc;
@@ -19,6 +20,12 @@ public class PainelFaixas extends JPanel {
 		gbc = new GridBagConstraints();
 	}
 
+	/**
+	 * Constrói a UI do <code>PainelFaixas</code>, com os 3 ArrayList: de JLabels, e os 2 de JTextFields
+	 * @param labels
+	 * @param textFieldsNumero
+	 * @param textFieldsFaixas
+	 */
 	public void updateValues(ArrayList<JLabel> labels,
 			ArrayList<JTextField> textFieldsNumero,
 			ArrayList<JTextField> textFieldsFaixas) {

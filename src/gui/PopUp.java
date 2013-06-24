@@ -7,6 +7,11 @@ import Base.TipoPopUp;
 
 public class PopUp {
 	
+	/**
+	 * Classe e abstração para montagem de Pop-up
+	 * @param msg
+	 * @param tipo
+	 */
 	public PopUp(String msg, TipoPopUp tipo) {
 		switch (tipo) {
 		case ERROR:

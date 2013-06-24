@@ -3,22 +3,16 @@ package gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
-import Base.Tags;
-import Exception.ListaVaziaException;
-import Facade.Facade;
-
+@SuppressWarnings("serial")
 public class PainelTagsGerais extends JPanel {
 
 	private GridBagConstraints gbc;
-	private Facade facade;
 	private JTextField textFieldArtista;
 	private JTextField textFieldAlbum;
 	private JTextField textFieldAno;
@@ -26,10 +20,12 @@ public class PainelTagsGerais extends JPanel {
 
 	public PainelTagsGerais() {
 		gbc = new GridBagConstraints();
-		facade = Facade.getInstace();
 		initComponents();
 	}
 
+	/**
+	 * Inicializa os componentes da UI do PainelTagsgerais
+	 */
 	private void initComponents() {
 
 		JLabel labelArtista = new JLabel(ConstantesUI.LABEL_ARTISTA);
@@ -82,27 +78,17 @@ public class PainelTagsGerais extends JPanel {
 		this.add(textFieldGenero, gbc);
 	}
 	
+	/**
+	 * Atualiza os JTextFields do PainelTagsGerais, baseado nas Strings com nomes das Tags gerais
+	 * @param artista
+	 * @param album
+	 * @param ano
+	 * @param genero
+	 */
 	public void updateValues(String artista, String album, String ano, String genero){
 		textFieldArtista.setText(artista);
 		textFieldAlbum.setText(album);
 		textFieldAno.setText(ano);
 		textFieldGenero.setText(genero);
 	}
-	
-	public JTextField getTextFieldArtista() {
-		return textFieldArtista;
-	}
-
-	public JTextField getTextFieldAlbum() {
-		return textFieldAlbum;
-	}
-
-	public JTextField getTextFieldAno() {
-		return textFieldAno;
-	}
-
-	public JTextField getTextFieldGenero() {
-		return textFieldGenero;
-	}
-
 }

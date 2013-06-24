@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
+@SuppressWarnings("serial")
 public class PainelBotoes extends JPanel {
 
 	private GridBagConstraints gbc;
@@ -19,6 +20,9 @@ public class PainelBotoes extends JPanel {
 		initComponents();
 	}
 
+	/**
+	 * Inicializa os componentes do <code> PainelBotos </code>
+	 */
 	private void initComponents() {
 		this.setLayout(new GridBagLayout());
 		JButton botaoSalvar = new JButton(ConstantesUI.BOTAO_SALVAR);
@@ -36,7 +40,6 @@ public class PainelBotoes extends JPanel {
 		this.add(botaoNome2Tag, gbc);
 		
 		botaoSalvar.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("evento - botao salvar");

@@ -13,6 +13,10 @@ import de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel;
 
 public class Main {
 	
+	/**
+	 * Método Main da Aplicação
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
@@ -23,6 +27,10 @@ public class Main {
 		});
 	}
 	
+	/**
+	 * Método para setar o LookAndFeel
+	 * @param lookAndFeel
+	 */
 	private static void setLookAndFeel(LookAndFeelTipos lookAndFeel){
 		try {
 			switch (lookAndFeel) {
@@ -51,6 +59,14 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Seta o LookAndFeel, baseado nos LookAndFeel instalados no S.O
+	 * @param lookAndFeel
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws UnsupportedLookAndFeelException
+	 */
 	private static void installLookAndFeel(LookAndFeelTipos lookAndFeel)
 			throws ClassNotFoundException, InstantiationException,
 			IllegalAccessException, UnsupportedLookAndFeelException {

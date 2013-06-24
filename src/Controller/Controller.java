@@ -117,6 +117,10 @@ public class Controller {
 		return listaTags;
 	}
 
+	/**
+	 * Método para carregar a imagem padrão
+	 * @return imagem padrão
+	 */
 	public byte[] loadDefaultImage() {
 		byte[] image = null;
 		Path path = Paths.get(ConstantesUI.IMAGEM_PADRAO);
@@ -129,7 +133,7 @@ public class Controller {
 	}
 
 	/**
-	 * Valida o disco
+	 * Valida o disco de acordo com os formatos aceitos, nesse caso, só o .mp3
 	 * @param file
 	 * @return true se for válido e false se nao for
 	 */
@@ -241,7 +245,7 @@ public class Controller {
 	/**
 	 * Método para inverter os valores do ArrayList de tags, auxilia na ordenação
 	 * @param lista
-	 * @param i
+	 * @param indice da lista
 	 */
 	private <Tipo> void trocaValores(ArrayList<Tipo> lista, int i) {
 		Tipo tmp;
