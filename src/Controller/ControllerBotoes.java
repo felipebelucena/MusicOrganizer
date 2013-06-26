@@ -37,15 +37,20 @@ public class ControllerBotoes {
 	
 	public void salvar(){
 		//TODO pegar de um arquivo de properties
-		String diretorioDeMusica = "";
+		String diretorioDeMusica = "home/frank/Dropbox/Music/musica_oficial";
 		String diretorioTemp = "";
-		
 		
 		Controller controller = Controller.getInstace();
 		ArrayList<Tags> listaTags = controller.getListaTags();
 		PainelFaixas painelFaixas = controller.getPainelFaixas();
 		PainelTagsGerais painelTagsGerais = controller.getPainelTagsGerais();
 		ControllerImage controllerImage = ControllerImage.getInstace();
+		
+		// Verifica se algum disco já foi carregado
+		if(listaTags == null){
+			new PopUp(ConstantesUI.POPUP_CARREGUE_UM_DISCO, TipoPopUp.INFO);
+			return;
+		}
 		
 		// criando um Array de File e alimentando ele com o path de todas as músicas, já ordenadas
 		List<File> musicas = new ArrayList<File>();
@@ -56,11 +61,6 @@ public class ControllerBotoes {
 			musicas.add(new File(path));
 		}
 		
-		// Verifica se algum disco já foi carregado
-		if(listaTags == null){
-			new PopUp(ConstantesUI.POPUP_CARREGUE_UM_DISCO, TipoPopUp.INFO);
-			return;
-		}
 		
 		// Maneira meio louca de garantir a informação dentro do listaTags. E ainda ordenado
 		for (int i = 0; i < musicas.size(); i++) {
@@ -82,6 +82,48 @@ public class ControllerBotoes {
 			new PopUp(ConstantesUI.POPUP_ARQUIVO_APENAS_DE_LEITURA, TipoPopUp.ERROR);
 		}catch (Exception e) {
 			e.printStackTrace();
+		}
+		
+		//Criação do diretorio temp
+		File musicasPATH = new File(diretorioDeMusica);
+		File tempDir = null;
+		String artista = listaTags.get(0).getArtista();
+		String album = listaTags.get(0).getAno()+" - "+listaTags.get(0).getAlbum();
+		try {
+			System.out.println("listando arquivos do diretorio de musica...");
+			System.out.println("arquivos = "+musicasPATH.listFiles().length);
+			for (int banda = 0; banda < musicasPATH.listFiles().length; banda++) {
+				String artistaOficial = musicasPATH.listFiles()[banda].getName();
+				System.out.println("eu to procurando pelo artista: "+artistaOficial);
+				//Verifica se existe um artista na psta de musica com esse nome, se existi, entra na pasta
+				if(artista.equals(artistaOficial)){
+					System.out.println("encontrou artista igual");
+					File albumPATH = new File(diretorioDeMusica+File.separator+artista);
+					for (int disco = 0; disco < albumPATH.listFiles().length; disco++) {
+						String albumOficial = albumPATH.listFiles()[disco].getName();
+						System.out.println("estou procurando pelo album: "+albumOficial);
+						//Verifica se existe um disco com esse mesmo nome, na pasta do disco
+						if(album.equals(albumOficial)){
+							System.out.println("encontrou album com esse nome, quer dizer, q minha pasta de origem é essa!!!");
+							tempDir = new File(diretorioDeMusica+File.separator+artista+File.separator+album);
+							System.out.println("tempDir = "+tempDir.getName());
+							return;
+						}else{
+							System.out.println("Existe artista, mas nao existe o album");
+							tempDir = new File(album);
+							System.out.println("tempDir = "+tempDir.getName());
+						}
+					}
+				}else{
+					System.out.println("nao tem artista com esse nome");
+					tempDir = new File(artista+File.separator+album);
+					System.out.println("tempDir = "+tempDir.getName());
+				}
+			}
+		} catch (NullPointerException e) {
+			System.out.println("pasta de musica vazia");
+			tempDir = new File(artista+File.separator+album);
+			System.out.println("tempDir = "+tempDir.getName());
 		}
 		
 //		String artista = listaTags.get(0).getArtista();
