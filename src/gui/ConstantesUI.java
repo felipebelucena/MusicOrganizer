@@ -35,6 +35,7 @@ public class ConstantesUI {
 	public static final String POPUP_CARREGUE_UM_DISCO = "Nenhum disco carregado. Carregue um disco primeiro";
 	public static final String POPUP_DISCO_INVALIDO = "Selecione um disco válido";
 	public static final String POPUP_SELECIONE_UMA_IMAGEM = "Selecione uma imagem JPG ou PNG";
+	public static final String POPUP_CAMPOS_OBRIGATORIOS = "Todos os campos são obrigatórios";
 	public static final String POPUP_ERRO = "Erro";
 	public static final String POPUP_INFO = "Info";
 	public static final String DIALOG_ESCOLHA_UM_CD = "Escolha um CD";

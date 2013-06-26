@@ -223,10 +223,7 @@ public class Controller {
 				textFieldsFaixas.get(i).setText(faixas);
 			}
 
-			/*
-			 * Ordena√ß√£o - Bubble Sort TODO [MELHORIA] melhorar o algoritmo de
-			 * ordena√ß√£o, para outro mais eficiente que o Bubble
-			 */
+			// Ordenando a lista
 			int contador = 1;
 			do {
 				for (int i = 0; i < textFieldsNumero.size() - 1; i++) {

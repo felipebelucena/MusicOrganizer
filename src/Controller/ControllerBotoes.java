@@ -2,7 +2,6 @@ package Controller;
 
 import gui.ConstantesUI;
 import gui.PainelFaixas;
-import gui.PainelImagem;
 import gui.PainelTagsGerais;
 import gui.PopUp;
 
@@ -11,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -32,42 +32,33 @@ public class ControllerBotoes {
 	public void salvar(){
 		//TODO pegar de um arquivo de properties
 		String diretorioDeMusica = "";
-		
 		String diretorioTemp = "";
+		
 		
 		Controller controller = Controller.getInstace();
 		ArrayList<Tags> listaTags = controller.getListaTags();
 		PainelFaixas painelFaixas = controller.getPainelFaixas();
-		PainelImagem painelImagem = controller.getPainelImagem();
-		//Deprecated
-		ControllerImage controllerImage = ControllerImage.getInstace();
 		PainelTagsGerais painelTagsGerais = controller.getPainelTagsGerais();
+		ControllerImage controllerImage = ControllerImage.getInstace();
 		
+		//criando um Array de File e alimentando ele com o path de todas as músicas, já ordenadas
+		List<File> musicas = new ArrayList<File>();
+		for (int i = 0; i < painelFaixas.getTextFieldLabels().size(); i++) {
+			String faixaPath = painelFaixas.getTextFieldLabels().get(i).getText();
+			String discoPath = controller.getDisco().getAbsolutePath();
+			String path = discoPath+File.separator+faixaPath;
+			musicas.add(new File(path));
+		}
+		
+		//Verifica se algum disco já foi carregado
 		if(listaTags == null){
 			new PopUp(ConstantesUI.POPUP_CARREGUE_UM_DISCO, TipoPopUp.INFO);
 			return;
 		}
 		
-		
-		File[] musicas = controller.getDisco().listFiles();
-		for (int i = 0; i < musicas.length; i++) {
-			try {
-				if(controller.validator(musicas[i])){
-				AudioFile f = AudioFileIO.read(musicas[i]);
-				Tag tag = f.getTag();
-				tag.setField(FieldKey.ARTIST, painelTagsGerais.getTextFieldArtista().getText());
-				tag.setField(FieldKey.ALBUM, painelTagsGerais.getTextFieldAlbum().getText());
-				tag.setField(FieldKey.YEAR, painelTagsGerais.getTextFieldAno().getText());
-				tag.setField(FieldKey.GENRE, painelTagsGerais.getTextFieldGenero().getText());
-				tag.deleteArtworkField();
-				Artwork art = setArtwork(controllerImage.getImagem());
-				tag.setField(art);
-				f.commit();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-		}
+		//Seta todas as tags
+		setTags(controller, painelFaixas, painelTagsGerais, controllerImage,
+				musicas);
 		
 //		String artista = listaTags.get(0).getArtista();
 //		String album = listaTags.get(0).getAlbum();
@@ -77,13 +68,34 @@ public class ControllerBotoes {
 //		}else{
 //			System.out.println("falha na criação");
 //		}
-		/**
-		 * TODO
-		 * 1 - criar a arvore de diretorio no path temporario, usando a listaTags
-		 * 2 - A principio, copiar os .mp3 para o temp, e só depois setar as tags
-		 * OBS: eu disse "A principio" pq quando essa feature tiver rendondinha, setar direto no diretorio onde elas estão =D
-		 * 3 - uma vez as .mp3 dentro do temp path, e setadas as tags, move para o path de msuicas
-		 */
+	}
+
+	private void setTags(Controller controller, PainelFaixas painelFaixas,
+			PainelTagsGerais painelTagsGerais, ControllerImage controllerImage,
+			List<File> musicas) {
+		for (int i = 0; i < musicas.size(); i++) {
+			try {
+				if(controller.validator(musicas.get(i))){
+				AudioFile f = AudioFileIO.read(musicas.get(i));
+				Tag tag = f.getTag();
+				tag.setField(FieldKey.ARTIST, painelTagsGerais.getTextFieldArtista().getText());
+				tag.setField(FieldKey.ALBUM, painelTagsGerais.getTextFieldAlbum().getText());
+				tag.setField(FieldKey.YEAR, painelTagsGerais.getTextFieldAno().getText());
+				tag.setField(FieldKey.GENRE, painelTagsGerais.getTextFieldGenero().getText());
+				tag.deleteArtworkField();
+				Artwork art = setArtwork(controllerImage.getImagem());
+				tag.setField(art);
+				tag.setField(FieldKey.YEAR, painelFaixas.getTextFieldsNumero().get(i).getText());
+				tag.setField(FieldKey.TITLE, painelFaixas.getTextFieldsFaixas().get(i).getText());
+				f.commit();
+				}
+			} catch (NullPointerException e) {
+				new PopUp(ConstantesUI.POPUP_CAMPOS_OBRIGATORIOS, TipoPopUp.INFO);
+				return;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	private Artwork setArtwork(byte[] image){
@@ -101,6 +113,7 @@ public class ControllerBotoes {
 			e.printStackTrace();
 		}finally{
 			try {
+				cover.delete();
 				fos.close();
 			} catch (IOException e) {
 				e.printStackTrace();

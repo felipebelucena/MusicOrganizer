@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 public class PainelFaixas extends JPanel {
 
 	private GridBagConstraints gbc;
-	private ArrayList<JLabel> labels = null;
+	private ArrayList<JLabel> textFieldLabels = null;
 	private ArrayList<JTextField> textFieldsNumero = null;
 	private ArrayList<JTextField> textFieldsFaixas = null;
 
@@ -25,23 +25,27 @@ public class PainelFaixas extends JPanel {
 
 	/**
 	 * Constrói a UI do <code>PainelFaixas</code>, com os 3 ArrayList: de JLabels, e os 2 de JTextFields
-	 * @param labels
+	 * @param textFieldLabels
 	 * @param textFieldsNumero
 	 * @param textFieldsFaixas
 	 */
-	public void updateValues(ArrayList<JLabel> labels,
+	public void updateValues(ArrayList<JLabel> textFieldLabels,
 			ArrayList<JTextField> textFieldsNumero,
 			ArrayList<JTextField> textFieldsFaixas) {
 
 		this.removeAll();
 		
-		int quantidadeDeMusicas = labels.size();
+		
+		this.textFieldsNumero = textFieldsNumero;
+		this.textFieldsFaixas = textFieldsFaixas;
+		this.textFieldLabels = textFieldLabels;
+		int quantidadeDeMusicas = textFieldLabels.size();
 		this.setBorder(BorderFactory.createTitledBorder(ConstantesUI.BORDA_MUSICAS));
 		this.setLayout(new GridBagLayout());
 
 		for (int i = 0; i < quantidadeDeMusicas; i++) {
 
-			JLabel labelFaixa = labels.get(i);
+			JLabel labelFaixa = textFieldLabels.get(i);
 			JTextField textFieldNumero = textFieldsNumero.get(i);
 			JTextField textFieldFaixa = textFieldsFaixas.get(i);
 
@@ -68,8 +72,8 @@ public class PainelFaixas extends JPanel {
 		}
 	}
 
-	public ArrayList<JLabel> getLabels() {
-		return labels;
+	public ArrayList<JLabel> getTextFieldLabels() {
+		return textFieldLabels;
 	}
 
 	public ArrayList<JTextField> getTextFieldsNumero() {
