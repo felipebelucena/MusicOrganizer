@@ -14,12 +14,18 @@ import java.util.List;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.CannotWriteException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
+import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.datatype.Artwork;
 
 import Base.Tags;
 import Base.TipoPopUp;
+import Exception.ImagemVaziaException;
 
 public class ControllerBotoes {
 	
@@ -41,7 +47,7 @@ public class ControllerBotoes {
 		PainelTagsGerais painelTagsGerais = controller.getPainelTagsGerais();
 		ControllerImage controllerImage = ControllerImage.getInstace();
 		
-		//criando um Array de File e alimentando ele com o path de todas as músicas, já ordenadas
+		// criando um Array de File e alimentando ele com o path de todas as músicas, já ordenadas
 		List<File> musicas = new ArrayList<File>();
 		for (int i = 0; i < painelFaixas.getTextFieldLabels().size(); i++) {
 			String faixaPath = painelFaixas.getTextFieldLabels().get(i).getText();
@@ -50,15 +56,33 @@ public class ControllerBotoes {
 			musicas.add(new File(path));
 		}
 		
-		//Verifica se algum disco já foi carregado
+		// Verifica se algum disco já foi carregado
 		if(listaTags == null){
 			new PopUp(ConstantesUI.POPUP_CARREGUE_UM_DISCO, TipoPopUp.INFO);
 			return;
 		}
 		
+		// Maneira meio louca de garantir a informação dentro do listaTags. E ainda ordenado
+		for (int i = 0; i < musicas.size(); i++) {
+			listaTags.get(i).setArtista(painelTagsGerais.getTextFieldArtista().getText());
+			listaTags.get(i).setAlbum(painelTagsGerais.getTextFieldAlbum().getText());
+			listaTags.get(i).setAno(painelTagsGerais.getTextFieldAno().getText());
+			listaTags.get(i).setGenero(painelTagsGerais.getTextFieldGenero().getText());
+			listaTags.get(i).setNumero(painelFaixas.getTextFieldsNumero().get(i).getText());
+			listaTags.get(i).setNomeDaMusica(painelFaixas.getTextFieldsFaixas().get(i).getText());
+			listaTags.get(i).setImage(controllerImage.getImagem());
+		}
+		
 		//Seta todas as tags
-		setTags(controller, painelFaixas, painelTagsGerais, controllerImage,
-				musicas);
+		try {
+			setTags(listaTags,musicas);
+		} catch (NullPointerException e) {
+			new PopUp(ConstantesUI.POPUP_CAMPOS_OBRIGATORIOS, TipoPopUp.INFO);
+		} catch (ReadOnlyFileException e) {
+			new PopUp(ConstantesUI.POPUP_ARQUIVO_APENAS_DE_LEITURA, TipoPopUp.ERROR);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 //		String artista = listaTags.get(0).getArtista();
 //		String album = listaTags.get(0).getAlbum();
@@ -70,35 +94,33 @@ public class ControllerBotoes {
 //		}
 	}
 
-	private void setTags(Controller controller, PainelFaixas painelFaixas,
-			PainelTagsGerais painelTagsGerais, ControllerImage controllerImage,
-			List<File> musicas) {
+	private void setTags(ArrayList<Tags> listaTags,List<File> musicas) throws ReadOnlyFileException, NullPointerException, Exception {
+		int erro = 0;
 		for (int i = 0; i < musicas.size(); i++) {
-			try {
-				if(controller.validator(musicas.get(i))){
 				AudioFile f = AudioFileIO.read(musicas.get(i));
 				Tag tag = f.getTag();
-				tag.setField(FieldKey.ARTIST, painelTagsGerais.getTextFieldArtista().getText());
-				tag.setField(FieldKey.ALBUM, painelTagsGerais.getTextFieldAlbum().getText());
-				tag.setField(FieldKey.YEAR, painelTagsGerais.getTextFieldAno().getText());
-				tag.setField(FieldKey.GENRE, painelTagsGerais.getTextFieldGenero().getText());
-				tag.deleteArtworkField();
-				Artwork art = setArtwork(controllerImage.getImagem());
-				tag.setField(art);
-				tag.setField(FieldKey.YEAR, painelFaixas.getTextFieldsNumero().get(i).getText());
-				tag.setField(FieldKey.TITLE, painelFaixas.getTextFieldsFaixas().get(i).getText());
-				f.commit();
+				tag.setField(FieldKey.ARTIST, listaTags.get(i).getArtista());
+				tag.setField(FieldKey.ALBUM, listaTags.get(i).getAlbum());
+				tag.setField(FieldKey.YEAR, listaTags.get(i).getAno());
+				tag.setField(FieldKey.GENRE, listaTags.get(i).getGenero());
+				tag.setField(FieldKey.TRACK, listaTags.get(i).getNumero());
+				tag.setField(FieldKey.TITLE, listaTags.get(i).getNomeDaMusica());
+				try {
+					Artwork art = setArtwork(listaTags.get(i).getImage());
+					tag.deleteArtworkField();
+					tag.setField(art);
+				} catch (ImagemVaziaException e) {
+					erro++; //Isso me garante, que o pop-up só vai ser exibido 1x
+					if(erro <= 1){
+						new PopUp(ConstantesUI.POPUP_IMAGE_VAZIA, TipoPopUp.INFO);
+					}
 				}
-			} catch (NullPointerException e) {
-				new PopUp(ConstantesUI.POPUP_CAMPOS_OBRIGATORIOS, TipoPopUp.INFO);
-				return;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+				f.commit();
 		}
 	}
 	
-	private Artwork setArtwork(byte[] image){
+	private Artwork setArtwork(byte[] image) throws ImagemVaziaException{
+		if(image != null){
 		File cover = new File("cover.jpg");
 		FileOutputStream fos = null;
 		Artwork art = null;
@@ -120,6 +142,9 @@ public class ControllerBotoes {
 			}
 		}
 		return art;
+		}else{
+			throw new ImagemVaziaException();
+		}
 	}
 
 }

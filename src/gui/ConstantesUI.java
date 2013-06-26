@@ -38,6 +38,8 @@ public class ConstantesUI {
 	public static final String POPUP_CAMPOS_OBRIGATORIOS = "Todos os campos são obrigatórios";
 	public static final String POPUP_ERRO = "Erro";
 	public static final String POPUP_INFO = "Info";
+	public static final String POPUP_IMAGE_VAZIA = "O campo image, está vazio";
+	public static final String POPUP_ARQUIVO_APENAS_DE_LEITURA = "Arquivo apenas de leitura";
 	public static final String DIALOG_ESCOLHA_UM_CD = "Escolha um CD";
 	
 	//Erros
