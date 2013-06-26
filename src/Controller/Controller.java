@@ -47,10 +47,25 @@ import Exception.ListaVaziaException;
 
 public class Controller {
 
+	private static Controller controller;
 	private Tags tag;
+	private ArrayList<Tags> listaTags = null;
+	private File disco = null;
+	
+	private PainelTagsGerais painelTagsGerais = null;
+	private PainelFaixas painelFaixas = null;
+	private PainelImagem painelImagem = null;
 
-	public Controller() {
+	private Controller() {
 		tag = new Tags();
+	}
+	
+	public static Controller getInstace(){
+		if(controller == null){
+			controller = new Controller();
+			return controller;
+		}
+		return controller;
 	}
 
 	/**
@@ -59,18 +74,19 @@ public class Controller {
 	 * @return ArrayList de tags
 	 */
 	public ArrayList<Tags> parserFileToTagsList(File disco) {
-		File[] files = disco.listFiles();
+		this.disco = disco;
+		File[] musicas = disco.listFiles();
 		AudioFile audioFile = null;
-		ArrayList<Tags> listaTags = new ArrayList<Tags>();
+		listaTags = new ArrayList<Tags>();
 
 		try {
 			int j = 0;
-			for (int i = 0; i < files.length; i++) {
+			for (int i = 0; i < musicas.length; i++) {
 
 				Tags tags = new Tags();
 				byte[] image = null;
-				if (validator(files[i])) {
-					audioFile = AudioFileIO.read(files[i]);
+				if (validator(musicas[i])) {
+					audioFile = AudioFileIO.read(musicas[i]);
 					Tag tag = audioFile.getTag();
 
 					String album = tag.getFirst(FieldKey.ALBUM);
@@ -79,7 +95,7 @@ public class Controller {
 					String genero = tag.getFirst(FieldKey.GENRE);
 					String nomeDaMusica = tag.getFirst(FieldKey.TITLE);
 					String numero = tag.getFirst(FieldKey.TRACK);
-					String nomeDoArquivo = files[i].getName();
+					String nomeDoArquivo = musicas[i].getName();
 
 					try {
 						Artwork artwork = tag.getFirstArtwork();
@@ -137,7 +153,7 @@ public class Controller {
 	 * @param file
 	 * @return true se for válido e false se nao for
 	 */
-	private boolean validator(File file) {
+	protected boolean validator(File file) {
 		String[] extensoes = new String[] { ConstantesUI.FORMATO_MP3 };
 		boolean result = false;
 
@@ -165,6 +181,10 @@ public class Controller {
 			PainelImagem painelImagem, PainelSelecaoImagem painelSelecaoImagem, ArrayList<Tags> listaTags)
 			throws ListaNulaException, ListaVaziaException {
 
+		this.painelFaixas = painelFaixas;
+		this.painelImagem = painelImagem;
+		this.painelTagsGerais = painelTagsGerais;
+		
 		String artista = ConstantesUI.STRING_VAZIA;
 		String album = ConstantesUI.STRING_VAZIA;
 		String ano = ConstantesUI.STRING_VAZIA;
@@ -253,4 +273,29 @@ public class Controller {
 		lista.set(i, lista.get(i + 1));
 		lista.set(i + 1, tmp);
 	}
+
+	public ArrayList<Tags> getListaTags() {
+		return listaTags;
+	}
+
+	private void setListaTags(ArrayList<Tags> listaTags) {
+		this.listaTags = listaTags;
+	}
+
+	public File getDisco() {
+		return disco;
+	}
+
+	public PainelTagsGerais getPainelTagsGerais() {
+		return painelTagsGerais;
+	}
+
+	public PainelFaixas getPainelFaixas() {
+		return painelFaixas;
+	}
+
+	public PainelImagem getPainelImagem() {
+		return painelImagem;
+	}
+	
 }

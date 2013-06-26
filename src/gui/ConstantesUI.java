@@ -32,7 +32,7 @@ public class ConstantesUI {
 	
 	
 	//pop-ups
-	public static final String POPUP_SELECIONE_UM_DISCO = "Selecione um disco primeiro";
+	public static final String POPUP_CARREGUE_UM_DISCO = "Nenhum disco carregado. Carregue um disco primeiro";
 	public static final String POPUP_DISCO_INVALIDO = "Selecione um disco válido";
 	public static final String POPUP_SELECIONE_UMA_IMAGEM = "Selecione uma imagem JPG ou PNG";
 	public static final String POPUP_ERRO = "Erro";

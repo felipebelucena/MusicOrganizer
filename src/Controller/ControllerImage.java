@@ -22,9 +22,19 @@ import Base.TipoPopUp;
 
 public class ControllerImage {
 	
+	private static ControllerImage controllerImage;
+	private byte[] imagem = null;
 	
-	public ControllerImage() {
+	private ControllerImage() {
 		
+	}
+	
+	public static ControllerImage getInstace(){
+		if(controllerImage == null){
+			controllerImage = new ControllerImage();
+			return controllerImage;
+		}
+		return controllerImage;
 	}
 	
 	/**
@@ -33,7 +43,6 @@ public class ControllerImage {
 	 * @param tipoBotaoImagem
 	 */
 	public byte[] loadImage(String url,TipoBotaoImagem tipoBotaoImagem) {
-		byte[] imagem = null;
 			switch (tipoBotaoImagem) {
 			case URL:
 				//TODO adicionar uma JProgressBar
@@ -142,6 +151,10 @@ public class ControllerImage {
 			}
 		}
 		return imagemBaixada;
+	}
+
+	public byte[] getImagem() {
+		return imagem;
 	}
 
 }

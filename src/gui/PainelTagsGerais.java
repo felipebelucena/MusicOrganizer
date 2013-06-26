@@ -91,4 +91,21 @@ public class PainelTagsGerais extends JPanel {
 		textFieldAno.setText(ano);
 		textFieldGenero.setText(genero);
 	}
+
+	public JTextField getTextFieldArtista() {
+		return textFieldArtista;
+	}
+
+	public JTextField getTextFieldAlbum() {
+		return textFieldAlbum;
+	}
+
+	public JTextField getTextFieldAno() {
+		return textFieldAno;
+	}
+
+	public JTextField getTextFieldGenero() {
+		return textFieldGenero;
+	}
+	
 }

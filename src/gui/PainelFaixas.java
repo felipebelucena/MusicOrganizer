@@ -15,6 +15,9 @@ import javax.swing.JTextField;
 public class PainelFaixas extends JPanel {
 
 	private GridBagConstraints gbc;
+	private ArrayList<JLabel> labels = null;
+	private ArrayList<JTextField> textFieldsNumero = null;
+	private ArrayList<JTextField> textFieldsFaixas = null;
 
 	public PainelFaixas() {
 		gbc = new GridBagConstraints();
@@ -64,5 +67,18 @@ public class PainelFaixas extends JPanel {
 
 		}
 	}
+
+	public ArrayList<JLabel> getLabels() {
+		return labels;
+	}
+
+	public ArrayList<JTextField> getTextFieldsNumero() {
+		return textFieldsNumero;
+	}
+
+	public ArrayList<JTextField> getTextFieldsFaixas() {
+		return textFieldsFaixas;
+	}
+	
 
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import Base.Tags;
 import Base.TipoBotaoImagem;
 import Controller.Controller;
+import Controller.ControllerBotoes;
 import Controller.ControllerImage;
 import Exception.ListaNulaException;
 import Exception.ListaVaziaException;
@@ -20,10 +21,12 @@ public class Facade {
 	private static Facade facade;
 	private Controller controller;
 	private ControllerImage controllerImage;
+	private ControllerBotoes controllerBotoes;
 
 	private Facade() {
-		controller = new Controller();
-		controllerImage = new ControllerImage();
+		controller = Controller.getInstace();
+		controllerImage = ControllerImage.getInstace();
+		controllerBotoes = new ControllerBotoes();
 	}
 
 	public static Facade getInstace() {
@@ -75,5 +78,9 @@ public class Facade {
 	 */
 	public byte[] loadDefaultImage() {
 		return controller.loadDefaultImage();
+	}
+
+	public void salvar() {
+		controllerBotoes.salvar();
 	}	
 }

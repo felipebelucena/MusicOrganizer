@@ -9,14 +9,18 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import Facade.Facade;
+
 
 @SuppressWarnings("serial")
 public class PainelBotoes extends JPanel {
 
 	private GridBagConstraints gbc;
+	private Facade facade;
 
 	public PainelBotoes() {
 		gbc = new GridBagConstraints();
+		facade = Facade.getInstace();
 		initComponents();
 	}
 
@@ -42,7 +46,7 @@ public class PainelBotoes extends JPanel {
 		botaoSalvar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("evento - botao salvar");
+				facade.salvar();
 			}
 		});
 	}

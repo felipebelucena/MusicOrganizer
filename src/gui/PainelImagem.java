@@ -72,4 +72,10 @@ public class PainelImagem extends JPanel {
 		    g2.dispose();
 		    return resizedImg;
 	}
+
+	public Image getImagemOriginal() {
+		return imagemOriginal;
+	}
+	
+	
 }
