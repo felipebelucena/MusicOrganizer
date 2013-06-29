@@ -29,7 +29,7 @@ public class PainelBotoes extends JPanel {
 	 */
 	private void initComponents() {
 		this.setLayout(new GridBagLayout());
-		JButton botaoSalvar = new JButton(ConstantesUI.BOTAO_SALVAR);
+		final JButton botaoSalvar = new JButton(ConstantesUI.BOTAO_SALVAR);
 		JButton botaoNome2Tag = new JButton(ConstantesUI.BOTAO_NOME2TAG);
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -46,7 +46,9 @@ public class PainelBotoes extends JPanel {
 		botaoSalvar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				botaoSalvar.setText(ConstantesUI.BOTAO_SALVANDO);
 				facade.salvar();
+				botaoSalvar.setText(ConstantesUI.BOTAO_SALVAR);
 			}
 		});
 	}

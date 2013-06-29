@@ -8,12 +8,13 @@ public class ConstantesUI {
 	public static final int ALTURA_TELA = 600;
 	public static final int ALTURA_IMAGEM = 150;
 	public static final int LARGURA_IMAGEM = 150;
-	public static final String TITULO = "Music Organizer";
+	public static final String TITULO = "Music Organizer 1.0";
 	public static final String LABEL_ARTISTA = "Artista";
 	public static final String LABEL_ARLBUM = "Album";
 	public static final String LABEL_ANO = "Ano";
 	public static final String LABEL_GENERO = "Genero";
 	public static final String BOTAO_SALVAR = "Salvar";
+	public static final String BOTAO_SALVANDO = "Salvando...";
 	public static final String BOTAO_NOME2TAG = "Nome > Tag";
 	public static final String RADIOBUTTON_PEGAR_DA_URL = "pegar da URL";
 	public static final String RADIOBUTTON_PEGAR_DE_ARQUIVO = "pegar de um arquivo";
@@ -40,6 +41,8 @@ public class ConstantesUI {
 	public static final String POPUP_INFO = "Info";
 	public static final String POPUP_IMAGE_VAZIA = "O campo image, está vazio";
 	public static final String POPUP_ARQUIVO_APENAS_DE_LEITURA = "Arquivo apenas de leitura";
+	public static final String POPUP_FALHA_CRIACAO_DIRETORIO = "Falha na criação do Diretório na sua pasta de música";
+	public static final String POPUP_SALVO_COM_SUCESSO = "Salvo com Sucesso";
 	public static final String DIALOG_ESCOLHA_UM_CD = "Escolha um CD";
 	
 	//Erros
