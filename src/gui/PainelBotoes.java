@@ -17,6 +17,8 @@ public class PainelBotoes extends JPanel {
 
 	private GridBagConstraints gbc;
 	private Facade facade;
+	private static JButton botaoSalvar;
+	private static JButton botaoNome2Tag;
 
 	public PainelBotoes() {
 		gbc = new GridBagConstraints();
@@ -29,8 +31,9 @@ public class PainelBotoes extends JPanel {
 	 */
 	private void initComponents() {
 		this.setLayout(new GridBagLayout());
-		final JButton botaoSalvar = new JButton(ConstantesUI.BOTAO_SALVAR);
-		JButton botaoNome2Tag = new JButton(ConstantesUI.BOTAO_NOME2TAG);
+		botaoSalvar = new JButton(ConstantesUI.BOTAO_SALVAR);
+		botaoNome2Tag = new JButton(ConstantesUI.BOTAO_NOME2TAG);
+		habilitarComponentes(false);
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.weightx = 0;
@@ -51,6 +54,11 @@ public class PainelBotoes extends JPanel {
 				botaoSalvar.setText(ConstantesUI.BOTAO_SALVAR);
 			}
 		});
+	}
+	
+	public static void habilitarComponentes(boolean habilitar){
+		botaoSalvar.setEnabled(habilitar);
+		botaoNome2Tag.setEnabled(habilitar);
 	}
 
 }

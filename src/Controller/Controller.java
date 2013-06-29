@@ -1,5 +1,6 @@
 package Controller;
 
+import gui.PainelBotoes;
 import gui.PainelFaixas;
 import gui.PainelImagem;
 import gui.PainelSelecaoImagem;
@@ -248,6 +249,8 @@ public class Controller {
 			painelFaixas.updateValues(labels, textFieldsNumero,
 					textFieldsFaixas);
 			painelSelecaoImagem.habilitarComponentes(true);
+			painelTagsGerais.habilitarComponentes(true);
+			PainelBotoes.habilitarComponentes(true);
 			painelImagem.updateImage(tag.getImage());
 
 		} catch (NullPointerException e) {

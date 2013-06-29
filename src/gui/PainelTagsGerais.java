@@ -17,6 +17,11 @@ public class PainelTagsGerais extends JPanel {
 	private JTextField textFieldAlbum;
 	private JTextField textFieldAno;
 	private JTextField textFieldGenero;
+	
+	private JLabel labelArtista;
+	private JLabel labelAlbum;
+	private JLabel labelAno;
+	private JLabel labelGenero;
 
 	public PainelTagsGerais() {
 		gbc = new GridBagConstraints();
@@ -28,10 +33,10 @@ public class PainelTagsGerais extends JPanel {
 	 */
 	private void initComponents() {
 
-		JLabel labelArtista = new JLabel(ConstantesUI.LABEL_ARTISTA);
-		JLabel labelAlbum = new JLabel(ConstantesUI.LABEL_ARLBUM);
-		JLabel labelAno = new JLabel(ConstantesUI.LABEL_ANO);
-		JLabel labelGenero = new JLabel(ConstantesUI.LABEL_GENERO);
+		labelArtista = new JLabel(ConstantesUI.LABEL_ARTISTA);
+		labelAlbum = new JLabel(ConstantesUI.LABEL_ARLBUM);
+		labelAno = new JLabel(ConstantesUI.LABEL_ANO);
+		labelGenero = new JLabel(ConstantesUI.LABEL_GENERO);
 
 		textFieldArtista = new JTextField(10);
 		textFieldAlbum = new JTextField(10);
@@ -43,6 +48,7 @@ public class PainelTagsGerais extends JPanel {
 		labelAno.setLabelFor(textFieldAno);
 		labelGenero.setLabelFor(textFieldGenero);
 
+		habilitarComponentes(false);
 		this.setLayout(new GridBagLayout());
 		this.setBorder(BorderFactory.createTitledBorder(ConstantesUI.BORDA_TAGS_GERAIS));
 
@@ -90,6 +96,17 @@ public class PainelTagsGerais extends JPanel {
 		textFieldAlbum.setText(album);
 		textFieldAno.setText(ano);
 		textFieldGenero.setText(genero);
+	}
+	
+	public void habilitarComponentes(boolean habilitar){
+		labelArtista.setEnabled(habilitar);
+		labelAlbum.setEnabled(habilitar);
+		labelAno.setEnabled(habilitar);
+		labelGenero.setEnabled(habilitar);
+		textFieldArtista.setEnabled(habilitar);
+		textFieldAlbum.setEnabled(habilitar);
+		textFieldAno.setEnabled(habilitar);
+		textFieldGenero.setEnabled(habilitar);
 	}
 
 	public JTextField getTextFieldArtista() {
