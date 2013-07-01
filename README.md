@@ -16,6 +16,8 @@ Uma vez as tags digitadas corretamente, o programa faz as seguinte alterações:
 Ficando como o exemplo a seguir:
 `Gilberto Gil/1972 - Expresso 2222/01 - Pipoca Moderna.mp3`
 
+Explicação mais detalhada sobre o Objetivo do Projeto, lá na página de [Wiki](https://github.com/frankjuniorr/MusicOrganizer/wiki/Objetivo-do-Projeto)
+
 ## Instalação (Para Desenvolvedores)
 O projeto é feito no Eclipse, e eu versionei os arquivos próprios dele, logo, é só fazer um 
 `git clone https://github.com/frankjuniorr/MusicOrganizer.git`
@@ -33,7 +35,7 @@ EM CONSTRUÇÃO
 
 Pra quem precisa de ajuda com git, acesse esses links:
 - [Managing Projects with GitHub](http://www.lullabot.com/blog/managing-projects-github)
-- [Guia pra quem manja de SVN](https://git.wiki.kernel.org/articles/g/i/t/GitSvnCrashCourse_512d.html)
+- [Guia pra quem saca de SVN](https://git.wiki.kernel.org/articles/g/i/t/GitSvnCrashCourse_512d.html)
 - [Git Reference](http://gitref.org) — Guia rápido, com exemplos
 - [The Git Parable](http://tom.preston-werner.com/2009/05/19/the-git-parable.html) — Entenda a filosofia por trás do git
 - [Help GitHub](https://help.github.com/) — A propria página de help do Github é muito boa
