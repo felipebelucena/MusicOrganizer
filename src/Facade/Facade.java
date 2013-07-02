@@ -82,5 +82,9 @@ public class Facade {
 
 	public void salvar() {
 		controllerBotoes.salvar();
+	}
+
+	public void nome2Tags() {
+		controllerBotoes.nome2Tags();
 	}	
 }

@@ -54,6 +54,13 @@ public class PainelBotoes extends JPanel {
 				botaoSalvar.setText(ConstantesUI.BOTAO_SALVAR);
 			}
 		});
+		
+		botaoNome2Tag.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				facade.nome2Tags();
+			}
+		});
 	}
 	
 	public static void habilitarComponentes(boolean habilitar){

@@ -15,6 +15,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JLabel;
+
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
@@ -31,6 +33,7 @@ public class ControllerBotoes {
 	private Controller controller;
 	
 	public ControllerBotoes() {
+		controller = Controller.getInstace();
 		
 	}
 	
@@ -46,7 +49,6 @@ public class ControllerBotoes {
 //		String diretorioDeMusica = "/home/frank/Dropbox/Music/musica_oficial";
 		String diretorioDeMusica = "/Users/FrankJunior/Dropbox/Music/musica_oficial";
 		
-		Controller controller = Controller.getInstace();
 		ArrayList<Tags> listaTags = controller.getListaTags();
 		PainelFaixas painelFaixas = controller.getPainelFaixas();
 		PainelTagsGerais painelTagsGerais = controller.getPainelTagsGerais();
@@ -333,6 +335,19 @@ public class ControllerBotoes {
 		return art;
 		}else{
 			throw new ImagemVaziaException();
+		}
+	}
+	
+	/**
+	 * Escreve os nomes dos arquivos, nos JTextfield do PainelFaixas
+	 */
+	public void nome2Tags(){
+		PainelFaixas painelFaixas = controller.getPainelFaixas();
+		ArrayList<JLabel> nomes = painelFaixas.getTextFieldLabels();
+		
+		for (int i = 0; i < nomes.size(); i++) {
+			String faixa = nomes.get(i).getText();
+			painelFaixas.getTextFieldsFaixas().get(i).setText(faixa);
 		}
 	}
 
