@@ -34,6 +34,13 @@ public class ControllerBotoes {
 		
 	}
 	
+	/**
+	 * Método chamado pelo botão "salvar".
+	 * Faz basicamente 3 coisas:
+	 * 1 - Seta as tags
+	 * 2 - Cria a arvore de diretorio de acordo com a necessidade
+	 * 3 - move os .mp3 corrigidos para a arvore
+	 */
 	public void salvar(){
 		//TODO pegar de um arquivo de properties
 //		String diretorioDeMusica = "/home/frank/Dropbox/Music/musica_oficial";
@@ -107,6 +114,10 @@ public class ControllerBotoes {
 		
 	}
 	
+	/**
+	 * Método auxiliar, para deletar uma pasta recursivamente
+	 * @param file
+	 */
 	private void delete(File file){
 		if(file.isDirectory()){
 			//diretório ta vazio, entao, delete ele
@@ -137,6 +148,11 @@ public class ControllerBotoes {
 		}
 	}
 
+	/**
+	 * Método auxiliar para mover uma lsia de arquivo para um diretório
+	 * @param musicas
+	 * @param tempDir
+	 */
 	private void moveFile(List<File> musicas, File tempDir) {
 		InputStream inStream = null;
 		OutputStream outStream = null;
@@ -175,6 +191,12 @@ public class ControllerBotoes {
 		}
 	}
 	
+	/**
+	 * Método auxiliar, para criar a arvore de diretorio de acordo com a necessidade.
+	 * @param diretorioDeMusica
+	 * @param listaTags
+	 * @return Objeto File criado
+	 */
 	private File tempDirCreate(String diretorioDeMusica,
 			ArrayList<Tags> listaTags) {
 		File tempDir = null;
@@ -202,6 +224,11 @@ public class ControllerBotoes {
 		return tempDir;
 	}
 
+	/**
+	 * Método auxiliar, para renomar uma lista de arquivos, baseados em uma lista de tags
+	 * @param listaTags
+	 * @param musicas
+	 */
 	private void renameFile(ArrayList<Tags> listaTags, List<File> musicas) {
 		for (int i = 0; i < musicas.size(); i++) {
 			String path = musicas.get(i).getParent();
@@ -211,6 +238,12 @@ public class ControllerBotoes {
 		}
 	}
 	
+	/**
+	 * Método auxiliar, para procurar um disco ou um album, no diretorio de musica
+	 * @param diretorioDeMusica
+	 * @param name
+	 * @return true se encontrou a busca, e false se nao encontrou
+	 */
 	private boolean search(String diretorioDeMusica, String name) {
 		boolean result = false;
 		File diretorioDeMusicaFile = new File(diretorioDeMusica);
@@ -236,6 +269,14 @@ public class ControllerBotoes {
 		return result;
 	}
 	
+	/**
+	 * Método auxiliar, para setar as tags de uma lista de .mp3
+	 * @param listaTags
+	 * @param musicas
+	 * @throws ReadOnlyFileException
+	 * @throws NullPointerException
+	 * @throws Exception
+	 */
 	private void setTags(ArrayList<Tags> listaTags,List<File> musicas) throws ReadOnlyFileException, NullPointerException, Exception {
 		int erro = 0;
 		for (int i = 0; i < musicas.size(); i++) {
@@ -261,6 +302,12 @@ public class ControllerBotoes {
 		}
 	}
 	
+	/**
+	 * Método para setar a imagem na tag
+	 * @param image
+	 * @return
+	 * @throws ImagemVaziaException
+	 */
 	private Artwork setArtwork(byte[] image) throws ImagemVaziaException{
 		if(image != null){
 		File cover = new File("cover.jpg");
