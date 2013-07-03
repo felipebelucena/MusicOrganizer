@@ -1,31 +1,20 @@
 package Controller;
 
+import gui.ConstantesUI;
 import gui.PainelBotoes;
 import gui.PainelFaixas;
 import gui.PainelImagem;
 import gui.PainelSelecaoImagem;
 import gui.PainelTagsGerais;
-import gui.PopUp;
-import gui.ConstantesUI;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.JLabel;
-import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 
 import org.jaudiotagger.audio.AudioFile;
@@ -38,11 +27,7 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.datatype.Artwork;
 
-
 import Base.Tags;
-import Base.TipoBotaoImagem;
-import Base.TipoImagemFile;
-import Base.TipoPopUp;
 import Exception.ListaNulaException;
 import Exception.ListaVaziaException;
 
@@ -276,10 +261,6 @@ public class Controller {
 
 	public ArrayList<Tags> getListaTags() {
 		return listaTags;
-	}
-
-	private void setListaTags(ArrayList<Tags> listaTags) {
-		this.listaTags = listaTags;
 	}
 
 	public File getDisco() {

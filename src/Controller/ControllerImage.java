@@ -15,7 +15,6 @@ import java.net.UnknownHostException;
 
 import javax.imageio.ImageIO;
 
-import Base.Tags;
 import Base.TipoBotaoImagem;
 import Base.TipoImagemFile;
 import Base.TipoPopUp;

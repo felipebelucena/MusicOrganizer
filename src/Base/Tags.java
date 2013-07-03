@@ -1,6 +1,5 @@
 package Base;
 
-import java.util.Comparator;
 
 public class Tags {
 	

@@ -2,6 +2,7 @@ package Exception;
 
 import gui.ConstantesUI;
 
+@SuppressWarnings("serial")
 public class ListaNulaException extends Exception {
 	
 	public ListaNulaException() {
