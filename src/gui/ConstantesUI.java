@@ -31,7 +31,6 @@ public class ConstantesUI {
 	public static final String MENU_FILE = "File";
 	public static final String MENU_ITEM_OPEN = "Open";
 	
-	
 	//pop-ups
 	public static final String POPUP_CARREGUE_UM_DISCO = "Nenhum disco carregado. Carregue um disco primeiro";
 	public static final String POPUP_DISCO_INVALIDO = "Selecione um disco válido";
@@ -43,6 +42,8 @@ public class ConstantesUI {
 	public static final String POPUP_ARQUIVO_APENAS_DE_LEITURA = "Arquivo apenas de leitura";
 	public static final String POPUP_FALHA_CRIACAO_DIRETORIO = "Falha na criação do Diretório na sua pasta de música";
 	public static final String POPUP_SALVO_COM_SUCESSO = "Salvo com Sucesso";
+	public static final String POPUP_INFORME_DIRETORIO_DE_MUSICA = "Voce deve primeiro, informar seu diretorio de música, no menu de configuração";
+	public static final String POPUP_DIRETORIO_DE_MUSICA_INVALIDO = "Diretorio de Musica nao existe. Selecione um diretorio válido";
 	
 	//Dialogs
 	public static final String DIALOG_ESCOLHA_UM_CD = "Escolha um CD";
@@ -57,6 +58,8 @@ public class ConstantesUI {
 	
 	//Arquivos
 	public static final String IMAGEM_PADRAO = "imagem-padrao.jpg";
+	public static final String ARQUIVO_DE_PROPERTIES = "config.properties";
+	public static final String DIRETORIO_DE_MUSICA = "diretorioDeMusica";
 	
 	//formatos
 	public static final String FORMATO_MP3 = "mp3";
