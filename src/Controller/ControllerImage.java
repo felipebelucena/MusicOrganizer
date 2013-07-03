@@ -38,9 +38,10 @@ public class ControllerImage {
 	}
 	
 	/**
-	 * Carrega uma imagem, de uma URL ou de um arquivo, e atualiza a UI
+	 * Carrega uma imagem, de uma URL ou de um arquivo
 	 * @param url
 	 * @param tipoBotaoImagem
+	 * @return a imagem selecionada
 	 */
 	public byte[] loadImage(String url,TipoBotaoImagem tipoBotaoImagem) {
 			switch (tipoBotaoImagem) {
@@ -55,6 +56,7 @@ public class ControllerImage {
 					imagem = loadImageFromFile(url, TipoImagemFile.PNG);
 				}else{
 					new PopUp(ConstantesUI.POPUP_SELECIONE_UMA_IMAGEM, TipoPopUp.INFO);
+					imagem = null;
 				}
 				break;
 			}

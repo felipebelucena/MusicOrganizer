@@ -76,19 +76,23 @@ public class PainelSelecaoImagem extends JPanel {
 			byte[] imagem = null;
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand().equals(ConstantesUI.OK)){
+				if(radioURL.isSelected()){
 					String url = textFieldSelecaoImagem.getText();
 					imagem = facade.loadImage(url, TipoBotaoImagem.URL);
-					updateImage();
-				}else{
+					if(imagem != null){
+						painelImagem.updateImage(imagem);
+					}
+				}else if(radioArquivo.isSelected()){
+					if(ConstantesUI.STRING_VAZIA.equals(textFieldSelecaoImagem.getText())){
+						new DialogOpenImage(textFieldSelecaoImagem);
+					}
 					String url = textFieldSelecaoImagem.getText();
 					imagem = facade.loadImage(url, TipoBotaoImagem.ARQUIVO);
-					updateImage();
-				}
-			}
-			private void updateImage() {
-				if(imagem != null){
-				painelImagem.updateImage(imagem);
+					if(imagem != null){
+						painelImagem.updateImage(imagem);
+					}else{
+						textFieldSelecaoImagem.setText(ConstantesUI.STRING_VAZIA);
+					}
 				}
 			}
 		});
@@ -98,6 +102,8 @@ public class PainelSelecaoImagem extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				labelSelecaoImagem.setText(ConstantesUI.INFORME_URL_IMAGEM);
 				botaoSelecaoImagem.setText(ConstantesUI.OK);
+				textFieldSelecaoImagem.setText(ConstantesUI.STRING_VAZIA);
+				textFieldSelecaoImagem.setEnabled(true);
 			}
 		});
 		
@@ -106,6 +112,8 @@ public class PainelSelecaoImagem extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				labelSelecaoImagem.setText(ConstantesUI.SELECIONE_ARQUIVO_IMAGEM);
 				botaoSelecaoImagem.setText(ConstantesUI.PROCURAR);
+				textFieldSelecaoImagem.setText(ConstantesUI.STRING_VAZIA);
+				textFieldSelecaoImagem.setEnabled(false);
 			}
 		});
 	}

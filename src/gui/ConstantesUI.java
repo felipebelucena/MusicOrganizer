@@ -43,7 +43,11 @@ public class ConstantesUI {
 	public static final String POPUP_ARQUIVO_APENAS_DE_LEITURA = "Arquivo apenas de leitura";
 	public static final String POPUP_FALHA_CRIACAO_DIRETORIO = "Falha na criação do Diretório na sua pasta de música";
 	public static final String POPUP_SALVO_COM_SUCESSO = "Salvo com Sucesso";
+	
+	//Dialogs
 	public static final String DIALOG_ESCOLHA_UM_CD = "Escolha um CD";
+	public static final String DIALOG_ESCOLHA_UMA_IMAGEM = "Escolha uma imagem";
+	public static final String DIALOG_FILTRO = "JPG & PNG Images";
 	
 	//Erros
 	public static final String ERRO_PROBLEMA_COM_A_INTERNET = "Problemas com a conexao com a internet";
