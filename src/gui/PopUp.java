@@ -20,6 +20,9 @@ public class PopUp {
 		case INFO:
 			JOptionPane.showMessageDialog(null, msg, ConstantesUI.POPUP_INFO, JOptionPane.INFORMATION_MESSAGE);
 			break;
+		case WARNING:
+			JOptionPane.showMessageDialog(null, msg, ConstantesUI.POPUP_WARNING, JOptionPane.WARNING_MESSAGE);
+			break;
 		}
 	}
 

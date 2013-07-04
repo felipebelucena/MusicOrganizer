@@ -46,15 +46,10 @@ public class ControllerBotoes {
 	 * os .mp3 corrigidos para a arvore
 	 */
 	public void salvar() {
-		// TODO pegar de um arquivo de properties
-		// String diretorioDeMusica =
-		// "/home/frank/Dropbox/Music/musica_oficial";
-		// String diretorioDeMusica =
-		// "/Users/FrankJunior/Dropbox/Music/musica_oficial";
 		String diretorioDeMusica = PropertiesFile.getProperties();
 		if (diretorioDeMusica == null
 				|| ConstantesUI.STRING_VAZIA.equals(diretorioDeMusica)) {
-			new PopUp(ConstantesUI.POPUP_INFORME_DIRETORIO_DE_MUSICA, TipoPopUp.INFO);
+			new PopUp(ConstantesUI.POPUP_INFORME_DIRETORIO_DE_MUSICA, TipoPopUp.WARNING);
 			return;
 		}
 		
@@ -69,7 +64,7 @@ public class ControllerBotoes {
 
 		// Verifica se algum disco já foi carregado
 		if (listaTags == null) {
-			new PopUp(ConstantesUI.POPUP_CARREGUE_UM_DISCO, TipoPopUp.INFO);
+			new PopUp(ConstantesUI.POPUP_CARREGUE_UM_DISCO, TipoPopUp.WARNING);
 			return;
 		}
 
@@ -106,7 +101,7 @@ public class ControllerBotoes {
 		try {
 			setTags(listaTags, musicas);
 		} catch (NullPointerException e) {
-			new PopUp(ConstantesUI.POPUP_CAMPOS_OBRIGATORIOS, TipoPopUp.INFO);
+			new PopUp(ConstantesUI.POPUP_CAMPOS_OBRIGATORIOS, TipoPopUp.WARNING);
 		} catch (ReadOnlyFileException e) {
 			new PopUp(ConstantesUI.POPUP_ARQUIVO_APENAS_DE_LEITURA,
 					TipoPopUp.ERROR);
@@ -339,7 +334,7 @@ public class ControllerBotoes {
 			} catch (ImagemVaziaException e) {
 				erro++; // Isso me garante, que o pop-up só vai ser exibido 1x
 				if (erro <= 1) {
-					new PopUp(ConstantesUI.POPUP_IMAGE_VAZIA, TipoPopUp.INFO);
+					new PopUp(ConstantesUI.POPUP_IMAGE_VAZIA, TipoPopUp.WARNING);
 				}
 			}
 			f.commit();

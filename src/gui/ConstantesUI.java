@@ -40,6 +40,7 @@ public class ConstantesUI {
 	public static final String POPUP_CAMPOS_OBRIGATORIOS = "Todos os campos são obrigatórios";
 	public static final String POPUP_ERRO = "Erro";
 	public static final String POPUP_INFO = "Info";
+	public static final String POPUP_WARNING = "Warning";
 	public static final String POPUP_IMAGE_VAZIA = "O campo image, está vazio";
 	public static final String POPUP_ARQUIVO_APENAS_DE_LEITURA = "Arquivo apenas de leitura";
 	public static final String POPUP_FALHA_CRIACAO_DIRETORIO = "Falha na criação do Diretório na sua pasta de música";

@@ -111,7 +111,7 @@ public class TelaPrincipal extends JFrame {
 		
 		String diretorioDeMusica = PropertiesFile.getProperties();
 		if(diretorioDeMusica == null || ConstantesUI.STRING_VAZIA.equals(diretorioDeMusica)){
-			new PopUp(ConstantesUI.POPUP_DIRETORIO_DE_MUSICA_VAZIO, TipoPopUp.INFO);
+			new PopUp(ConstantesUI.POPUP_DIRETORIO_DE_MUSICA_VAZIO, TipoPopUp.WARNING);
 		}
 	}
 
