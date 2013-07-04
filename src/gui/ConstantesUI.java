@@ -29,7 +29,9 @@ public class ConstantesUI {
 	
 	//Barra de Menu
 	public static final String MENU_FILE = "File";
+	public static final String MENU_SETTINGS = "Settings";
 	public static final String MENU_ITEM_OPEN = "Open";
+	public static final String MENU_ITEM_SET_MUSIC_FOLDER = "Set Music Folder";
 	
 	//pop-ups
 	public static final String POPUP_CARREGUE_UM_DISCO = "Nenhum disco carregado. Carregue um disco primeiro";
@@ -44,9 +46,12 @@ public class ConstantesUI {
 	public static final String POPUP_SALVO_COM_SUCESSO = "Salvo com Sucesso";
 	public static final String POPUP_INFORME_DIRETORIO_DE_MUSICA = "Voce deve primeiro, informar seu diretorio de música, no menu de configuração";
 	public static final String POPUP_DIRETORIO_DE_MUSICA_INVALIDO = "Diretorio de Musica nao existe. Selecione um diretorio válido";
+	public static final String POPUP_DIRETORIO_DE_MUSICA_VAZIO = "Seu diretorio de Musica está vazio. Por favor, informe no menu de Settings";
+	public static final String POPUP_DIRETORIO_DE_MUSICA_SALVO = "Diretório salvo com sucesso";
 	
 	//Dialogs
 	public static final String DIALOG_ESCOLHA_UM_CD = "Escolha um CD";
+	public static final String DIALOG_SET_MUSIC_FOLDER = "Informe sua pasta de música";
 	public static final String DIALOG_ESCOLHA_UMA_IMAGEM = "Escolha uma imagem";
 	public static final String DIALOG_FILTRO = "JPG & PNG Images";
 	

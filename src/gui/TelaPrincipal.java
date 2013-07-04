@@ -14,6 +14,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import util.PropertiesFile;
+
+import Base.TipoPopUp;
+
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
 
@@ -39,8 +43,13 @@ public class TelaPrincipal extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menuFile = new JMenu(ConstantesUI.MENU_FILE);
 		JMenuItem menuItemAbrir = new JMenuItem(ConstantesUI.MENU_ITEM_OPEN);
+		
+		JMenu menuSettings = new JMenu(ConstantesUI.MENU_SETTINGS);
+		JMenuItem menuItemSetMusicFolder = new JMenuItem(ConstantesUI.MENU_ITEM_SET_MUSIC_FOLDER);
 		menuFile.add(menuItemAbrir);
+		menuSettings.add(menuItemSetMusicFolder);
 		menuBar.add(menuFile);
+		menuBar.add(menuSettings);
 
 		// Set up do layout
 		JPanel painelCentral = new JPanel();
@@ -76,11 +85,19 @@ public class TelaPrincipal extends JFrame {
 
 		final PainelSelecaoImagem painelSelecaoImagem = new PainelSelecaoImagem(painelImagem);
 		painelDireita.add(painelSelecaoImagem, BorderLayout.CENTER);
-
+		
 		menuItemAbrir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new DialogOpenDisco(painelTagsGerais, painelFaixas, painelImagem, painelSelecaoImagem);
+			}
+		});
+		
+		menuItemSetMusicFolder.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new DialogSetMusicFolder();
+				new PopUp(ConstantesUI.POPUP_DIRETORIO_DE_MUSICA_SALVO, TipoPopUp.INFO);
 			}
 		});
 		
@@ -91,6 +108,11 @@ public class TelaPrincipal extends JFrame {
 		this.add(scrollPane, BorderLayout.CENTER);
 
 		this.setVisible(true);
+		
+		String diretorioDeMusica = PropertiesFile.getProperties();
+		if(diretorioDeMusica == null || ConstantesUI.STRING_VAZIA.equals(diretorioDeMusica)){
+			new PopUp(ConstantesUI.POPUP_DIRETORIO_DE_MUSICA_VAZIO, TipoPopUp.INFO);
+		}
 	}
 
 }

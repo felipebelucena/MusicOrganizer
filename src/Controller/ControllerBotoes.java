@@ -25,6 +25,8 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.datatype.Artwork;
 
+import util.PropertiesFile;
+
 import Base.Tags;
 import Base.TipoPopUp;
 import Exception.ImagemVaziaException;
@@ -49,7 +51,7 @@ public class ControllerBotoes {
 		// "/home/frank/Dropbox/Music/musica_oficial";
 		// String diretorioDeMusica =
 		// "/Users/FrankJunior/Dropbox/Music/musica_oficial";
-		String diretorioDeMusica = getProperties();
+		String diretorioDeMusica = PropertiesFile.getProperties();
 		if (diretorioDeMusica == null
 				|| ConstantesUI.STRING_VAZIA.equals(diretorioDeMusica)) {
 			new PopUp(ConstantesUI.POPUP_INFORME_DIRETORIO_DE_MUSICA, TipoPopUp.INFO);
@@ -138,30 +140,9 @@ public class ControllerBotoes {
 	}
 
 	/**
-	 * Pega o diretorio de musica de um arquivo de properties
-	 * @return String do diretorio de musica do ususario
-	 */
-	private String getProperties() {
-		String diretorioDeMusica = null;
-		Properties prop = new Properties();
-		try {
-			prop.load(new FileInputStream(ConstantesUI.ARQUIVO_DE_PROPERTIES));
-			diretorioDeMusica = prop
-					.getProperty(ConstantesUI.DIRETORIO_DE_MUSICA);
-		} catch (FileNotFoundException e) {
-			System.out.println(e.getMessage());
-			diretorioDeMusica = null;
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-			diretorioDeMusica = null;
-		}
-		return diretorioDeMusica;
-	}
-
-	/**
 	 * Método auxiliar, para deletar uma pasta recursivamente
 	 * 
-	 * @param file
+	 * @param Arquivo a ser deletado
 	 */
 	private void delete(File file) {
 		if (file.isDirectory()) {
