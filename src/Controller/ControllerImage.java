@@ -54,7 +54,7 @@ public class ControllerImage {
 				}else if(url.endsWith(ConstantesUI.FORMATO_PNG)){
 					imagem = loadImageFromFile(url, TipoImagemFile.PNG);
 				}else{
-					new PopUp(ConstantesUI.POPUP_SELECIONE_UMA_IMAGEM, TipoPopUp.INFO);
+					new PopUp(ConstantesUI.POPUP_SELECIONE_UMA_IMAGEM, TipoPopUp.WARNING);
 					imagem = null;
 				}
 				break;
@@ -136,7 +136,7 @@ public class ControllerImage {
 		} catch (UnknownHostException e) {
 			new PopUp(ConstantesUI.ERRO_PROBLEMA_COM_A_INTERNET, TipoPopUp.ERROR);
 		} catch (MalformedURLException e) {
-			new PopUp(ConstantesUI.ERRO_URL_INVALIDA, TipoPopUp.INFO);
+			new PopUp(ConstantesUI.ERRO_URL_INVALIDA, TipoPopUp.ERROR);
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		} finally {
