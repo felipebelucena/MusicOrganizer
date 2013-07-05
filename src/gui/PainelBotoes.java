@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -49,9 +50,11 @@ public class PainelBotoes extends JPanel {
 		botaoSalvar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				botaoSalvar.setText(ConstantesUI.BOTAO_SALVANDO);
+				setCursor(new Cursor(Cursor.WAIT_CURSOR));
+				botaoSalvar.setEnabled(false);
 				facade.salvar();
-				botaoSalvar.setText(ConstantesUI.BOTAO_SALVAR);
+				botaoSalvar.setEnabled(true);
+				setCursor(null);
 			}
 		});
 		

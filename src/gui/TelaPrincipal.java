@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -15,8 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import util.PropertiesFile;
-
 import Base.TipoPopUp;
+import Exception.PastaDeMusicaNaoExisteException;
+import Exception.PastaDeMusicaVaziaException;
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
@@ -44,13 +46,31 @@ public class TelaPrincipal extends JFrame {
 		JMenu menuFile = new JMenu(ConstantesUI.MENU_FILE);
 		JMenuItem menuItemAbrir = new JMenuItem(ConstantesUI.MENU_ITEM_OPEN);
 		
-		JMenu menuSettings = new JMenu(ConstantesUI.MENU_SETTINGS);
+		final JMenu menuSettings = new JMenu(ConstantesUI.MENU_SETTINGS);
 		JMenuItem menuItemSetMusicFolder = new JMenuItem(ConstantesUI.MENU_ITEM_SET_MUSIC_FOLDER);
+		
+		String musicFolder = PropertiesFile.getProperties();
+		final JLabel labelMusicFolder = new JLabel("   "+musicFolder);
+		labelMusicFolder.setEnabled(true);
+		
+		try {
+			PropertiesFile.verifyMusicFolder(musicFolder);
+			labelMusicFolder.setForeground(ConstantesUI.COR_DESABILITADO);
+			menuSettings.setForeground(ConstantesUI.COR_PRETO);
+		} catch (PastaDeMusicaNaoExisteException e) {
+			labelMusicFolder.setForeground(ConstantesUI.COR_VERMELHO);
+			menuSettings.setForeground(ConstantesUI.COR_VERMELHO);
+		} catch (PastaDeMusicaVaziaException e) {
+			labelMusicFolder.setForeground(ConstantesUI.COR_VERMELHO);
+			menuSettings.setForeground(ConstantesUI.COR_VERMELHO);
+		}
+		
 		menuFile.add(menuItemAbrir);
 		menuSettings.add(menuItemSetMusicFolder);
+		menuSettings.add(labelMusicFolder);
 		menuBar.add(menuFile);
 		menuBar.add(menuSettings);
-
+		
 		// Set up do layout
 		JPanel painelCentral = new JPanel();
 		painelCentral.setLayout(new BorderLayout());
@@ -61,6 +81,7 @@ public class TelaPrincipal extends JFrame {
 
 		JPanel painelEsquerda = new JPanel();
 		painelEsquerda.setLayout(new BorderLayout());
+		
 
 		final PainelTagsGerais painelTagsGerais = new PainelTagsGerais();
 		painelEsquerda.add(painelTagsGerais, BorderLayout.CENTER);
@@ -98,6 +119,9 @@ public class TelaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				new DialogSetMusicFolder();
 				new PopUp(ConstantesUI.POPUP_DIRETORIO_DE_MUSICA_SALVO, TipoPopUp.INFO);
+				labelMusicFolder.setForeground(ConstantesUI.COR_DESABILITADO);
+				labelMusicFolder.setText("   "+PropertiesFile.getProperties());
+				menuSettings.setForeground(ConstantesUI.COR_PRETO);
 			}
 		});
 		
@@ -109,10 +133,6 @@ public class TelaPrincipal extends JFrame {
 
 		this.setVisible(true);
 		
-		String diretorioDeMusica = PropertiesFile.getProperties();
-		if(diretorioDeMusica == null || ConstantesUI.STRING_VAZIA.equals(diretorioDeMusica)){
-			new PopUp(ConstantesUI.POPUP_DIRETORIO_DE_MUSICA_VAZIO, TipoPopUp.WARNING);
-		}
 	}
 
 }

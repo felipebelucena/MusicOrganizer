@@ -7,12 +7,16 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.io.File;
 
+import Exception.PastaDeMusicaNaoExisteException;
+import Exception.PastaDeMusicaVaziaException;
 
 public class PropertiesFile {
-	
+
 	/**
 	 * Pega o diretorio de musica de um arquivo de properties
+	 * 
 	 * @return String do diretorio de musica do usuario
 	 */
 	public static String getProperties() {
@@ -31,17 +35,30 @@ public class PropertiesFile {
 		}
 		return diretorioDeMusica;
 	}
-	
+
 	public static void setProperties(String name) {
 		Properties prop = new Properties();
 		prop.setProperty(ConstantesUI.DIRETORIO_DE_MUSICA, name);
 		try {
-			prop.store(new FileOutputStream(ConstantesUI.ARQUIVO_DE_PROPERTIES), null);
+			prop.store(
+					new FileOutputStream(ConstantesUI.ARQUIVO_DE_PROPERTIES),
+					null);
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
+	public static void verifyMusicFolder(String musicFolder)
+			throws PastaDeMusicaNaoExisteException, PastaDeMusicaVaziaException {
+		if (musicFolder == null
+				|| ConstantesUI.STRING_VAZIA.equals(musicFolder)) {
+			throw new PastaDeMusicaVaziaException();
+		}
+		if (!new File(musicFolder).exists()) {
+			throw new PastaDeMusicaNaoExisteException();
+		}
+	}
+
 }

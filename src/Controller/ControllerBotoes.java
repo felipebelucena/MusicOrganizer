@@ -30,6 +30,8 @@ import util.PropertiesFile;
 import Base.Tags;
 import Base.TipoPopUp;
 import Exception.ImagemVaziaException;
+import Exception.PastaDeMusicaNaoExisteException;
+import Exception.PastaDeMusicaVaziaException;
 
 public class ControllerBotoes {
 
@@ -46,15 +48,16 @@ public class ControllerBotoes {
 	 * os .mp3 corrigidos para a arvore
 	 */
 	public void salvar() {
+		
 		String diretorioDeMusica = PropertiesFile.getProperties();
-		if (diretorioDeMusica == null
-				|| ConstantesUI.STRING_VAZIA.equals(diretorioDeMusica)) {
+		try {
+			PropertiesFile.verifyMusicFolder(diretorioDeMusica);
+		} catch (PastaDeMusicaNaoExisteException e1) {
+			new PopUp(ConstantesUI.POPUP_DIRETORIO_DE_MUSICA_INVALIDO, TipoPopUp.ERROR);
+			return;
+		} catch (PastaDeMusicaVaziaException e1) {
 			new PopUp(ConstantesUI.POPUP_INFORME_DIRETORIO_DE_MUSICA, TipoPopUp.WARNING);
 			return;
-		}
-		
-		if(!new File(diretorioDeMusica).exists()){
-			new PopUp(ConstantesUI.POPUP_DIRETORIO_DE_MUSICA_INVALIDO, TipoPopUp.ERROR);
 		}
 		
 		ArrayList<Tags> listaTags = controller.getListaTags();

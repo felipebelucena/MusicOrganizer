@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Color;
+
 public class ConstantesUI {
 	
 	public static String STRING_VAZIA = "";
@@ -46,8 +48,8 @@ public class ConstantesUI {
 	public static final String POPUP_FALHA_CRIACAO_DIRETORIO = "Falha na criação do Diretório na sua pasta de música";
 	public static final String POPUP_SALVO_COM_SUCESSO = "Salvo com Sucesso";
 	public static final String POPUP_INFORME_DIRETORIO_DE_MUSICA = "Voce deve primeiro, informar seu diretorio de música, no menu de configuração";
-	public static final String POPUP_DIRETORIO_DE_MUSICA_INVALIDO = "Diretorio de Musica nao existe. Selecione um diretorio válido";
-	public static final String POPUP_DIRETORIO_DE_MUSICA_VAZIO = "Seu diretorio de Musica está vazio. Por favor, informe no menu de Settings";
+	public static final String POPUP_DIRETORIO_DE_MUSICA_INVALIDO = "Diretorio de Musica nao existe. Selecione um diretorio válido no meu de Settings";
+	public static final String POPUP_DIRETORIO_DE_MUSICA_VAZIO = "Diretório de Música não foi informado. Informe no menu de Settings";
 	public static final String POPUP_DIRETORIO_DE_MUSICA_SALVO = "Diretório salvo com sucesso";
 	
 	//Dialogs
@@ -71,5 +73,10 @@ public class ConstantesUI {
 	public static final String FORMATO_MP3 = "mp3";
 	public static final String FORMATO_JPG = "jpg";
 	public static final String FORMATO_PNG = "png";
+	
+	//cores
+	public static final Color COR_VERMELHO = new Color(255,0,0);
+	public static final Color COR_PRETO = new Color(0,0,0);
+	public static final Color COR_DESABILITADO = new Color(150,150,150);
 
 }
