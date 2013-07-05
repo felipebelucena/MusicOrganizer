@@ -36,9 +36,12 @@ public class ConstantesUI {
 	//Barra de Menu
 	public static final String MENU_FILE = "File";
 	public static final String MENU_SETTINGS = "Settings";
+	public static final String MENU_INFO = "Info";
 	public static final String MENU_ITEM_OPEN = "Open";
 	public static final String MENU_ITEM_SET_MUSIC_FOLDER = "Set Music Folder";
 	public static final String MENU_ITEM_SET_LANGUAGE = "Set Language";
+	public static final String MENU_ITEM_CHANGE_LOOKANDFEEL = "Change LookAndFeel";
+	public static final String MENU_ITEM_ABOUT = "About";
 	
 	//pop-ups
 	public static final String POPUP_CARREGUE_UM_DISCO = "Nenhum disco carregado. Carregue um disco primeiro";

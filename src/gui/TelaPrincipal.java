@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -15,16 +16,22 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import de.javasoft.plaf.synthetica.styles.MenuStyle;
+
 import util.PropertiesFile;
 import Base.TipoPopUp;
 import Exception.PastaDeMusicaNaoExisteException;
 import Exception.PastaDeMusicaVaziaException;
+import Facade.Facade;
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
 	
+	private Facade facade;
+	
 	public TelaPrincipal() {
 		initframe();
+		facade = Facade.getInstace();
 	}
 
 	/**
@@ -45,12 +52,23 @@ public class TelaPrincipal extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menuFile = new JMenu(ConstantesUI.MENU_FILE);
 		JMenuItem menuItemAbrir = new JMenuItem(ConstantesUI.MENU_ITEM_OPEN);
+		final JMenuItem menuItemSalvar = new JMenuItem(ConstantesUI.BOTAO_SALVAR);
+		menuItemSalvar.setEnabled(false);
+		
+		JMenu menuInfo = new JMenu(ConstantesUI.MENU_INFO);
+		JMenuItem menuItemAbout = new JMenuItem(ConstantesUI.MENU_ITEM_ABOUT);
 		
 		final JMenu menuSettings = new JMenu(ConstantesUI.MENU_SETTINGS);
 		JMenuItem menuItemSetMusicFolder = new JMenuItem(ConstantesUI.MENU_ITEM_SET_MUSIC_FOLDER);
+		
 		JMenuItem menuItemSetLanguage = new JMenuItem(ConstantesUI.MENU_ITEM_SET_LANGUAGE);
 		JLabel idioma = new JLabel(ConstantesUI.ESPACO+ConstantesUI.AINDA_NAO_IMPLEMENTADO);
 		idioma.setForeground(ConstantesUI.COR_DESABILITADO);
+		
+		JMenuItem menuItemChangeLookAndFeel = new JMenuItem(ConstantesUI.MENU_ITEM_CHANGE_LOOKANDFEEL);
+		String lookAndFeel = ConstantesUI.ESPACO+ConstantesUI.AINDA_NAO_IMPLEMENTADO;
+		JLabel labelLookAndFeel = new JLabel(lookAndFeel);
+		labelLookAndFeel.setForeground(ConstantesUI.COR_DESABILITADO);
 		
 		String musicFolder = PropertiesFile.getProperties();
 		final JLabel labelMusicFolder = new JLabel(ConstantesUI.ESPACO+musicFolder);
@@ -69,12 +87,23 @@ public class TelaPrincipal extends JFrame {
 		}
 		
 		menuFile.add(menuItemAbrir);
+		menuFile.add(menuItemSalvar);
+		
 		menuSettings.add(menuItemSetMusicFolder);
 		menuSettings.add(labelMusicFolder);
 		menuSettings.addSeparator();
+		
 		menuSettings.add(menuItemSetLanguage);
 		menuSettings.add(idioma);
+		menuSettings.addSeparator();
+		
+		menuSettings.add(menuItemChangeLookAndFeel);
+		menuSettings.add(labelLookAndFeel);
+		
+		menuInfo.add(menuItemAbout);
+		
 		menuBar.add(menuFile);
+		menuBar.add(menuInfo);
 		menuBar.add(menuSettings);
 		
 		// Set up do layout
@@ -136,6 +165,31 @@ public class TelaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new PopUp(ConstantesUI.AINDA_NAO_IMPLEMENTADO, TipoPopUp.INFO);
+			}
+		});
+		
+		menuItemChangeLookAndFeel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new PopUp(ConstantesUI.AINDA_NAO_IMPLEMENTADO, TipoPopUp.INFO);
+			}
+		});
+		
+		menuItemAbout.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new PopUp(ConstantesUI.AINDA_NAO_IMPLEMENTADO, TipoPopUp.INFO);
+			}
+		});
+		
+		menuItemSalvar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setCursor(new Cursor(Cursor.WAIT_CURSOR));
+				menuItemSalvar.setEnabled(false);
+				facade.salvar();
+				menuItemSalvar.setEnabled(true);
+				setCursor(null);
 			}
 		});
 		
