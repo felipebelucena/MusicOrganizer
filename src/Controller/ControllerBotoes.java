@@ -14,7 +14,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import javax.swing.JLabel;
 
@@ -26,7 +25,6 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.datatype.Artwork;
 
 import util.PropertiesFile;
-
 import Base.Tags;
 import Base.TipoPopUp;
 import Exception.ImagemVaziaException;

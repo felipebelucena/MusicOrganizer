@@ -84,7 +84,6 @@ public class TelaPrincipal extends JFrame {
 		
 
 		final PainelTagsGerais painelTagsGerais = new PainelTagsGerais();
-		painelEsquerda.add(painelTagsGerais, BorderLayout.CENTER);
 		painelNorte.add(painelEsquerda);
 
 		JPanel painelDireita = new JPanel();
@@ -105,7 +104,9 @@ public class TelaPrincipal extends JFrame {
 		painelEsquerda.add(painelImagem, BorderLayout.WEST);
 
 		final PainelSelecaoImagem painelSelecaoImagem = new PainelSelecaoImagem(painelImagem);
-		painelDireita.add(painelSelecaoImagem, BorderLayout.CENTER);
+		
+		painelEsquerda.add(painelSelecaoImagem, BorderLayout.CENTER);
+		painelDireita.add(painelTagsGerais, BorderLayout.CENTER);
 		
 		menuItemAbrir.addActionListener(new ActionListener() {
 			@Override
