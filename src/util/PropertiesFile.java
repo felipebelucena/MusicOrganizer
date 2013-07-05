@@ -24,8 +24,7 @@ public class PropertiesFile {
 		Properties prop = new Properties();
 		try {
 			prop.load(new FileInputStream(ConstantesUI.ARQUIVO_DE_PROPERTIES));
-			diretorioDeMusica = prop
-					.getProperty(ConstantesUI.DIRETORIO_DE_MUSICA);
+			diretorioDeMusica = prop.getProperty(ConstantesUI.DIRETORIO_DE_MUSICA);
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 			diretorioDeMusica = null;
@@ -40,9 +39,7 @@ public class PropertiesFile {
 		Properties prop = new Properties();
 		prop.setProperty(ConstantesUI.DIRETORIO_DE_MUSICA, name);
 		try {
-			prop.store(
-					new FileOutputStream(ConstantesUI.ARQUIVO_DE_PROPERTIES),
-					null);
+			prop.store(new FileOutputStream(ConstantesUI.ARQUIVO_DE_PROPERTIES),null);
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		} catch (IOException e) {

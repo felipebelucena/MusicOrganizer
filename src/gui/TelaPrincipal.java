@@ -22,7 +22,7 @@ import Exception.PastaDeMusicaVaziaException;
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
-
+	
 	public TelaPrincipal() {
 		initframe();
 	}
@@ -48,9 +48,12 @@ public class TelaPrincipal extends JFrame {
 		
 		final JMenu menuSettings = new JMenu(ConstantesUI.MENU_SETTINGS);
 		JMenuItem menuItemSetMusicFolder = new JMenuItem(ConstantesUI.MENU_ITEM_SET_MUSIC_FOLDER);
+		JMenuItem menuItemSetLanguage = new JMenuItem(ConstantesUI.MENU_ITEM_SET_LANGUAGE);
+		JLabel idioma = new JLabel(ConstantesUI.ESPACO+ConstantesUI.AINDA_NAO_IMPLEMENTADO);
+		idioma.setForeground(ConstantesUI.COR_DESABILITADO);
 		
 		String musicFolder = PropertiesFile.getProperties();
-		final JLabel labelMusicFolder = new JLabel("   "+musicFolder);
+		final JLabel labelMusicFolder = new JLabel(ConstantesUI.ESPACO+musicFolder);
 		labelMusicFolder.setEnabled(true);
 		
 		try {
@@ -68,6 +71,9 @@ public class TelaPrincipal extends JFrame {
 		menuFile.add(menuItemAbrir);
 		menuSettings.add(menuItemSetMusicFolder);
 		menuSettings.add(labelMusicFolder);
+		menuSettings.addSeparator();
+		menuSettings.add(menuItemSetLanguage);
+		menuSettings.add(idioma);
 		menuBar.add(menuFile);
 		menuBar.add(menuSettings);
 		
@@ -121,8 +127,15 @@ public class TelaPrincipal extends JFrame {
 				new DialogSetMusicFolder();
 				new PopUp(ConstantesUI.POPUP_DIRETORIO_DE_MUSICA_SALVO, TipoPopUp.INFO);
 				labelMusicFolder.setForeground(ConstantesUI.COR_DESABILITADO);
-				labelMusicFolder.setText("   "+PropertiesFile.getProperties());
+				labelMusicFolder.setText(ConstantesUI.ESPACO+PropertiesFile.getProperties());
 				menuSettings.setForeground(ConstantesUI.COR_PRETO);
+			}
+		});
+		
+		menuItemSetLanguage.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new PopUp(ConstantesUI.AINDA_NAO_IMPLEMENTADO, TipoPopUp.INFO);
 			}
 		});
 		

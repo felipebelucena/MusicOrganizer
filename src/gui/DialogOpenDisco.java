@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Cursor;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -43,7 +44,9 @@ public class DialogOpenDisco extends JFileChooser {
 			listaTags = facade.parserFileToTagsList(disco);
 			
 			try {
+				setCursor(new Cursor(Cursor.WAIT_CURSOR));
 				facade.carregaMusicas(disco.listFiles(), painelTagsGerais, painelFaixas,painelImagem, painelSelecaoImagem, listaTags);
+				setCursor(null);
 			} catch (ListaNulaException e) {
 				System.out.println(e.getMessage());
 			} catch (ListaVaziaException e) {

@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Cursor;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -76,9 +77,12 @@ public class PainelSelecaoImagem extends JPanel {
 			byte[] imagem = null;
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				if(radioURL.isSelected()){
+					setCursor(new Cursor(Cursor.WAIT_CURSOR));
 					String url = textFieldSelecaoImagem.getText();
 					imagem = facade.loadImage(url, TipoBotaoImagem.URL);
+					setCursor(null);
 					if(imagem != null){
 						painelImagem.updateImage(imagem);
 					}

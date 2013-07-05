@@ -4,8 +4,12 @@ import java.awt.Color;
 
 public class ConstantesUI {
 	
+	//isso é feio! nao faça isso em casa
+	public static String ESPACO = "   ";
+	
 	public static String STRING_VAZIA = "";
-
+	public static String AINDA_NAO_IMPLEMENTADO = "Ainda não implementado";
+	
 	public static final int LARGURA_TELA = 950;
 	public static final int ALTURA_TELA = 500;
 	public static final int ALTURA_IMAGEM = 150;
@@ -34,6 +38,7 @@ public class ConstantesUI {
 	public static final String MENU_SETTINGS = "Settings";
 	public static final String MENU_ITEM_OPEN = "Open";
 	public static final String MENU_ITEM_SET_MUSIC_FOLDER = "Set Music Folder";
+	public static final String MENU_ITEM_SET_LANGUAGE = "Set Language";
 	
 	//pop-ups
 	public static final String POPUP_CARREGUE_UM_DISCO = "Nenhum disco carregado. Carregue um disco primeiro";
