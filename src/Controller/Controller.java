@@ -1,11 +1,5 @@
 package Controller;
 
-import gui.ConstantesUI;
-import gui.PainelBotoes;
-import gui.PainelFaixas;
-import gui.PainelImagem;
-import gui.PainelSelecaoImagem;
-import gui.PainelTagsGerais;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +20,13 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.datatype.Artwork;
+
+import ui.PainelBotoes;
+import ui.PainelFaixas;
+import ui.PainelImagem;
+import ui.PainelSelecaoImagem;
+import ui.PainelTagsGerais;
+import util.ConstantesUI;
 
 import Base.Tags;
 import Exception.ListaNulaException;

@@ -1,7 +1,5 @@
 package Controller;
 
-import gui.ConstantesUI;
-import gui.PopUp;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
@@ -14,6 +12,9 @@ import java.net.URL;
 import java.net.UnknownHostException;
 
 import javax.imageio.ImageIO;
+
+import ui.PopUp;
+import util.ConstantesUI;
 
 import Base.TipoBotaoImagem;
 import Base.TipoImagemFile;

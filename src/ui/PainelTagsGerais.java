@@ -1,4 +1,4 @@
-package gui;
+package ui;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -8,6 +8,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import util.ConstantesUI;
 
 @SuppressWarnings("serial")
 public class PainelTagsGerais extends JPanel {

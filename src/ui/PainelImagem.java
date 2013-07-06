@@ -1,4 +1,4 @@
-package gui;
+package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics2D;
@@ -14,6 +14,8 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import util.ConstantesUI;
 
 @SuppressWarnings("serial")
 public class PainelImagem extends JPanel {

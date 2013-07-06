@@ -1,6 +1,5 @@
 package util;
 
-import gui.ConstantesUI;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

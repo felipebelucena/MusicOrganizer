@@ -1,13 +1,15 @@
 package Aplicacao;
 
-import gui.LookAndFeelTipos;
-import gui.TelaPrincipal;
 
 import java.awt.EventQueue;
 
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import ui.TelaPrincipal;
+
+import Base.LookAndFeelTipos;
 
 import de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel;
 

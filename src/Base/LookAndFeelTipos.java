@@ -1,4 +1,4 @@
-package gui;
+package Base;
 
 public enum LookAndFeelTipos {
     NIMBUS("Nimbus"),

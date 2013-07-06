@@ -1,6 +1,6 @@
 package Exception;
 
-import gui.ConstantesUI;
+import util.ConstantesUI;
 
 @SuppressWarnings("serial")
 public class ListaNulaException extends Exception {

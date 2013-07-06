@@ -1,10 +1,12 @@
-package gui;
+package ui;
 
 import java.awt.Cursor;
 import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
+
+import util.ConstantesUI;
 
 import Base.Tags;
 import Base.TipoPopUp;

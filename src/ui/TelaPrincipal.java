@@ -1,4 +1,4 @@
-package gui;
+package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 
 import de.javasoft.plaf.synthetica.styles.MenuStyle;
 
+import util.ConstantesUI;
 import util.PropertiesFile;
 import Base.TipoPopUp;
 import Exception.PastaDeMusicaNaoExisteException;

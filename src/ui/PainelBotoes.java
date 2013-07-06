@@ -1,4 +1,4 @@
-package gui;
+package ui;
 
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import util.ConstantesUI;
 
 import Facade.Facade;
 

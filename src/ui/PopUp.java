@@ -1,6 +1,8 @@
-package gui;
+package ui;
 
 import javax.swing.JOptionPane;
+
+import util.ConstantesUI;
 
 
 import Base.TipoPopUp;

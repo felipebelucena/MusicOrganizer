@@ -1,4 +1,4 @@
-package gui;
+package ui;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -11,6 +11,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import util.ConstantesUI;
 
 
 @SuppressWarnings("serial")

@@ -1,4 +1,4 @@
-package gui;
+package ui;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import util.ConstantesUI;
 
 import Base.TipoBotaoImagem;
 import Facade.Facade;

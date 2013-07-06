@@ -1,9 +1,5 @@
 package Controller;
 
-import gui.ConstantesUI;
-import gui.PainelFaixas;
-import gui.PainelTagsGerais;
-import gui.PopUp;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,6 +20,10 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.datatype.Artwork;
 
+import ui.PainelFaixas;
+import ui.PainelTagsGerais;
+import ui.PopUp;
+import util.ConstantesUI;
 import util.PropertiesFile;
 import Base.Tags;
 import Base.TipoPopUp;

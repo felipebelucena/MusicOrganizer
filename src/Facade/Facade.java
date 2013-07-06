@@ -1,12 +1,13 @@
 package Facade;
 
-import gui.PainelFaixas;
-import gui.PainelImagem;
-import gui.PainelSelecaoImagem;
-import gui.PainelTagsGerais;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import ui.PainelFaixas;
+import ui.PainelImagem;
+import ui.PainelSelecaoImagem;
+import ui.PainelTagsGerais;
 
 import Base.Tags;
 import Base.TipoBotaoImagem;

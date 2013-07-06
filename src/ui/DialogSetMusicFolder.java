@@ -1,4 +1,4 @@
-package gui;
+package ui;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import javax.swing.JFileChooser;
 
+import util.ConstantesUI;
 import util.PropertiesFile;
 
 @SuppressWarnings("serial")

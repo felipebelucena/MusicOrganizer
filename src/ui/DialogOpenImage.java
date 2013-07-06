@@ -1,8 +1,10 @@
-package gui;
+package ui;
 
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import util.ConstantesUI;
 
 @SuppressWarnings("serial")
 public class DialogOpenImage extends JFileChooser {
