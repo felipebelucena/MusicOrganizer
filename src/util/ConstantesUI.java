@@ -10,8 +10,8 @@ public class ConstantesUI {
 	public static String STRING_VAZIA = "";
 	public static String AINDA_NAO_IMPLEMENTADO = "Ainda não implementado";
 	
-	public static final int LARGURA_TELA = 950;
-	public static final int ALTURA_TELA = 500;
+	public static final int LARGURA_TELA = 900;
+	public static final int ALTURA_TELA = 550;
 	public static final int ALTURA_IMAGEM = 150;
 	public static final int LARGURA_IMAGEM = 150;
 	public static final String TITULO = "Music Organizer 1.0";

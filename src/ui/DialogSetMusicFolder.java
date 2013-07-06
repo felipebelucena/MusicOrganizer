@@ -1,10 +1,5 @@
 package ui;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Properties;
-
 import javax.swing.JFileChooser;
 
 import util.ConstantesUI;

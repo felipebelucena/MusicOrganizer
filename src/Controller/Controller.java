@@ -26,6 +26,7 @@ import ui.PainelFaixas;
 import ui.PainelImagem;
 import ui.PainelSelecaoImagem;
 import ui.PainelTagsGerais;
+import ui.TelaPrincipal;
 import util.ConstantesUI;
 
 import Base.Tags;
@@ -237,6 +238,7 @@ public class Controller {
 			painelSelecaoImagem.habilitarComponentes(true);
 			painelTagsGerais.habilitarComponentes(true);
 			PainelBotoes.habilitarComponentes(true);
+			TelaPrincipal.habilitarComponentes(true);
 			painelImagem.updateImage(tag.getImage());
 
 		} catch (NullPointerException e) {

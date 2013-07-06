@@ -14,9 +14,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
-import de.javasoft.plaf.synthetica.styles.MenuStyle;
 
 import util.ConstantesUI;
 import util.PropertiesFile;
@@ -29,6 +26,8 @@ import Facade.Facade;
 public class TelaPrincipal extends JFrame {
 	
 	private Facade facade;
+	private static JMenuItem menuItemSalvar;
+	private static JMenuItem menuItemNome2Tag; 
 	
 	public TelaPrincipal() {
 		initframe();
@@ -53,8 +52,8 @@ public class TelaPrincipal extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menuFile = new JMenu(ConstantesUI.MENU_FILE);
 		JMenuItem menuItemAbrir = new JMenuItem(ConstantesUI.MENU_ITEM_OPEN);
-		final JMenuItem menuItemSalvar = new JMenuItem(ConstantesUI.BOTAO_SALVAR);
-		menuItemSalvar.setEnabled(false);
+		menuItemSalvar = new JMenuItem(ConstantesUI.BOTAO_SALVAR);
+		menuItemNome2Tag = new JMenuItem(ConstantesUI.BOTAO_NOME2TAG);
 		
 		JMenu menuInfo = new JMenu(ConstantesUI.MENU_INFO);
 		JMenuItem menuItemAbout = new JMenuItem(ConstantesUI.MENU_ITEM_ABOUT);
@@ -75,6 +74,8 @@ public class TelaPrincipal extends JFrame {
 		final JLabel labelMusicFolder = new JLabel(ConstantesUI.ESPACO+musicFolder);
 		labelMusicFolder.setEnabled(true);
 		
+		habilitarComponentes(false);
+		
 		try {
 			PropertiesFile.verifyMusicFolder(musicFolder);
 			labelMusicFolder.setForeground(ConstantesUI.COR_DESABILITADO);
@@ -89,6 +90,7 @@ public class TelaPrincipal extends JFrame {
 		
 		menuFile.add(menuItemAbrir);
 		menuFile.add(menuItemSalvar);
+		menuFile.add(menuItemNome2Tag);
 		
 		menuSettings.add(menuItemSetMusicFolder);
 		menuSettings.add(labelMusicFolder);
@@ -131,7 +133,7 @@ public class TelaPrincipal extends JFrame {
 		painelCentral.add(painelSul, BorderLayout.CENTER);
 
 		final PainelFaixas painelFaixas = new PainelFaixas();
-		painelSul.add(painelFaixas, BorderLayout.NORTH);
+		painelSul.add(painelFaixas, BorderLayout.CENTER);
 
 		PainelBotoes painelBotoes = new PainelBotoes();
 		painelDireita.add(painelBotoes, BorderLayout.EAST);
@@ -194,14 +196,25 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		
+		menuItemNome2Tag.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				facade.nome2Tags();
+			}
+		});
+		
 		this.setJMenuBar(menuBar);
-		JScrollPane scrollPane = new JScrollPane(painelCentral,
-				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		this.add(scrollPane, BorderLayout.CENTER);
+//		JScrollPane scrollPane = new JScrollPane(painelCentral,
+//				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+//				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		this.add(painelCentral, BorderLayout.CENTER);
 
 		this.setVisible(true);
-		
+	}
+	
+	public static void habilitarComponentes(boolean habilitar){
+		menuItemSalvar.setEnabled(habilitar);
+		menuItemNome2Tag.setEnabled(habilitar);
 	}
 
 }
