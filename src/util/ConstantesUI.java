@@ -1,6 +1,10 @@
 package util;
 
 import java.awt.Color;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+
+import javax.swing.KeyStroke;
 
 public class ConstantesUI {
 	
@@ -42,6 +46,15 @@ public class ConstantesUI {
 	public static final String MENU_ITEM_SET_LANGUAGE = "Set Language";
 	public static final String MENU_ITEM_CHANGE_LOOKANDFEEL = "Change LookAndFeel";
 	public static final String MENU_ITEM_ABOUT = "About";
+	
+	//Shortcuts
+	public static final KeyStroke CTRL_A = KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK);
+	public static final KeyStroke CTRL_S = KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK);
+	public static final KeyStroke CTRL_N = KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK);
+	public static final KeyStroke CTRL_I = KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_MASK);
+	public static final KeyStroke CTRL_1 = KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.CTRL_MASK);
+	public static final KeyStroke CTRL_2 = KeyStroke.getKeyStroke(KeyEvent.VK_2, InputEvent.CTRL_MASK);
+	public static final KeyStroke CTRL_3 = KeyStroke.getKeyStroke(KeyEvent.VK_3, InputEvent.CTRL_MASK);
 	
 	//pop-ups
 	public static final String POPUP_CARREGUE_UM_DISCO = "Nenhum disco carregado. Carregue um disco primeiro";

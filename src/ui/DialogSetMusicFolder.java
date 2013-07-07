@@ -2,6 +2,8 @@ package ui;
 
 import javax.swing.JFileChooser;
 
+import Base.TipoPopUp;
+
 import util.ConstantesUI;
 import util.PropertiesFile;
 
@@ -20,6 +22,7 @@ public class DialogSetMusicFolder extends JFileChooser {
 			
 			String musicfolder = this.getSelectedFile().getPath();
 			PropertiesFile.setProperties(musicfolder);
+			new PopUp(ConstantesUI.POPUP_DIRETORIO_DE_MUSICA_SALVO, TipoPopUp.INFO);
 		}
 	}
 

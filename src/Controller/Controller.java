@@ -103,6 +103,14 @@ public class Controller {
 
 					listaTags.add(j, tags);
 					j++;
+					
+					/**
+					 * se quiser ver todas as tags por arquivo de musica, descomentar esse for
+					 */
+//					for(FieldKey c : FieldKey.values()){
+//						System.out.println(c+" - "+tag.getFirst(c));
+//						System.out.println("-----------");
+//					}
 				}
 			}
 

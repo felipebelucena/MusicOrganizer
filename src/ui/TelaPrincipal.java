@@ -52,20 +52,27 @@ public class TelaPrincipal extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menuFile = new JMenu(ConstantesUI.MENU_FILE);
 		JMenuItem menuItemAbrir = new JMenuItem(ConstantesUI.MENU_ITEM_OPEN);
+		menuItemAbrir.setAccelerator(ConstantesUI.CTRL_A);
 		menuItemSalvar = new JMenuItem(ConstantesUI.BOTAO_SALVAR);
+		menuItemSalvar.setAccelerator(ConstantesUI.CTRL_S);
 		menuItemNome2Tag = new JMenuItem(ConstantesUI.BOTAO_NOME2TAG);
+		menuItemNome2Tag.setAccelerator(ConstantesUI.CTRL_N);
 		
 		JMenu menuInfo = new JMenu(ConstantesUI.MENU_INFO);
 		JMenuItem menuItemAbout = new JMenuItem(ConstantesUI.MENU_ITEM_ABOUT);
+		menuItemAbout.setAccelerator(ConstantesUI.CTRL_I);
 		
 		final JMenu menuSettings = new JMenu(ConstantesUI.MENU_SETTINGS);
 		JMenuItem menuItemSetMusicFolder = new JMenuItem(ConstantesUI.MENU_ITEM_SET_MUSIC_FOLDER);
+		menuItemSetMusicFolder.setAccelerator(ConstantesUI.CTRL_1);
 		
 		JMenuItem menuItemSetLanguage = new JMenuItem(ConstantesUI.MENU_ITEM_SET_LANGUAGE);
+		menuItemSetLanguage.setAccelerator(ConstantesUI.CTRL_2);
 		JLabel idioma = new JLabel(ConstantesUI.ESPACO+ConstantesUI.AINDA_NAO_IMPLEMENTADO);
 		idioma.setForeground(ConstantesUI.COR_DESABILITADO);
 		
 		JMenuItem menuItemChangeLookAndFeel = new JMenuItem(ConstantesUI.MENU_ITEM_CHANGE_LOOKANDFEEL);
+		menuItemChangeLookAndFeel.setAccelerator(ConstantesUI.CTRL_3);
 		String lookAndFeel = ConstantesUI.ESPACO+ConstantesUI.AINDA_NAO_IMPLEMENTADO;
 		JLabel labelLookAndFeel = new JLabel(lookAndFeel);
 		labelLookAndFeel.setForeground(ConstantesUI.COR_DESABILITADO);
@@ -157,7 +164,6 @@ public class TelaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new DialogSetMusicFolder();
-				new PopUp(ConstantesUI.POPUP_DIRETORIO_DE_MUSICA_SALVO, TipoPopUp.INFO);
 				labelMusicFolder.setForeground(ConstantesUI.COR_DESABILITADO);
 				labelMusicFolder.setText(ConstantesUI.ESPACO+PropertiesFile.getProperties());
 				menuSettings.setForeground(ConstantesUI.COR_PRETO);
