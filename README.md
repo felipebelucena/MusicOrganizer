@@ -2,7 +2,7 @@ MusicOrganizer
 ==============
 
 ## Uso
-Programa feito em Java Desktop, para organizar as tags ID3 de arquivos de musica e organiza-las no diretorio de musica.
+Programa feito em Java Desktop, para organizar as Metatags de arquivos de musica e organiza-las no diretorio de musica.
 O programa carrega as músicas e suas tags, o usuário digita as tags corretamente na interface gráfica, junto com uma
 imagem da capa do disco (artwork), que por sua vez, pode vir da internet (através de uma url),
 ou de um arquivo .png ou .jpg.

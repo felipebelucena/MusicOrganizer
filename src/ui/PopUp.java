@@ -25,6 +25,8 @@ public class PopUp {
 		case WARNING:
 			JOptionPane.showMessageDialog(null, msg, ConstantesUI.POPUP_WARNING, JOptionPane.WARNING_MESSAGE);
 			break;
+		default:
+			break;
 		}
 	}
 

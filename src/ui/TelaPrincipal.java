@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.charset.Charset;
+import java.util.SortedMap;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
