@@ -10,13 +10,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import ui.dialog.PopUp;
+import ui.listener.HabilitarComponentesListener;
 import util.ConstantesUI;
 
 import Facade.Facade;
 
 
 @SuppressWarnings("serial")
-public class PainelBotoes extends JPanel {
+public class PainelBotoes extends JPanel implements HabilitarComponentesListener {
 
 	private GridBagConstraints gbc;
 	private Facade facade;
@@ -68,7 +70,8 @@ public class PainelBotoes extends JPanel {
 		});
 	}
 	
-	public static void habilitarComponentes(boolean habilitar){
+	@Override
+	public void habilitarComponentes(boolean habilitar){
 		botaoSalvar.setEnabled(habilitar);
 		botaoNome2Tag.setEnabled(habilitar);
 	}

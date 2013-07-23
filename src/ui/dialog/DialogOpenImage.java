@@ -1,4 +1,4 @@
-package ui;
+package ui.dialog;
 
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;

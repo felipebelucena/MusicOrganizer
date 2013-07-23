@@ -45,6 +45,7 @@ public class ConstantesUI {
 	public static final String MENU_ITEM_SET_MUSIC_FOLDER = "Set Music Folder";
 	public static final String MENU_ITEM_SET_LANGUAGE = "Set Language";
 	public static final String MENU_ITEM_CHANGE_LOOKANDFEEL = "Change LookAndFeel";
+	public static final String MENU_ITEM_SET_DISC_TYPE = "Disc Type";
 	public static final String MENU_ITEM_ABOUT = "About";
 	
 	//Shortcuts

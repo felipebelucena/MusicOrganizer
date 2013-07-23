@@ -9,10 +9,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import ui.listener.HabilitarComponentesListener;
+import ui.listener.UpdateTagsGeraisListener;
 import util.ConstantesUI;
 
 @SuppressWarnings("serial")
-public class PainelTagsGerais extends JPanel {
+public class PainelTagsGerais extends JPanel implements HabilitarComponentesListener, UpdateTagsGeraisListener {
 
 	private GridBagConstraints gbc;
 	private JTextField textFieldArtista;
@@ -93,13 +95,15 @@ public class PainelTagsGerais extends JPanel {
 	 * @param ano
 	 * @param genero
 	 */
-	public void updateValues(String artista, String album, String ano, String genero){
+	@Override
+	public void updateTagsGerais(String artista, String album, String ano, String genero){
 		textFieldArtista.setText(artista);
 		textFieldAlbum.setText(album);
 		textFieldAno.setText(ano);
 		textFieldGenero.setText(genero);
 	}
 	
+	@Override
 	public void habilitarComponentes(boolean habilitar){
 		labelArtista.setEnabled(habilitar);
 		labelAlbum.setEnabled(habilitar);

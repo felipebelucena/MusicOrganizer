@@ -8,6 +8,7 @@ import ui.PainelFaixas;
 import ui.PainelImagem;
 import ui.PainelSelecaoImagem;
 import ui.PainelTagsGerais;
+import ui.listener.Atualizador;
 
 import Base.Tags;
 import Base.TipoBotaoImagem;
@@ -58,10 +59,9 @@ public class Facade {
 	 * @throws ListaNulaException
 	 * @throws ListaVaziaException
 	 */
-	public void carregaMusicas(File[] arquivos, PainelTagsGerais painelTagsGerais,
-			PainelFaixas painelFaixas, PainelImagem painelImagem, PainelSelecaoImagem painelSelecaoImagem, ArrayList<Tags> listaTags)
+	public void carregaMusicas(File[] arquivos, Atualizador atualizador, ArrayList<Tags> listaTags)
 			throws ListaNulaException, ListaVaziaException {
-		controller.carregaMusicas(arquivos, painelTagsGerais, painelFaixas,painelImagem, painelSelecaoImagem, listaTags);
+		controller.carregaMusicas(arquivos, atualizador, listaTags);
 	}
 
 	/**

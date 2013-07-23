@@ -21,14 +21,10 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.datatype.Artwork;
 
-import ui.PainelBotoes;
 import ui.PainelFaixas;
-import ui.PainelImagem;
-import ui.PainelSelecaoImagem;
 import ui.PainelTagsGerais;
-import ui.TelaPrincipal;
+import ui.listener.Atualizador;
 import util.ConstantesUI;
-
 import Base.Tags;
 import Exception.ListaNulaException;
 import Exception.ListaVaziaException;
@@ -42,7 +38,6 @@ public class Controller {
 	
 	private PainelTagsGerais painelTagsGerais = null;
 	private PainelFaixas painelFaixas = null;
-	private PainelImagem painelImagem = null;
 
 	private Controller() {
 		tag = new Tags();
@@ -172,13 +167,10 @@ public class Controller {
 	 * @throws ListaNulaException
 	 * @throws ListaVaziaException
 	 */
-	public void carregaMusicas(File[] arquivos,
-			PainelTagsGerais painelTagsGerais, PainelFaixas painelFaixas,
-			PainelImagem painelImagem, PainelSelecaoImagem painelSelecaoImagem, ArrayList<Tags> listaTags)
+	public void carregaMusicas(File[] arquivos,Atualizador atualizador, ArrayList<Tags> listaTags)
 			throws ListaNulaException, ListaVaziaException {
 
 		this.painelFaixas = painelFaixas;
-		this.painelImagem = painelImagem;
 		this.painelTagsGerais = painelTagsGerais;
 		
 		String artista = ConstantesUI.STRING_VAZIA;
@@ -240,15 +232,12 @@ public class Controller {
 			tag.setImage(image);
 
 			// Atualizando a UI
-			painelTagsGerais.updateValues(artista, album, ano, genero);
-			painelFaixas.updateValues(labels, textFieldsNumero,
-					textFieldsFaixas);
-			painelSelecaoImagem.habilitarComponentes(true);
-			painelTagsGerais.habilitarComponentes(true);
-			PainelBotoes.habilitarComponentes(true);
-			TelaPrincipal.habilitarComponentes(true);
-			painelImagem.updateImage(tag.getImage());
-
+			System.out.println("atualizando a UI");
+			atualizador.habilitarTodosOsComponentes();
+			atualizador.updateFaixas(labels, textFieldsNumero,textFieldsFaixas);
+			atualizador.updateImage(tag.getImage());
+			atualizador.updatetagsGerais(artista, album, ano, genero);
+			
 		} catch (NullPointerException e) {
 			throw new ListaNulaException();
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -286,8 +275,4 @@ public class Controller {
 		return painelFaixas;
 	}
 
-	public PainelImagem getPainelImagem() {
-		return painelImagem;
-	}
-	
 }

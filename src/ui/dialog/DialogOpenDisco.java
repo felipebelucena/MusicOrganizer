@@ -1,4 +1,4 @@
-package ui;
+package ui.dialog;
 
 import java.awt.Cursor;
 import java.io.File;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 
+import ui.listener.Atualizador;
 import util.ConstantesUI;
 import Base.Tags;
 import Base.TipoPopUp;
@@ -17,16 +18,10 @@ import Facade.Facade;
 public class DialogOpenDisco extends JFileChooser {
 
 	private Facade facade;
-	private PainelTagsGerais painelTagsGerais;
-	private PainelFaixas painelFaixas;
-	private PainelImagem painelImagem;
-	private PainelSelecaoImagem painelSelecaoImagem;
+	private Atualizador atualizador;
 
-	public DialogOpenDisco(PainelTagsGerais painelTagsGerais, PainelFaixas painelFaixas, PainelImagem painelImagem, PainelSelecaoImagem painelSelecaoImagem) {
-		this.painelTagsGerais = painelTagsGerais;
-		this.painelFaixas = painelFaixas;
-		this.painelImagem = painelImagem;
-		this.painelSelecaoImagem = painelSelecaoImagem;
+	public DialogOpenDisco(Atualizador atualizador) {
+		this.atualizador = atualizador;
 		facade = Facade.getInstace();
 		init();
 	}
@@ -46,7 +41,7 @@ public class DialogOpenDisco extends JFileChooser {
 			
 			try {
 				setCursor(new Cursor(Cursor.WAIT_CURSOR));
-				facade.carregaMusicas(disco.listFiles(), painelTagsGerais, painelFaixas,painelImagem, painelSelecaoImagem, listaTags);
+				facade.carregaMusicas(disco.listFiles(), atualizador, listaTags);
 				setCursor(null);
 			} catch (ListaNulaException e) {
 				System.out.println(e.getMessage());

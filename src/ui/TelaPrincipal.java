@@ -7,8 +7,6 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.nio.charset.Charset;
-import java.util.SortedMap;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,6 +15,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import ui.dialog.DialogOpenDisco;
+import ui.dialog.DialogSetMusicFolder;
+import ui.dialog.PopUp;
+import ui.listener.Atualizador;
+import ui.listener.HabilitarComponentesListener;
 import util.ConstantesUI;
 import util.PropertiesFile;
 import Base.TipoPopUp;
@@ -25,7 +28,7 @@ import Exception.PastaDeMusicaVaziaException;
 import Facade.Facade;
 
 @SuppressWarnings("serial")
-public class TelaPrincipal extends JFrame {
+public class TelaPrincipal extends JFrame implements HabilitarComponentesListener {
 	
 	private Facade facade;
 	private static JMenuItem menuItemSalvar;
@@ -79,6 +82,11 @@ public class TelaPrincipal extends JFrame {
 		JLabel labelLookAndFeel = new JLabel(lookAndFeel);
 		labelLookAndFeel.setForeground(ConstantesUI.COR_DESABILITADO);
 		
+		JMenuItem menuItemSetDiscType = new JMenuItem(ConstantesUI.MENU_ITEM_SET_DISC_TYPE);
+		JLabel discType = new JLabel(ConstantesUI.ESPACO+ConstantesUI.MENU_ITEM_SET_DISC_TYPE);
+		discType.setForeground(ConstantesUI.COR_DESABILITADO);
+		
+		
 		String musicFolder = PropertiesFile.getProperties();
 		final JLabel labelMusicFolder = new JLabel(ConstantesUI.ESPACO+musicFolder);
 		labelMusicFolder.setEnabled(true);
@@ -111,6 +119,10 @@ public class TelaPrincipal extends JFrame {
 		
 		menuSettings.add(menuItemChangeLookAndFeel);
 		menuSettings.add(labelLookAndFeel);
+		menuSettings.addSeparator();
+		
+		menuSettings.add(menuItemSetDiscType);
+		menuSettings.add(discType);
 		
 		menuInfo.add(menuItemAbout);
 		
@@ -144,7 +156,7 @@ public class TelaPrincipal extends JFrame {
 		final PainelFaixas painelFaixas = new PainelFaixas();
 		painelSul.add(painelFaixas, BorderLayout.CENTER);
 
-		PainelBotoes painelBotoes = new PainelBotoes();
+		final PainelBotoes painelBotoes = new PainelBotoes();
 		painelDireita.add(painelBotoes, BorderLayout.EAST);
 
 		final PainelImagem painelImagem = new PainelImagem();
@@ -158,7 +170,15 @@ public class TelaPrincipal extends JFrame {
 		menuItemAbrir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new DialogOpenDisco(painelTagsGerais, painelFaixas, painelImagem, painelSelecaoImagem);
+				Atualizador atualizador = new Atualizador();
+				atualizador.addHabilitarComponentesListener(painelTagsGerais);
+				atualizador.addHabilitarComponentesListener(painelSelecaoImagem);
+				atualizador.addHabilitarComponentesListener(TelaPrincipal.this);
+				atualizador.addHabilitarComponentesListener(painelBotoes);
+				atualizador.addUpdateFaixasListener(painelFaixas);
+				atualizador.addUpdateImageListener(painelImagem);
+				atualizador.addUpdateTagsGeraisListener(painelTagsGerais);
+				new DialogOpenDisco(atualizador);
 			}
 		});
 		
@@ -220,7 +240,8 @@ public class TelaPrincipal extends JFrame {
 		this.setVisible(true);
 	}
 	
-	public static void habilitarComponentes(boolean habilitar){
+	@Override
+	public void habilitarComponentes(boolean habilitar){
 		menuItemSalvar.setEnabled(habilitar);
 		menuItemNome2Tag.setEnabled(habilitar);
 	}

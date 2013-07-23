@@ -22,7 +22,7 @@ import org.jaudiotagger.tag.datatype.Artwork;
 
 import ui.PainelFaixas;
 import ui.PainelTagsGerais;
-import ui.PopUp;
+import ui.dialog.PopUp;
 import util.ConstantesUI;
 import util.PropertiesFile;
 import Base.Tags;

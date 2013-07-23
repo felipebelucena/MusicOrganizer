@@ -15,10 +15,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import ui.listener.UpdateImageListener;
 import util.ConstantesUI;
 
 @SuppressWarnings("serial")
-public class PainelImagem extends JPanel {
+public class PainelImagem extends JPanel implements UpdateImageListener {
 
 	private Image imagemOriginal = null;
 	
@@ -43,6 +44,7 @@ public class PainelImagem extends JPanel {
 	 * Método para atualizar a imagem
 	 * @param image
 	 */
+	@Override
 	public void updateImage(byte[] image) {
 		
 		this.removeAll();

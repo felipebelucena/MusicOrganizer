@@ -13,7 +13,7 @@ import java.net.UnknownHostException;
 
 import javax.imageio.ImageIO;
 
-import ui.PopUp;
+import ui.dialog.PopUp;
 import util.ConstantesUI;
 
 import Base.TipoBotaoImagem;

@@ -16,13 +16,15 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import ui.dialog.DialogOpenImage;
+import ui.listener.HabilitarComponentesListener;
 import util.ConstantesUI;
 
 import Base.TipoBotaoImagem;
 import Facade.Facade;
 
 @SuppressWarnings("serial")
-public class PainelSelecaoImagem extends JPanel {
+public class PainelSelecaoImagem extends JPanel implements HabilitarComponentesListener {
 
 	private GridBagConstraints gbc;
 	private JLabel labelSelecaoImagem;
@@ -128,6 +130,7 @@ public class PainelSelecaoImagem extends JPanel {
 	 * Habilita se já tiver carregado um disco, e desabilita se nao tiver nenhum disco carregado
 	 * @param boolean
 	 */
+	@Override
 	public void habilitarComponentes(boolean habilitar){
 		textFieldSelecaoImagem.setEnabled(habilitar);
 		labelSelecaoImagem.setEnabled(habilitar);

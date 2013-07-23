@@ -12,10 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import ui.listener.UpdateFaixasListener;
 import util.ConstantesUI;
 
 @SuppressWarnings("serial")
-public class PainelFaixas extends JPanel {
+public class PainelFaixas extends JPanel implements UpdateFaixasListener {
 
 	private GridBagConstraints gbc;
 	private ArrayList<JLabel> textFieldLabels = null;
@@ -34,10 +35,11 @@ public class PainelFaixas extends JPanel {
 	 * @param textFieldsNumero
 	 * @param textFieldsFaixas
 	 */
-	public void updateValues(ArrayList<JLabel> textFieldLabels,
+	@Override
+	public void updateFaixas(ArrayList<JLabel> textFieldLabels,
 			ArrayList<JTextField> textFieldsNumero,
 			ArrayList<JTextField> textFieldsFaixas) {
-
+		System.out.println("entrei aqui");
 		this.removeAll();
 
 		JPanel painelPrincipal = new JPanel();
