@@ -90,6 +90,7 @@ public class ConstantesUI {
 	public static final String IMAGEM_PADRAO = "imagem-padrao.jpg";
 	public static final String ARQUIVO_DE_PROPERTIES = "config.properties";
 	public static final String DIRETORIO_DE_MUSICA = "diretorioDeMusica";
+	public static final String TIPO_DE_DISCO = "tipoDeDisco";
 	
 	//formatos
 	public static final String FORMATO_MP3 = "mp3";
@@ -101,4 +102,9 @@ public class ConstantesUI {
 	public static final Color COR_PRETO = new Color(0,0,0);
 	public static final Color COR_DESABILITADO = new Color(150,150,150);
 
+	//Tipos de disco
+	public static final String DISC_TYPE_DEFAULT = "Normal";
+	public static final String DISC_TYPE_DOUBLE = "Double Disc";
+	public static final String DISC_TYPE_VA = "Various Artists";
+	public static final String DISC_TYPE_TRIBUTES = "Tributes";
 }

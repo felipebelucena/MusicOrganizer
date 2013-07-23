@@ -10,6 +10,7 @@ public enum LookAndFeelTipos {
     BLACK_EYES("Black Eyes");
  
     private String valor;
+    
     LookAndFeelTipos(String valor) {
         this.valor = valor;
     }

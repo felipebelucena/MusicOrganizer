@@ -47,7 +47,7 @@ public class ControllerBotoes {
 	 */
 	public void salvar() {
 		
-		String diretorioDeMusica = PropertiesFile.getProperties();
+		String diretorioDeMusica = PropertiesFile.getProperties(ConstantesUI.DIRETORIO_DE_MUSICA);
 		try {
 			PropertiesFile.verifyMusicFolder(diretorioDeMusica);
 		} catch (PastaDeMusicaNaoExisteException e1) {

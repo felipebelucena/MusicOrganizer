@@ -18,12 +18,12 @@ public class PropertiesFile {
 	 * 
 	 * @return String do diretorio de musica do usuario
 	 */
-	public static String getProperties() {
+	public static String getProperties(String campo) {
 		String diretorioDeMusica = null;
 		Properties prop = new Properties();
 		try {
 			prop.load(new FileInputStream(ConstantesUI.ARQUIVO_DE_PROPERTIES));
-			diretorioDeMusica = prop.getProperty(ConstantesUI.DIRETORIO_DE_MUSICA);
+			diretorioDeMusica = prop.getProperty(campo);
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 			diretorioDeMusica = null;
@@ -34,9 +34,9 @@ public class PropertiesFile {
 		return diretorioDeMusica;
 	}
 
-	public static void setProperties(String name) {
+	public static void setProperties(String campo, String valor) {
 		Properties prop = new Properties();
-		prop.setProperty(ConstantesUI.DIRETORIO_DE_MUSICA, name);
+		prop.setProperty(campo, valor);
 		try {
 			prop.store(new FileOutputStream(ConstantesUI.ARQUIVO_DE_PROPERTIES),null);
 		} catch (FileNotFoundException e) {

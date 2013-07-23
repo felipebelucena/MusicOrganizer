@@ -21,7 +21,7 @@ public class DialogSetMusicFolder extends JFileChooser {
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			
 			String musicfolder = this.getSelectedFile().getPath();
-			PropertiesFile.setProperties(musicfolder);
+			PropertiesFile.setProperties(ConstantesUI.DIRETORIO_DE_MUSICA, musicfolder);
 			new PopUp(ConstantesUI.POPUP_DIRETORIO_DE_MUSICA_SALVO, TipoPopUp.INFO);
 		}
 	}
