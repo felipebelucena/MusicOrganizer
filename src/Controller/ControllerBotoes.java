@@ -80,8 +80,10 @@ public class ControllerBotoes {
 			musicas.add(new File(path));
 		}
 
-		// Maneira meio louca de garantir a informação dentro do listaTags. E
-		// ainda ordenado
+		/*
+		 * Maneira meio louca de garantir a informação dentro do listaTags,e ainda ordenado
+		 * FIXME melhorar isso aqui
+		 */
 		for (int i = 0; i < musicas.size(); i++) {
 			listaTags.get(i).setArtista(
 					painelTagsGerais.getTextFieldArtista().getText());
