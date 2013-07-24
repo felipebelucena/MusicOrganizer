@@ -37,6 +37,14 @@ public class ConstantesUI {
 	public static final String SELECIONE_ARQUIVO_IMAGEM = "Selecione o arquivo da imagem";
 	public static final String PROCURAR = "Procurar";
 	
+	//legenda
+	public static final String LEGENDA = "Legenda:";
+	public static final String LEGENDA_FORMATO = "%s%10s%10s%10s%10s";
+	public static final String LEGENDA_ARQUIVO = "Arquivo";
+	public static final String LEGENDA_NUMEROS = "Numeros";
+	public static final String LEGENDA_FAIXAS = "Faixas";
+	public static final String LEGENDA_ARQUIVOS = "Artista";
+	
 	//Barra de Menu
 	public static final String MENU_FILE = "File";
 	public static final String MENU_SETTINGS = "Settings";
@@ -88,6 +96,8 @@ public class ConstantesUI {
 	
 	//Arquivos
 	public static final String IMAGEM_PADRAO = "imagem-padrao.jpg";
+	
+	//Properties
 	public static final String ARQUIVO_DE_PROPERTIES = "config.properties";
 	public static final String DIRETORIO_DE_MUSICA = "diretorioDeMusica";
 	public static final String TIPO_DE_DISCO = "tipoDeDisco";

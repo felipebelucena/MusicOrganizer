@@ -178,7 +178,7 @@ public class TelaPrincipal extends JFrame implements
 		painelSul.setLayout(new BorderLayout());
 		painelCentral.add(painelSul, BorderLayout.CENTER);
 
-		final PainelFaixas painelFaixas = new PainelFaixas();
+		final PainelFaixasVariousArtists painelFaixas = new PainelFaixasVariousArtists();
 		painelSul.add(painelFaixas, BorderLayout.CENTER);
 		atualizador.addUpdateFaixasListener(painelFaixas);
 
@@ -211,7 +211,6 @@ public class TelaPrincipal extends JFrame implements
 		 * Eventos
 		 * ---------------------------------------------------------------------
 		 */
-
 		menuItemSetDiscType.addActionListener(new ActionListener() {
 
 			@Override

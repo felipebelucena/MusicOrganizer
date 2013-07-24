@@ -1,11 +1,13 @@
 package ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -17,14 +19,14 @@ import ui.listener.UpdateFaixasListener;
 import util.ConstantesUI;
 
 @SuppressWarnings("serial")
-public class PainelFaixas extends JPanel implements UpdateFaixasListener {
+public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasListener {
 
 	private GridBagConstraints gbc;
 	private ArrayList<JLabel> textFieldLabels = null;
 	private ArrayList<JTextField> textFieldsNumero = null;
 	private ArrayList<JTextField> textFieldsFaixas = null;
 
-	public PainelFaixas() {
+	public PainelFaixasVariousArtists() {
 		gbc = new GridBagConstraints();
 	}
 
@@ -47,11 +49,13 @@ public class PainelFaixas extends JPanel implements UpdateFaixasListener {
 		 * Setup do Painel
 		 * ---------------------------------------------------------------------
 		 */
+		List<JTextField> textFieldsArtistas = new ArrayList<JTextField>();
+		for (int i = 0; i < textFieldsFaixas.size(); i++) {
+			textFieldsArtistas.add(i, new JTextField(15));
+		}
 		
 		String stringLegenda = String.format(ConstantesUI.LEGENDA_FORMATO, 
-				ConstantesUI.LEGENDA, ConstantesUI.LEGENDA_ARQUIVO, 
-				ConstantesUI.LEGENDA_NUMEROS,ConstantesUI.LEGENDA_FAIXAS, 
-				ConstantesUI.LEGENDA_ARQUIVOS);
+				ConstantesUI.LEGENDA, ConstantesUI.LEGENDA_ARQUIVO, ConstantesUI.LEGENDA_NUMEROS,"Faixas", "Artista");
 		JLabel labelLegenda = new JLabel(stringLegenda);
 		Font bold = new Font(labelLegenda.getFont().getName(), Font.BOLD, labelLegenda.getFont().getSize());
 		labelLegenda.setFont(bold);
@@ -96,30 +100,29 @@ public class PainelFaixas extends JPanel implements UpdateFaixasListener {
 			JLabel labelFaixa = textFieldLabels.get(i);
 			JTextField textFieldNumero = textFieldsNumero.get(i);
 			JTextField textFieldFaixa = textFieldsFaixas.get(i);
+			JTextField textFieldArtista = textFieldsArtistas.get(i);
 
 			gbc.gridx = 0;
-			gbc.gridy = i;
-			gbc.weightx = 0;
-			gbc.weighty = 0;
-			gbc.gridwidth = 1;
-			gbc.gridheight = 1;
+			gbc.gridy = i+1;
 			gbc.anchor = GridBagConstraints.NORTHWEST;
 			gbc.insets = new Insets(0, 0, 0, 0);
 			painelEsquerda.add(labelFaixa, gbc);
 			gbc.gridx++;
-			gbc.insets = new Insets(0, 0, 0, 0);
 			painelEsquerda.add(textFieldNumero, gbc);
+			gbc.gridx++;
+			painelEsquerda.add(textFieldFaixa, gbc);
 			if (i < len - 1) {
 				gbc.gridx++;
 				gbc.weighty = 0;
 				gbc.weightx = 0;
-				painelEsquerda.add(textFieldFaixa, gbc);
+				painelEsquerda.add(textFieldArtista, gbc);
 			}
 		}
 		gbc.gridx++;
 		gbc.weighty = 1;
 		gbc.weightx = 0;
-		painelEsquerda.add(textFieldsFaixas.get(len-1), gbc);
+		painelEsquerda.add(textFieldsArtistas.get(len-1), gbc);
+		
 		painelEsquerda.revalidate();
 		painelEsquerda.repaint();
 		painelPrincipal.add(painelEsquerda, BorderLayout.WEST);
@@ -130,36 +133,37 @@ public class PainelFaixas extends JPanel implements UpdateFaixasListener {
 		 * ---------------------------------------------------------------------
 		 */
 		for (int i = len; i < quantidadeDeMusicas; i++) {
-
 			JLabel labelFaixa = textFieldLabels.get(i);
 			JTextField textFieldNumero = textFieldsNumero.get(i);
 			JTextField textFieldFaixa = textFieldsFaixas.get(i);
+			JTextField textFieldArtista = textFieldsArtistas.get(i);
 
 			gbc.gridx = 0;
-			gbc.gridy = i;
+			gbc.gridy = i+1;
 			gbc.weightx = 0;
 			gbc.weighty = 0;
-			gbc.gridwidth = 1;
-			gbc.gridheight = 1;
 			gbc.anchor = GridBagConstraints.NORTHWEST;
 			gbc.insets = new Insets(0, 0, 0, 0);
 			painelDireita.add(labelFaixa, gbc);
 			gbc.gridx++;
-			gbc.insets = new Insets(0, 0, 0, 0);
 			painelDireita.add(textFieldNumero, gbc);
+			gbc.gridx++;
+			painelDireita.add(textFieldFaixa, gbc);
 			if (i < quantidadeDeMusicas - 1) {
 				gbc.gridx++;
 				gbc.weighty = 0;
 				gbc.weightx = 0;
-				painelDireita.add(textFieldFaixa, gbc);
+				painelDireita.add(textFieldArtista, gbc);
 			}
 		}
 		gbc.gridx++;
 		gbc.weighty = 1;
 		gbc.weightx = 0;
-		painelDireita.add(textFieldsFaixas.get(quantidadeDeMusicas - 1), gbc);
+		painelDireita.add(textFieldsArtistas.get(quantidadeDeMusicas - 1), gbc);
+		
 		painelDireita.revalidate();
 		painelDireita.repaint();
+		
 		painelPrincipal.add(painelDireita, BorderLayout.CENTER);
 		painelPrincipal.add(painelNorte, BorderLayout.NORTH);
 		JScrollPane scrollPane = new JScrollPane(painelPrincipal,

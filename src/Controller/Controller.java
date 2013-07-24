@@ -170,9 +170,6 @@ public class Controller {
 	public void carregaMusicas(File[] arquivos,Atualizador atualizador, ArrayList<Tags> listaTags)
 			throws ListaNulaException, ListaVaziaException {
 
-		this.painelFaixas = painelFaixas;
-		this.painelTagsGerais = painelTagsGerais;
-		
 		String artista = ConstantesUI.STRING_VAZIA;
 		String album = ConstantesUI.STRING_VAZIA;
 		String ano = ConstantesUI.STRING_VAZIA;
@@ -232,7 +229,6 @@ public class Controller {
 			tag.setImage(image);
 
 			// Atualizando a UI
-			System.out.println("atualizando a UI");
 			atualizador.habilitarTodosOsComponentes();
 			atualizador.updateFaixas(labels, textFieldsNumero,textFieldsFaixas);
 			atualizador.updateImage(tag.getImage());

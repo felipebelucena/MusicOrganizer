@@ -20,8 +20,8 @@ public class PropertiesFile {
 	 */
 	public static String getProperties(String campo) {
 		String diretorioDeMusica = null;
-		Properties prop = new Properties();
 		try {
+			Properties prop = new Properties();
 			prop.load(new FileInputStream(ConstantesUI.ARQUIVO_DE_PROPERTIES));
 			diretorioDeMusica = prop.getProperty(campo);
 		} catch (FileNotFoundException e) {
@@ -35,9 +35,10 @@ public class PropertiesFile {
 	}
 
 	public static void setProperties(String campo, String valor) {
-		Properties prop = new Properties();
-		prop.setProperty(campo, valor);
 		try {
+			Properties prop = new Properties();
+			prop.load(new FileInputStream(ConstantesUI.ARQUIVO_DE_PROPERTIES));
+			prop.setProperty(campo, valor);
 			prop.store(new FileOutputStream(ConstantesUI.ARQUIVO_DE_PROPERTIES),null);
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
