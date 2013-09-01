@@ -8,6 +8,7 @@ import javax.swing.JFileChooser;
 
 import ui.listener.Atualizador;
 import util.ConstantesUI;
+import util.Logger;
 import Base.Tags;
 import Base.TipoPopUp;
 import Exception.ListaNulaException;
@@ -18,10 +19,14 @@ import Facade.Facade;
 public class DialogOpenDisco extends JFileChooser {
 
 	private Facade facade;
-	private Atualizador atualizador;
+	private Atualizador atualizador = null;
+	private File[] listFiles = null;
+	ArrayList<Tags> listaTags = null;
 
 	public DialogOpenDisco(Atualizador atualizador) {
 		this.atualizador = atualizador;
+		this.listFiles = null;
+		this.listaTags = null;
 		facade = Facade.getInstace();
 		init();
 	}
@@ -36,20 +41,36 @@ public class DialogOpenDisco extends JFileChooser {
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			
 			File disco = this.getSelectedFile();
-			ArrayList<Tags> listaTags = null;
 			listaTags = facade.parserFileToTagsList(disco);
 			
 			try {
 				setCursor(new Cursor(Cursor.WAIT_CURSOR));
-				facade.carregaMusicas(disco.listFiles(), atualizador, listaTags);
+				listFiles = disco.listFiles();
+				facade.carregaMusicas(listFiles, atualizador, listaTags);
 				setCursor(null);
 			} catch (ListaNulaException e) {
-				System.out.println(e.getMessage());
+				listFiles = null;
+				listaTags = null;
+				atualizador = null;
+				Logger.error(e.getMessage());
 			} catch (ListaVaziaException e) {
-				System.out.println(e.getMessage());
+				listFiles = null;
+				listaTags = null;
+				atualizador = null;
+				Logger.error(e.getMessage());
 				new PopUp(ConstantesUI.POPUP_DISCO_INVALIDO, TipoPopUp.ERROR);
 			}
 		}
 	}
+
+	public File[] getListFiles() {
+		return listFiles;
+	}
+
+	public ArrayList<Tags> getListaTags() {
+		return listaTags;
+	}
+	
+	
 
 }

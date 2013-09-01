@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 
 import ui.listener.UpdateImageListener;
 import util.ConstantesUI;
+import util.Logger;
 
 @SuppressWarnings("serial")
 public class PainelImagem extends JPanel implements UpdateImageListener {
@@ -57,7 +58,7 @@ public class PainelImagem extends JPanel implements UpdateImageListener {
 			}
 			
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			Logger.error(e.getMessage());
 		}
 	}
 	

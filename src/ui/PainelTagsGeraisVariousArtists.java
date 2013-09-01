@@ -24,9 +24,17 @@ public class PainelTagsGeraisVariousArtists extends JPanel implements HabilitarC
 	private JLabel labelAlbum;
 	private JLabel labelAno;
 	private JLabel labelGenero;
+	
+	private boolean habilitarComponentes = false;
 
 	public PainelTagsGeraisVariousArtists() {
 		gbc = new GridBagConstraints();
+		initComponents();
+	}
+	
+	public PainelTagsGeraisVariousArtists(boolean habilitarComponentes) {
+		gbc = new GridBagConstraints();
+		this.habilitarComponentes = habilitarComponentes;
 		initComponents();
 	}
 
@@ -47,7 +55,7 @@ public class PainelTagsGeraisVariousArtists extends JPanel implements HabilitarC
 		labelAno.setLabelFor(textFieldAno);
 		labelGenero.setLabelFor(textFieldGenero);
 
-		habilitarComponentes(false);
+		habilitarComponentes(habilitarComponentes);
 		this.setLayout(new GridBagLayout());
 		this.setBorder(BorderFactory.createTitledBorder(ConstantesUI.BORDA_TAGS_GERAIS));
 

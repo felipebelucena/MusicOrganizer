@@ -40,7 +40,6 @@ public class PainelFaixas extends JPanel implements UpdateFaixasListener {
 	public void updateFaixas(ArrayList<JLabel> textFieldLabels,
 			ArrayList<JTextField> textFieldsNumero,
 			ArrayList<JTextField> textFieldsFaixas) {
-		this.removeAll();
 
 		/*
 		 * ---------------------------------------------------------------------
@@ -48,10 +47,10 @@ public class PainelFaixas extends JPanel implements UpdateFaixasListener {
 		 * ---------------------------------------------------------------------
 		 */
 		
+		this.removeAll();
 		String stringLegenda = String.format(ConstantesUI.LEGENDA_FORMATO, 
 				ConstantesUI.LEGENDA, ConstantesUI.LEGENDA_ARQUIVO, 
-				ConstantesUI.LEGENDA_NUMEROS,ConstantesUI.LEGENDA_FAIXAS, 
-				ConstantesUI.LEGENDA_ARQUIVOS);
+				ConstantesUI.LEGENDA_NUMERO,ConstantesUI.LEGENDA_FAIXA);
 		JLabel labelLegenda = new JLabel(stringLegenda);
 		Font bold = new Font(labelLegenda.getFont().getName(), Font.BOLD, labelLegenda.getFont().getSize());
 		labelLegenda.setFont(bold);

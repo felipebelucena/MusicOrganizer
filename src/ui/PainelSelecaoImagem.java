@@ -17,6 +17,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import ui.dialog.DialogOpenImage;
+import ui.listener.Atualizador;
 import ui.listener.HabilitarComponentesListener;
 import util.ConstantesUI;
 
@@ -32,11 +33,11 @@ public class PainelSelecaoImagem extends JPanel implements HabilitarComponentesL
 	private JTextField textFieldSelecaoImagem;
 	private JRadioButton radioURL;
 	private JRadioButton radioArquivo;
-	private PainelImagem painelImagem;
+	private Atualizador atualizador;
 	private Facade facade;
 
-	public PainelSelecaoImagem(PainelImagem painelImagem) {
-		this.painelImagem = painelImagem;
+	public PainelSelecaoImagem(Atualizador atualizador) {
+		this.atualizador = atualizador;
 		gbc = new GridBagConstraints();
 		facade = Facade.getInstace();
 		initComponents();
@@ -88,7 +89,7 @@ public class PainelSelecaoImagem extends JPanel implements HabilitarComponentesL
 					imagem = facade.loadImage(url, TipoBotaoImagem.URL);
 					setCursor(null);
 					if(imagem != null){
-						painelImagem.updateImage(imagem);
+						atualizador.updateImage(imagem);
 					}
 				}else if(radioArquivo.isSelected()){
 					if(ConstantesUI.STRING_VAZIA.equals(textFieldSelecaoImagem.getText())){
@@ -97,7 +98,7 @@ public class PainelSelecaoImagem extends JPanel implements HabilitarComponentesL
 					String url = textFieldSelecaoImagem.getText();
 					imagem = facade.loadImage(url, TipoBotaoImagem.ARQUIVO);
 					if(imagem != null){
-						painelImagem.updateImage(imagem);
+						atualizador.updateImage(imagem);
 					}else{
 						textFieldSelecaoImagem.setText(ConstantesUI.STRING_VAZIA);
 					}

@@ -1,7 +1,6 @@
 package ui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -54,8 +53,10 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 			textFieldsArtistas.add(i, new JTextField(15));
 		}
 		
-		String stringLegenda = String.format(ConstantesUI.LEGENDA_FORMATO, 
-				ConstantesUI.LEGENDA, ConstantesUI.LEGENDA_ARQUIVO, ConstantesUI.LEGENDA_NUMEROS,"Faixas", "Artista");
+		String stringLegenda = String.format(ConstantesUI.LEGENDA_FORMATO_VA, 
+				ConstantesUI.LEGENDA, ConstantesUI.LEGENDA_ARQUIVO, 
+				ConstantesUI.LEGENDA_NUMERO,ConstantesUI.LEGENDA_FAIXA, 
+				ConstantesUI.LEGENDA_ARTISTA);
 		JLabel labelLegenda = new JLabel(stringLegenda);
 		Font bold = new Font(labelLegenda.getFont().getName(), Font.BOLD, labelLegenda.getFont().getSize());
 		labelLegenda.setFont(bold);

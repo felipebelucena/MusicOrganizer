@@ -12,8 +12,8 @@ import ui.listener.Atualizador;
 
 import Base.Tags;
 import Base.TipoBotaoImagem;
-import Controller.Controller;
-import Controller.ControllerBotoes;
+import Controller.ControllerInput;
+import Controller.ControllerOutput;
 import Controller.ControllerImage;
 import Exception.ListaNulaException;
 import Exception.ListaVaziaException;
@@ -21,14 +21,14 @@ import Exception.ListaVaziaException;
 public class Facade {
 
 	private static Facade facade;
-	private Controller controller;
+	private ControllerInput controller;
 	private ControllerImage controllerImage;
-	private ControllerBotoes controllerBotoes;
+	private ControllerOutput controllerBotoes;
 
 	private Facade() {
-		controller = Controller.getInstace();
+		controller = ControllerInput.getInstace();
 		controllerImage = ControllerImage.getInstace();
-		controllerBotoes = new ControllerBotoes();
+		controllerBotoes = new ControllerOutput();
 	}
 
 	public static Facade getInstace() {

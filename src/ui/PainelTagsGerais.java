@@ -26,9 +26,17 @@ public class PainelTagsGerais extends JPanel implements HabilitarComponentesList
 	private JLabel labelAlbum;
 	private JLabel labelAno;
 	private JLabel labelGenero;
+	
+	private boolean habilitarComponentes = false;
 
 	public PainelTagsGerais() {
 		gbc = new GridBagConstraints();
+		initComponents();
+	}
+	
+	public PainelTagsGerais(boolean habilitarComponentes) {
+		gbc = new GridBagConstraints();
+		this.habilitarComponentes = habilitarComponentes;
 		initComponents();
 	}
 
@@ -52,7 +60,7 @@ public class PainelTagsGerais extends JPanel implements HabilitarComponentesList
 		labelAno.setLabelFor(textFieldAno);
 		labelGenero.setLabelFor(textFieldGenero);
 
-		habilitarComponentes(false);
+		habilitarComponentes(habilitarComponentes);
 		this.setLayout(new GridBagLayout());
 		this.setBorder(BorderFactory.createTitledBorder(ConstantesUI.BORDA_TAGS_GERAIS));
 

@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 
 import ui.dialog.PopUp;
 import util.ConstantesUI;
+import util.Logger;
 
 import Base.TipoBotaoImagem;
 import Base.TipoImagemFile;
@@ -76,7 +77,7 @@ public class ControllerImage {
 			img = ImageIO.read(new File(url));
 			imagem = parserToByte(img,tipoImagemFile);
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			Logger.error(e.getMessage());
 		}
 		return imagem;
 	}
@@ -103,7 +104,7 @@ public class ControllerImage {
 			imagem = baos.toByteArray();
 			baos.close();
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			Logger.error(e.getMessage());
 		}
 		return imagem;
 	}
@@ -139,7 +140,7 @@ public class ControllerImage {
 		} catch (MalformedURLException e) {
 			new PopUp(ConstantesUI.ERRO_URL_INVALIDA, TipoPopUp.ERROR);
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			Logger.error(e.getMessage());
 		} finally {
 			try {
 				if (in != null) {
@@ -149,7 +150,7 @@ public class ControllerImage {
 					out.close();
 				}
 			} catch (IOException e) {
-				System.out.println(e.getMessage());
+				Logger.error(e.getMessage());
 			}
 		}
 		return imagemBaixada;

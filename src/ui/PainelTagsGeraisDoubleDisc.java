@@ -30,9 +30,17 @@ public class PainelTagsGeraisDoubleDisc extends JPanel implements HabilitarCompo
 	private JLabel labelGenero;
 	private JLabel labelDisco1;
 	private JLabel labelDisco2;
+	
+	private boolean habilitarComponentes = false;
 
 	public PainelTagsGeraisDoubleDisc() {
 		gbc = new GridBagConstraints();
+		initComponents();
+	}
+	
+	public PainelTagsGeraisDoubleDisc(boolean habilitarComponentes) {
+		gbc = new GridBagConstraints();
+		this.habilitarComponentes = habilitarComponentes;
 		initComponents();
 	}
 
@@ -63,7 +71,7 @@ public class PainelTagsGeraisDoubleDisc extends JPanel implements HabilitarCompo
 		labelDisco1.setLabelFor(textFieldDisco1);
 		labelDisco2.setLabelFor(textFieldDisco2);
 
-		habilitarComponentes(false);
+		habilitarComponentes(habilitarComponentes);
 		this.setLayout(new GridBagLayout());
 		this.setBorder(BorderFactory.createTitledBorder(ConstantesUI.BORDA_TAGS_GERAIS));
 

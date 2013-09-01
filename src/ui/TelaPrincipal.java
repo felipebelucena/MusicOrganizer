@@ -21,9 +21,14 @@ import ui.dialog.DialogSetMusicFolder;
 import ui.dialog.PopUp;
 import ui.listener.Atualizador;
 import ui.listener.HabilitarComponentesListener;
+import ui.listener.UpdateFaixasListener;
+import ui.listener.UpdateTagsGeraisListener;
 import util.ConstantesUI;
+import util.Logger;
 import util.PropertiesFile;
 import Base.TipoPopUp;
+import Exception.ListaNulaException;
+import Exception.ListaVaziaException;
 import Exception.PastaDeMusicaNaoExisteException;
 import Exception.PastaDeMusicaVaziaException;
 import Facade.Facade;
@@ -36,6 +41,12 @@ public class TelaPrincipal extends JFrame implements
 	private static JMenuItem menuItemSalvar;
 	private static JMenuItem menuItemNome2Tag;
 	private Atualizador atualizador;
+	private String tipoDeDisco;
+	private JPanel painelTagsGerais;
+	private JPanel painelFaixas;
+	private JPanel painelDireita;
+	private JPanel painelSul;
+	private DialogOpenDisco dialogOpenDisco;
 
 	public TelaPrincipal() {
 		facade = Facade.getInstace();
@@ -60,6 +71,8 @@ public class TelaPrincipal extends JFrame implements
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		this.setTitle(ConstantesUI.TITULO);
+
+		tipoDeDisco = getTipoDeDisco();
 
 		/*
 		 * ---------------------------------------------------------------------
@@ -165,54 +178,55 @@ public class TelaPrincipal extends JFrame implements
 
 		JPanel painelEsquerda = new JPanel();
 		painelEsquerda.setLayout(new BorderLayout());
-
-		final PainelTagsGerais painelTagsGerais = new PainelTagsGerais();
 		painelNorte.add(painelEsquerda);
-		atualizador.addHabilitarComponentesListener(painelTagsGerais);
 
-		JPanel painelDireita = new JPanel();
+		painelDireita = new JPanel();
 		painelDireita.setLayout(new BorderLayout());
 		painelNorte.add(painelDireita);
 
-		JPanel painelSul = new JPanel();
+		painelSul = new JPanel();
 		painelSul.setLayout(new BorderLayout());
 		painelCentral.add(painelSul, BorderLayout.CENTER);
 
-		final PainelFaixasVariousArtists painelFaixas = new PainelFaixasVariousArtists();
-		painelSul.add(painelFaixas, BorderLayout.CENTER);
-		atualizador.addUpdateFaixasListener(painelFaixas);
+		updatePaineisFromTipoDeDisco();
 
 		final PainelBotoes painelBotoes = new PainelBotoes();
-		painelDireita.add(painelBotoes, BorderLayout.EAST);
 		atualizador.addHabilitarComponentesListener(painelBotoes);
 
 		final PainelImagem painelImagem = new PainelImagem();
-		painelEsquerda.add(painelImagem, BorderLayout.WEST);
 		atualizador.addUpdateImageListener(painelImagem);
 
 		final PainelSelecaoImagem painelSelecaoImagem = new PainelSelecaoImagem(
-				painelImagem);
+				atualizador);
 		atualizador.addHabilitarComponentesListener(painelSelecaoImagem);
 
+		painelDireita.add(painelBotoes, BorderLayout.EAST);
+		painelSul.add(painelFaixas, BorderLayout.CENTER);
+		painelEsquerda.add(painelImagem, BorderLayout.WEST);
 		painelEsquerda.add(painelSelecaoImagem, BorderLayout.CENTER);
 		painelDireita.add(painelTagsGerais, BorderLayout.CENTER);
-		atualizador.addUpdateTagsGeraisListener(painelTagsGerais);
-
-		menuItemAbrir.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				atualizador.addHabilitarComponentesListener(TelaPrincipal.this);
-				new DialogOpenDisco(atualizador);
-			}
-		});
 
 		/*
 		 * ---------------------------------------------------------------------
 		 * Eventos
 		 * ---------------------------------------------------------------------
 		 */
-		menuItemSetDiscType.addActionListener(new ActionListener() {
 
+		/**
+		 * Evento do menuItem de File: Abrir
+		 */
+		menuItemAbrir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				atualizador.addHabilitarComponentesListener(TelaPrincipal.this);
+				dialogOpenDisco = new DialogOpenDisco(atualizador);
+			}
+		});
+
+		/**
+		 * Evento do menuItem de Settings: set disc type
+		 */
+		menuItemSetDiscType.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String[] tiposDeDisco = { ConstantesUI.DISC_TYPE_DEFAULT,
@@ -220,14 +234,30 @@ public class TelaPrincipal extends JFrame implements
 						ConstantesUI.DISC_TYPE_TRIBUTES,
 						ConstantesUI.DISC_TYPE_VA };
 				String tipoDeDiscoSelecionado = (String) JOptionPane
-						.showInputDialog(null, "Choose a disc type",
-								"Disc Type", JOptionPane.PLAIN_MESSAGE, null,
-								tiposDeDisco, ConstantesUI.DISC_TYPE_DEFAULT);
+						.showInputDialog(null,
+								ConstantesUI.DIALOG_TIPO_DE_DISCO,
+								ConstantesUI.DIALOG_TIPO_DE_DISCO_TITULO,
+								JOptionPane.PLAIN_MESSAGE, null, tiposDeDisco,
+								ConstantesUI.DISC_TYPE_DEFAULT);
 				PropertiesFile.setProperties(ConstantesUI.TIPO_DE_DISCO,
 						tipoDeDiscoSelecionado);
 				labelDiscType.setText(ConstantesUI.ESPACO
 						+ PropertiesFile
 								.getProperties(ConstantesUI.TIPO_DE_DISCO));
+
+				painelSul.remove(painelFaixas);
+				painelDireita.remove(painelTagsGerais);
+
+				updatePaineisFromTipoDeDisco();
+
+				painelDireita.add(painelTagsGerais, BorderLayout.CENTER);
+				painelDireita.revalidate();
+				painelDireita.repaint();
+				painelSul.add(painelFaixas, BorderLayout.CENTER);
+				painelSul.revalidate();
+				painelSul.repaint();
+				TelaPrincipal.this.revalidate();
+				TelaPrincipal.this.repaint();
 			}
 		});
 
@@ -301,12 +331,22 @@ public class TelaPrincipal extends JFrame implements
 		});
 
 		this.setJMenuBar(menuBar);
-		// JScrollPane scrollPane = new JScrollPane(painelCentral,
-		// JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-		// JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		this.add(painelCentral, BorderLayout.CENTER);
 
 		this.setVisible(true);
+	}
+
+	/**
+	 * Retorna o tipo de disco das propriedades
+	 * 
+	 * @return String com o tipo de disco
+	 */
+	private String getTipoDeDisco() {
+		tipoDeDisco = PropertiesFile.getProperties(ConstantesUI.TIPO_DE_DISCO);
+		if (tipoDeDisco == null) {
+			PropertiesFile.resetProperties();
+		}
+		return tipoDeDisco;
 	}
 
 	/**
@@ -316,6 +356,97 @@ public class TelaPrincipal extends JFrame implements
 	public void habilitarComponentes(boolean habilitar) {
 		menuItemSalvar.setEnabled(habilitar);
 		menuItemNome2Tag.setEnabled(habilitar);
+	}
+
+	/**
+	 * Atualiza os paines de tags gerais e paineFaixas, de acordo com o tipo de
+	 * disco setado nas propriedades
+	 */
+	private void updatePaineisFromTipoDeDisco() {
+		painelTagsGerais = null;
+		painelFaixas = null;
+		tipoDeDisco = getTipoDeDisco();
+		if (tipoDeDisco.equals(ConstantesUI.DISC_TYPE_VA)) {
+			try {
+				// se essa lista for nula, cai no catch. Serve para verificar se algum disco já foi carregado
+				dialogOpenDisco.getListFiles();
+				painelFaixas = new PainelFaixasVariousArtists();
+				painelTagsGerais = new PainelTagsGeraisVariousArtists(true);
+				updateAtualizador(painelTagsGerais.getClass().getName(), painelFaixas.getClass().getName());
+				try {
+					Facade.getInstace().carregaMusicas(dialogOpenDisco.getListFiles(), atualizador, dialogOpenDisco.getListaTags());
+				} catch (ListaNulaException e) {
+					Logger.error(e.getMessage());
+				} catch (ListaVaziaException e) {
+					Logger.error(e.getMessage());
+				}
+			} catch (NullPointerException e) {
+				painelFaixas = new PainelFaixasVariousArtists();
+				painelTagsGerais = new PainelTagsGeraisVariousArtists();
+				updateAtualizador(painelTagsGerais.getClass().getName(), painelFaixas.getClass().getName());
+			}
+		} else if (tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DOUBLE)) {
+			try {
+				// se essa lista for nula, cai no catch. Serve para verificar se algum disco já foi carregado
+				dialogOpenDisco.getListFiles();
+				painelTagsGerais = new PainelTagsGeraisDoubleDisc(true);
+				painelFaixas = new PainelFaixas();
+				updateAtualizador(painelTagsGerais.getClass().getName(), painelFaixas.getClass().getName());
+				try {
+					Facade.getInstace().carregaMusicas(dialogOpenDisco.getListFiles(), atualizador, dialogOpenDisco.getListaTags());
+				} catch (ListaNulaException e) {
+					Logger.error(e.getMessage());
+				} catch (ListaVaziaException e) {
+					Logger.error(e.getMessage());
+				}
+			} catch (NullPointerException e) {
+				painelTagsGerais = new PainelTagsGeraisDoubleDisc();
+				painelFaixas = new PainelFaixas();
+				updateAtualizador(painelTagsGerais.getClass().getName(), painelFaixas.getClass().getName());
+			}
+		} else {
+			try {
+				// se essa lista for nula, cai no catch. Serve para verificar se algum disco já foi carregado
+				dialogOpenDisco.getListFiles();
+				painelTagsGerais = new PainelTagsGerais(true);
+				painelFaixas = new PainelFaixas();
+				updateAtualizador(painelTagsGerais.getClass().getName(), painelFaixas.getClass().getName());
+				try {
+					Facade.getInstace().carregaMusicas(dialogOpenDisco.getListFiles(), atualizador, dialogOpenDisco.getListaTags());
+				} catch (ListaNulaException e) {
+					Logger.error(e.getMessage());
+				} catch (ListaVaziaException e) {
+					Logger.error(e.getMessage());
+				}
+			} catch (Exception e) {
+				painelTagsGerais = new PainelTagsGerais();
+				painelFaixas = new PainelFaixas();
+				updateAtualizador(painelTagsGerais.getClass().getName(), painelFaixas.getClass().getName());
+			}
+		}
+	}
+
+	/**
+	 * Método chamado várias vezes, para atualizar o atualizador, de acordo com
+	 * o tipo de disco carregado
+	 * FIXME Esse método funciona, mas está feio. Deixar ele melhor depois
+	 */
+	private void updateAtualizador(String nomePainelTagsGerais, String nomePainelFaixas) {
+		Class<?> classnamePainelTagsGerais = null;
+		Class<?> classnamePainelFaixas = null;
+		try {
+			classnamePainelTagsGerais = Class.forName(nomePainelTagsGerais);
+			classnamePainelFaixas = Class.forName(nomePainelFaixas);
+		} catch (ClassNotFoundException e) {
+			Logger.error(e.getMessage());
+		}
+		atualizador
+				.addHabilitarComponentesListener((HabilitarComponentesListener) classnamePainelTagsGerais.cast(painelTagsGerais));
+		atualizador
+				.addUpdateTagsGeraisListener((UpdateTagsGeraisListener) classnamePainelTagsGerais.cast(painelTagsGerais));
+
+		atualizador
+				.addUpdateFaixasListener((UpdateFaixasListener) classnamePainelFaixas.cast(painelFaixas));
 	}
 
 }

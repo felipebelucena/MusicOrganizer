@@ -25,13 +25,14 @@ import ui.PainelFaixas;
 import ui.PainelTagsGerais;
 import ui.listener.Atualizador;
 import util.ConstantesUI;
+import util.Logger;
 import Base.Tags;
 import Exception.ListaNulaException;
 import Exception.ListaVaziaException;
 
-public class Controller {
+public class ControllerInput {
 
-	private static Controller controller;
+	private static ControllerInput controller;
 	private Tags tag;
 	private ArrayList<Tags> listaTags = null;
 	private File disco = null;
@@ -39,13 +40,13 @@ public class Controller {
 	private PainelTagsGerais painelTagsGerais = null;
 	private PainelFaixas painelFaixas = null;
 
-	private Controller() {
+	private ControllerInput() {
 		tag = new Tags();
 	}
 	
-	public static Controller getInstace(){
+	public static ControllerInput getInstace(){
 		if(controller == null){
-			controller = new Controller();
+			controller = new ControllerInput();
 			return controller;
 		}
 		return controller;
@@ -110,15 +111,15 @@ public class Controller {
 			}
 
 		} catch (CannotReadException e) {
-			System.out.println(e.getMessage());
+			Logger.error(e.getMessage());
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			Logger.error(e.getMessage());
 		} catch (TagException e) {
-			System.out.println(e.getMessage());
+			Logger.error(e.getMessage());
 		} catch (ReadOnlyFileException e) {
-			System.out.println(e.getMessage());
+			Logger.error(e.getMessage());
 		} catch (InvalidAudioFrameException e) {
-			System.out.println(e.getMessage());
+			Logger.error(e.getMessage());
 		}
 
 		return listaTags;
@@ -134,7 +135,7 @@ public class Controller {
 		try {
 			image = Files.readAllBytes(path);
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			Logger.error(e.getMessage());
 		}
 		return image;
 	}

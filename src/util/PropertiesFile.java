@@ -25,10 +25,8 @@ public class PropertiesFile {
 			prop.load(new FileInputStream(ConstantesUI.ARQUIVO_DE_PROPERTIES));
 			diretorioDeMusica = prop.getProperty(campo);
 		} catch (FileNotFoundException e) {
-			System.out.println(e.getMessage());
 			diretorioDeMusica = null;
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
 			diretorioDeMusica = null;
 		}
 		return diretorioDeMusica;
@@ -41,9 +39,9 @@ public class PropertiesFile {
 			prop.setProperty(campo, valor);
 			prop.store(new FileOutputStream(ConstantesUI.ARQUIVO_DE_PROPERTIES),null);
 		} catch (FileNotFoundException e) {
-			System.out.println(e.getMessage());
+			Logger.error(e.getMessage());
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			Logger.error(e.getMessage());
 		}
 	}
 
@@ -55,6 +53,19 @@ public class PropertiesFile {
 		}
 		if (!new File(musicFolder).exists()) {
 			throw new PastaDeMusicaNaoExisteException();
+		}
+	}
+	
+	public static void resetProperties(){
+		try {
+			Properties prop = new Properties();
+			prop.setProperty(ConstantesUI.DIRETORIO_DE_MUSICA, ConstantesUI.STRING_VAZIA);
+			prop.setProperty(ConstantesUI.TIPO_DE_DISCO, ConstantesUI.DISC_TYPE_DEFAULT);
+			prop.store(new FileOutputStream(ConstantesUI.ARQUIVO_DE_PROPERTIES),null);
+		} catch (FileNotFoundException e) {
+			Logger.error(e.getMessage());
+		} catch (IOException e) {
+			Logger.error(e.getMessage());
 		}
 	}
 

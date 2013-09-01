@@ -39,11 +39,12 @@ public class ConstantesUI {
 	
 	//legenda
 	public static final String LEGENDA = "Legenda:";
-	public static final String LEGENDA_FORMATO = "%s%10s%10s%10s%10s";
+	public static final String LEGENDA_FORMATO_VA = "%s%10s%10s%10s%10s";
+	public static final String LEGENDA_FORMATO = "%s%10s%10s%10s";
 	public static final String LEGENDA_ARQUIVO = "Arquivo";
-	public static final String LEGENDA_NUMEROS = "Numeros";
-	public static final String LEGENDA_FAIXAS = "Faixas";
-	public static final String LEGENDA_ARQUIVOS = "Artista";
+	public static final String LEGENDA_NUMERO = "Numeros";
+	public static final String LEGENDA_FAIXA = "Faixas";
+	public static final String LEGENDA_ARTISTA = "Artista";
 	
 	//Barra de Menu
 	public static final String MENU_FILE = "File";
@@ -87,6 +88,8 @@ public class ConstantesUI {
 	public static final String DIALOG_SET_MUSIC_FOLDER = "Informe sua pasta de música";
 	public static final String DIALOG_ESCOLHA_UMA_IMAGEM = "Escolha uma imagem";
 	public static final String DIALOG_FILTRO = "JPG & PNG Images";
+	public static final String DIALOG_TIPO_DE_DISCO = "Choose a disc type";
+	public static final String DIALOG_TIPO_DE_DISCO_TITULO = "Disc Type";
 	
 	//Erros
 	public static final String ERRO_PROBLEMA_COM_A_INTERNET = "Problemas com a conexao com a internet";
@@ -101,6 +104,10 @@ public class ConstantesUI {
 	public static final String ARQUIVO_DE_PROPERTIES = "config.properties";
 	public static final String DIRETORIO_DE_MUSICA = "diretorioDeMusica";
 	public static final String TIPO_DE_DISCO = "tipoDeDisco";
+	public static final String DISC_TYPE_DEFAULT = "Normal";
+	public static final String DISC_TYPE_DOUBLE = "Double Disc";
+	public static final String DISC_TYPE_VA = "Various Artists";
+	public static final String DISC_TYPE_TRIBUTES = "Tributes";
 	
 	//formatos
 	public static final String FORMATO_MP3 = "mp3";
@@ -112,9 +119,4 @@ public class ConstantesUI {
 	public static final Color COR_PRETO = new Color(0,0,0);
 	public static final Color COR_DESABILITADO = new Color(150,150,150);
 
-	//Tipos de disco
-	public static final String DISC_TYPE_DEFAULT = "Normal";
-	public static final String DISC_TYPE_DOUBLE = "Double Disc";
-	public static final String DISC_TYPE_VA = "Various Artists";
-	public static final String DISC_TYPE_TRIBUTES = "Tributes";
 }

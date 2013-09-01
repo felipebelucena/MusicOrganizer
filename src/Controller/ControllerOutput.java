@@ -24,6 +24,7 @@ import ui.PainelFaixas;
 import ui.PainelTagsGerais;
 import ui.dialog.PopUp;
 import util.ConstantesUI;
+import util.Logger;
 import util.PropertiesFile;
 import Base.Tags;
 import Base.TipoPopUp;
@@ -31,12 +32,12 @@ import Exception.ImagemVaziaException;
 import Exception.PastaDeMusicaNaoExisteException;
 import Exception.PastaDeMusicaVaziaException;
 
-public class ControllerBotoes {
+public class ControllerOutput {
 
-	private Controller controller;
+	private ControllerInput controller;
 
-	public ControllerBotoes() {
-		controller = Controller.getInstace();
+	public ControllerOutput() {
+		controller = ControllerInput.getInstace();
 
 	}
 
@@ -129,7 +130,7 @@ public class ControllerBotoes {
 		if (tempDir != null) {
 			moveFile(musicas, tempDir);
 			File diretorioDeOrigem = musicas.get(0).getParentFile();
-			System.out.println("deletando: " + diretorioDeOrigem);
+			Logger.debug("deletando: " + diretorioDeOrigem);
 			delete(diretorioDeOrigem);
 		}
 
@@ -147,7 +148,7 @@ public class ControllerBotoes {
 			// diretório ta vazio, entao, delete ele
 			if (file.list().length == 0) {
 				file.delete();
-				System.out.println("Diretorio foi deletado: "
+				Logger.debug("Diretorio foi deletado: "
 						+ file.getAbsolutePath());
 			} else {
 				// lista todos os arquivos do diretorio
@@ -163,14 +164,14 @@ public class ControllerBotoes {
 				// checa o diretorio de novo, se tiver vazio, deleta
 				if (file.list().length == 0) {
 					file.delete();
-					System.out.println("Diretorio foi deletado: "
+					Logger.debug("Diretorio foi deletado: "
 							+ file.getAbsolutePath());
 				}
 			}
 		} else {
 			// se for arquivo, entao, delete ele
 			file.delete();
-			System.out.println("Arquivo foi deletado: "
+			Logger.debug("Arquivo foi deletado: "
 					+ file.getAbsolutePath());
 		}
 	}
@@ -191,8 +192,8 @@ public class ControllerBotoes {
 				File destino = new File(tempDir.getPath() + File.separator
 						+ nomeDaMusica);
 
-				System.out.println("Origem = " + origem.getPath());
-				System.out.println("Destino = " + destino.getPath());
+				Logger.debug("Origem = " + origem.getPath());
+				Logger.debug("Destino = " + destino.getPath());
 
 				inStream = new FileInputStream(origem);
 				outStream = new FileOutputStream(destino);
@@ -210,7 +211,7 @@ public class ControllerBotoes {
 
 				// delete the original file
 				origem.delete();
-				System.out.println("File is copied successful!");
+				Logger.debug("File is copied successful!");
 
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -245,15 +246,15 @@ public class ControllerBotoes {
 			 * fazer nada ,basta setar as tags e pronto
 			 */
 			if (!search(diretorioDoArtista, album)) {
-				System.out.println("Existe artista, mas nao existe o album");
+				Logger.debug("Existe artista, mas nao existe o album");
 				tempDir = new File(diretorioDoArtista + File.separator + album);
-				System.out.println("tempDir = " + tempDir.getPath());
+				Logger.debug("tempDir = " + tempDir.getPath());
 			}
 		} else {
-			System.out.println("nao tem artista com esse nome");
+			Logger.debug("nao tem artista com esse nome");
 			tempDir = new File(diretorioDeMusica + File.separator + artista
 					+ File.separator + album);
-			System.out.println("tempDir = " + tempDir.getPath());
+			Logger.debug("tempDir = " + tempDir.getPath());
 		}
 		return tempDir;
 	}
@@ -289,12 +290,12 @@ public class ControllerBotoes {
 		File diretorioDeMusicaFile = new File(diretorioDeMusica);
 
 		if (!diretorioDeMusicaFile.isDirectory()) {
-			System.err.println("Nao eh um diretorio");
+			Logger.error("Nao eh um diretorio");
 			return result;
 		}
 
 		if (diretorioDeMusicaFile.listFiles().length <= 0) {
-			System.err.println("Diretorio vazio");
+			Logger.error("Diretorio vazio");
 			return result;
 		}
 
