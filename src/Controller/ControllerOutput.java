@@ -20,9 +20,9 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.datatype.Artwork;
 
-import ui.PainelFaixas;
-import ui.PainelTagsGerais;
 import ui.dialog.PopUp;
+import ui.paineis.PainelFaixas;
+import ui.paineis.PainelTagsGerais;
 import util.ConstantesUI;
 import util.Logger;
 import util.PropertiesFile;

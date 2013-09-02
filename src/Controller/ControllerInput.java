@@ -21,9 +21,9 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.datatype.Artwork;
 
-import ui.PainelFaixas;
-import ui.PainelTagsGerais;
 import ui.listener.Atualizador;
+import ui.paineis.PainelFaixas;
+import ui.paineis.PainelTagsGerais;
 import util.ConstantesUI;
 import util.Logger;
 import Base.Tags;

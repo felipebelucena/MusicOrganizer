@@ -4,17 +4,12 @@ package Facade;
 import java.io.File;
 import java.util.ArrayList;
 
-import ui.PainelFaixas;
-import ui.PainelImagem;
-import ui.PainelSelecaoImagem;
-import ui.PainelTagsGerais;
 import ui.listener.Atualizador;
-
 import Base.Tags;
 import Base.TipoBotaoImagem;
+import Controller.ControllerImage;
 import Controller.ControllerInput;
 import Controller.ControllerOutput;
-import Controller.ControllerImage;
 import Exception.ListaNulaException;
 import Exception.ListaVaziaException;
 
