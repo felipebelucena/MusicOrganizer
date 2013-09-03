@@ -41,6 +41,11 @@ import Exception.PastaDeMusicaNaoExisteException;
 import Exception.PastaDeMusicaVaziaException;
 import Facade.Facade;
 
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame implements
 		HabilitarComponentesListener {
@@ -343,6 +348,12 @@ public class TelaPrincipal extends JFrame implements
 
 		this.setVisible(true);
 	}
+	
+	/*
+	 * ---------------------------------------------------------------------
+	 * Métodos Auxiliares
+	 * ---------------------------------------------------------------------
+	 */
 
 	/**
 	 * Retorna o tipo de disco das propriedades

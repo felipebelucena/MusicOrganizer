@@ -7,6 +7,12 @@ import util.ConstantesUI;
 
 import Base.TipoPopUp;
 
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
+
 public class PopUp {
 	
 	/**

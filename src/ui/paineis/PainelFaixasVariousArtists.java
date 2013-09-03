@@ -16,7 +16,11 @@ import javax.swing.JTextField;
 
 import ui.listener.UpdateFaixasListener;
 import util.ConstantesUI;
-
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
 @SuppressWarnings("serial")
 public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasListener {
 

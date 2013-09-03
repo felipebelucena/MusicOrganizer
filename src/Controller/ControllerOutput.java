@@ -1,6 +1,5 @@
 package Controller;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,6 +31,12 @@ import Exception.ImagemVaziaException;
 import Exception.PastaDeMusicaNaoExisteException;
 import Exception.PastaDeMusicaVaziaException;
 
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
+
 public class ControllerOutput {
 
 	private ControllerInput controller;
@@ -42,9 +47,10 @@ public class ControllerOutput {
 	}
 
 	/**
-	 * Método chamado pelo botão "salvar". Faz basicamente 3 coisas: 1 - Seta as
-	 * tags 2 - Cria a arvore de diretorio de acordo com a necessidade 3 - move
-	 * os .mp3 corrigidos para a arvore
+	 * Método chamado pelo botão "salvar". Faz basicamente 3 coisas: 
+	 * 1 - Seta as tags 
+	 * 2 - Cria a arvore de diretorio de acordo com a necessidade 
+	 * 3 - move os .mp3 corrigidos para a arvore
 	 */
 	public void salvar() {
 		

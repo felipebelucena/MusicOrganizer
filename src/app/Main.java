@@ -15,6 +15,12 @@ import ui.TelaPrincipal;
 
 import de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel;
 
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
+
 public class Main {
 	
 	/**

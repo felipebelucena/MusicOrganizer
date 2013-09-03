@@ -15,6 +15,12 @@ import Exception.ListaNulaException;
 import Exception.ListaVaziaException;
 import Facade.Facade;
 
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
+
 @SuppressWarnings("serial")
 public class DialogOpenDisco extends JFileChooser {
 

@@ -1,5 +1,9 @@
 package util;
-
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
 public class Logger {
 	
 	private final static boolean INFO = false;

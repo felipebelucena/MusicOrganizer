@@ -6,6 +6,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import util.ConstantesUI;
 
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
+
 @SuppressWarnings("serial")
 public class DialogOpenImage extends JFileChooser {
 

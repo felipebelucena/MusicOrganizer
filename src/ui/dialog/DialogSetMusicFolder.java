@@ -7,6 +7,12 @@ import Base.TipoPopUp;
 import util.ConstantesUI;
 import util.PropertiesFile;
 
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
+
 @SuppressWarnings("serial")
 public class DialogSetMusicFolder extends JFileChooser {
 	

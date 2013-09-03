@@ -10,12 +10,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import ui.dialog.PopUp;
 import ui.listener.HabilitarComponentesListener;
 import util.ConstantesUI;
-
 import Facade.Facade;
-
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
 
 @SuppressWarnings("serial")
 public class PainelBotoes extends JPanel implements HabilitarComponentesListener {

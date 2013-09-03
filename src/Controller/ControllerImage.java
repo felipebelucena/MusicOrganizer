@@ -1,6 +1,5 @@
 package Controller;
 
-
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,6 +19,12 @@ import util.Logger;
 import Base.TipoBotaoImagem;
 import Base.TipoImagemFile;
 import Base.TipoPopUp;
+
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
 
 public class ControllerImage {
 	

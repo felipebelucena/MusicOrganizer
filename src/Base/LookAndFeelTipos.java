@@ -1,4 +1,9 @@
 package Base;
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
 
 public enum LookAndFeelTipos {
     NIMBUS("Nimbus"),

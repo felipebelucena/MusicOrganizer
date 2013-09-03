@@ -5,7 +5,11 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.KeyStroke;
-
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
 public class ConstantesUI {
 	
 	//isso é feio! nao faça isso em casa

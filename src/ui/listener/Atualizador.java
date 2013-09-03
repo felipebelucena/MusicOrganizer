@@ -6,6 +6,12 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
+
 public class Atualizador {
 	
 	private List<HabilitarComponentesListener> listHabilitarListener;

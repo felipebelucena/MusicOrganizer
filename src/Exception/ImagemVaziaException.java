@@ -1,6 +1,11 @@
 package Exception;
 
 import util.ConstantesUI;
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
 
 @SuppressWarnings("serial")
 public class ImagemVaziaException extends Exception {

@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
 public interface UpdateFaixasListener {
 	
 	public void updateFaixas(ArrayList<JLabel> textFieldLabels,

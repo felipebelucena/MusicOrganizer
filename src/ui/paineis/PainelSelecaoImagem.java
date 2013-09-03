@@ -24,7 +24,11 @@ import util.ConstantesUI;
 
 import Base.TipoBotaoImagem;
 import Facade.Facade;
-
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
 @SuppressWarnings("serial")
 public class PainelSelecaoImagem extends JPanel implements HabilitarComponentesListener {
 

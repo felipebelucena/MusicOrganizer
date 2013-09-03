@@ -18,7 +18,11 @@ import javax.swing.JPanel;
 import ui.listener.UpdateImageListener;
 import util.ConstantesUI;
 import util.Logger;
-
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
 @SuppressWarnings("serial")
 public class PainelImagem extends JPanel implements UpdateImageListener {
 

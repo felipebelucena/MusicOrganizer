@@ -12,7 +12,11 @@ import javax.swing.JTextField;
 import ui.listener.HabilitarComponentesListener;
 import ui.listener.UpdateTagsGeraisListener;
 import util.ConstantesUI;
-
+/**
+ * 
+ * @author FrankJunior
+ *
+ */
 @SuppressWarnings("serial")
 public class PainelTagsGeraisVariousArtists extends JPanel implements HabilitarComponentesListener, UpdateTagsGeraisListener {
 
