@@ -27,9 +27,28 @@ public class PainelFaixas extends JPanel implements UpdateFaixasListener {
 	private ArrayList<JLabel> textFieldLabels = null;
 	private ArrayList<JTextField> textFieldsNumero = null;
 	private ArrayList<JTextField> textFieldsFaixas = null;
+	
+	private static PainelFaixas instace;
 
-	public PainelFaixas() {
+	/*
+	 * ---------------------------------------------------------------------
+	 * Construtor
+	 * ---------------------------------------------------------------------
+	 */
+	private PainelFaixas() {
 		gbc = new GridBagConstraints();
+	}
+	
+	/*
+	 * ---------------------------------------------------------------------
+	 * Singleton
+	 * ---------------------------------------------------------------------
+	 */
+	public static PainelFaixas getInstace(){
+		if (instace == null) {
+			instace = new PainelFaixas();
+		}
+		return instace;
 	}
 
 	/**

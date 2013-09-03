@@ -29,8 +29,27 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 	private ArrayList<JTextField> textFieldsNumero = null;
 	private ArrayList<JTextField> textFieldsFaixas = null;
 
-	public PainelFaixasVariousArtists() {
+	private static PainelFaixasVariousArtists instace;
+	
+	/*
+	 * ---------------------------------------------------------------------
+	 * Construtor
+	 * ---------------------------------------------------------------------
+	 */
+	private PainelFaixasVariousArtists() {
 		gbc = new GridBagConstraints();
+	}
+	
+	/*
+	 * ---------------------------------------------------------------------
+	 * Singleton
+	 * ---------------------------------------------------------------------
+	 */
+	public static PainelFaixasVariousArtists getInstace(){
+		if (instace == null) {
+			instace = new PainelFaixasVariousArtists();
+		}
+		return instace;
 	}
 
 	/**

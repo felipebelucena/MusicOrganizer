@@ -36,16 +36,41 @@ public class PainelTagsGeraisDoubleDisc extends JPanel implements HabilitarCompo
 	private JLabel labelDisco2;
 	
 	private boolean habilitarComponentes = false;
+	private static PainelTagsGeraisDoubleDisc instace;
 
-	public PainelTagsGeraisDoubleDisc() {
+	/*
+	 * ---------------------------------------------------------------------
+	 * Construtor
+	 * ---------------------------------------------------------------------
+	 */
+	private PainelTagsGeraisDoubleDisc() {
 		gbc = new GridBagConstraints();
 		initComponents();
 	}
 	
-	public PainelTagsGeraisDoubleDisc(boolean habilitarComponentes) {
+	private PainelTagsGeraisDoubleDisc(boolean habilitarComponentes) {
 		gbc = new GridBagConstraints();
 		this.habilitarComponentes = habilitarComponentes;
 		initComponents();
+	}
+	
+	/*
+	 * ---------------------------------------------------------------------
+	 * Singleton
+	 * ---------------------------------------------------------------------
+	 */
+	public static PainelTagsGeraisDoubleDisc getInstace(){
+		if (instace == null) {
+			instace = new PainelTagsGeraisDoubleDisc();
+		}
+		return instace;
+	}
+	
+	public static PainelTagsGeraisDoubleDisc getInstace(boolean habilitarComponentes){
+		if (instace == null) {
+			instace = new PainelTagsGeraisDoubleDisc(habilitarComponentes);
+		}
+		return instace;
 	}
 
 	/**

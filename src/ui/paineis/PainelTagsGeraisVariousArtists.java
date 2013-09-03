@@ -30,16 +30,41 @@ public class PainelTagsGeraisVariousArtists extends JPanel implements HabilitarC
 	private JLabel labelGenero;
 	
 	private boolean habilitarComponentes = false;
+	private static PainelTagsGeraisVariousArtists intance;
 
-	public PainelTagsGeraisVariousArtists() {
+	/*
+	 * ---------------------------------------------------------------------
+	 * Construtor
+	 * ---------------------------------------------------------------------
+	 */
+	private PainelTagsGeraisVariousArtists() {
 		gbc = new GridBagConstraints();
 		initComponents();
 	}
 	
-	public PainelTagsGeraisVariousArtists(boolean habilitarComponentes) {
+	private PainelTagsGeraisVariousArtists(boolean habilitarComponentes) {
 		gbc = new GridBagConstraints();
 		this.habilitarComponentes = habilitarComponentes;
 		initComponents();
+	}
+	
+	/*
+	 * ---------------------------------------------------------------------
+	 * Singleton
+	 * ---------------------------------------------------------------------
+	 */
+	public static  PainelTagsGeraisVariousArtists getInstace(){
+		if (intance == null) {
+			intance = new PainelTagsGeraisVariousArtists();
+		}
+		return intance;
+	}
+	
+	public static  PainelTagsGeraisVariousArtists getInstace(boolean habilitarComponentes){
+		if (intance == null) {
+			intance = new PainelTagsGeraisVariousArtists(habilitarComponentes);
+		}
+		return intance;
 	}
 
 	/**

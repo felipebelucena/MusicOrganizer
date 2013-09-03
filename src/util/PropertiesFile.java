@@ -17,9 +17,9 @@ import Exception.PastaDeMusicaVaziaException;
 public class PropertiesFile {
 
 	/**
-	 * Pega o diretorio de musica de um arquivo de properties
+	 * Pega um valor de uma propriedade do arquivo de properties
 	 * 
-	 * @return String do diretorio de musica do usuario
+	 * @return String do valor do campo
 	 */
 	public static String getProperties(String campo) {
 		String diretorioDeMusica = null;
@@ -35,6 +35,11 @@ public class PropertiesFile {
 		return diretorioDeMusica;
 	}
 
+	/**
+	 * Seta uma propriedade no arquivo de properties
+	 * @param campo - nome do campo do arquivo
+	 * @param valor - valor que esse campo terá
+	 */
 	public static void setProperties(String campo, String valor) {
 		try {
 			Properties prop = new Properties();
@@ -48,6 +53,12 @@ public class PropertiesFile {
 		}
 	}
 
+	/**
+	 * Verifica se a pasta de musica é valida
+	 * @param musicFolder
+	 * @throws PastaDeMusicaNaoExisteException
+	 * @throws PastaDeMusicaVaziaException
+	 */
 	public static void verifyMusicFolder(String musicFolder)
 			throws PastaDeMusicaNaoExisteException, PastaDeMusicaVaziaException {
 		if (musicFolder == null
@@ -59,6 +70,9 @@ public class PropertiesFile {
 		}
 	}
 	
+	/**
+	 * Reseta o arquivo de properties com configurações default
+	 */
 	public static void resetProperties(){
 		try {
 			Properties prop = new Properties();
@@ -70,6 +84,19 @@ public class PropertiesFile {
 		} catch (IOException e) {
 			Logger.error(e.getMessage());
 		}
+	}
+	
+	/**
+	 * Retorna o tipo de disco das propriedades
+	 * 
+	 * @return String com o tipo de disco
+	 */
+	public static String getTipoDeDisco() {
+		String tipoDeDisco = getProperties(ConstantesUI.TIPO_DE_DISCO);
+		if (tipoDeDisco == null) {
+			PropertiesFile.resetProperties();
+		}
+		return tipoDeDisco;
 	}
 
 }

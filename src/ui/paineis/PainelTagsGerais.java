@@ -32,16 +32,41 @@ public class PainelTagsGerais extends JPanel implements HabilitarComponentesList
 	private JLabel labelGenero;
 	
 	private boolean habilitarComponentes = false;
+	private static PainelTagsGerais instace;
 
-	public PainelTagsGerais() {
+	/*
+	 * ---------------------------------------------------------------------
+	 * Construtor
+	 * ---------------------------------------------------------------------
+	 */
+	private PainelTagsGerais() {
 		gbc = new GridBagConstraints();
 		initComponents();
 	}
 	
-	public PainelTagsGerais(boolean habilitarComponentes) {
+	private PainelTagsGerais(boolean habilitarComponentes) {
 		gbc = new GridBagConstraints();
 		this.habilitarComponentes = habilitarComponentes;
 		initComponents();
+	}
+	
+	/*
+	 * ---------------------------------------------------------------------
+	 * Singleton
+	 * ---------------------------------------------------------------------
+	 */
+	public static PainelTagsGerais getInstace(){
+		if (instace == null) {
+			instace = new PainelTagsGerais();
+		}
+		return instace;
+	}
+	
+	public static PainelTagsGerais getInstace(boolean habilitarComponentes){
+		if (instace == null) {
+			instace = new PainelTagsGerais(habilitarComponentes);
+		}
+		return instace;
 	}
 
 	/**

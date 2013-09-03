@@ -85,7 +85,7 @@ public class TelaPrincipal extends JFrame implements
 		this.setLayout(new BorderLayout());
 		this.setTitle(ConstantesUI.TITULO);
 
-		tipoDeDisco = getTipoDeDisco();
+		tipoDeDisco = PropertiesFile.getTipoDeDisco();
 
 		/*
 		 * ---------------------------------------------------------------------
@@ -251,7 +251,7 @@ public class TelaPrincipal extends JFrame implements
 								ConstantesUI.DIALOG_TIPO_DE_DISCO,
 								ConstantesUI.DIALOG_TIPO_DE_DISCO_TITULO,
 								JOptionPane.PLAIN_MESSAGE, null, tiposDeDisco,
-								ConstantesUI.DISC_TYPE_DEFAULT);
+								PropertiesFile.getTipoDeDisco());
 				PropertiesFile.setProperties(ConstantesUI.TIPO_DE_DISCO,
 						tipoDeDiscoSelecionado);
 				labelDiscType.setText(ConstantesUI.ESPACO
@@ -355,18 +355,6 @@ public class TelaPrincipal extends JFrame implements
 	 * ---------------------------------------------------------------------
 	 */
 
-	/**
-	 * Retorna o tipo de disco das propriedades
-	 * 
-	 * @return String com o tipo de disco
-	 */
-	private String getTipoDeDisco() {
-		tipoDeDisco = PropertiesFile.getProperties(ConstantesUI.TIPO_DE_DISCO);
-		if (tipoDeDisco == null) {
-			PropertiesFile.resetProperties();
-		}
-		return tipoDeDisco;
-	}
 
 	/**
 	 * Habilitar componentes dessa tela
@@ -384,13 +372,13 @@ public class TelaPrincipal extends JFrame implements
 	private void updatePaineisFromTipoDeDisco() {
 		painelTagsGerais = null;
 		painelFaixas = null;
-		tipoDeDisco = getTipoDeDisco();
+		tipoDeDisco = PropertiesFile.getTipoDeDisco();
 		if (tipoDeDisco.equals(ConstantesUI.DISC_TYPE_VA)) {
 			try {
 				// se essa lista for nula, cai no catch. Serve para verificar se algum disco já foi carregado
 				dialogOpenDisco.getListFiles();
-				painelFaixas = new PainelFaixasVariousArtists();
-				painelTagsGerais = new PainelTagsGeraisVariousArtists(true);
+				painelFaixas = PainelFaixasVariousArtists.getInstace();
+				painelTagsGerais = PainelTagsGeraisVariousArtists.getInstace(true);
 				updateAtualizador(painelTagsGerais.getClass().getName(), painelFaixas.getClass().getName());
 				try {
 					Facade.getInstace().carregaMusicas(dialogOpenDisco.getListFiles(), atualizador, dialogOpenDisco.getListaTags());
@@ -400,16 +388,16 @@ public class TelaPrincipal extends JFrame implements
 					Logger.error(e.getMessage());
 				}
 			} catch (NullPointerException e) {
-				painelFaixas = new PainelFaixasVariousArtists();
-				painelTagsGerais = new PainelTagsGeraisVariousArtists();
+				painelFaixas = PainelFaixasVariousArtists.getInstace();
+				painelTagsGerais = PainelTagsGeraisVariousArtists.getInstace();
 				updateAtualizador(painelTagsGerais.getClass().getName(), painelFaixas.getClass().getName());
 			}
 		} else if (tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DOUBLE)) {
 			try {
 				// se essa lista for nula, cai no catch. Serve para verificar se algum disco já foi carregado
 				dialogOpenDisco.getListFiles();
-				painelTagsGerais = new PainelTagsGeraisDoubleDisc(true);
-				painelFaixas = new PainelFaixas();
+				painelTagsGerais = PainelTagsGeraisDoubleDisc.getInstace(true);
+				painelFaixas = PainelFaixas.getInstace();
 				updateAtualizador(painelTagsGerais.getClass().getName(), painelFaixas.getClass().getName());
 				try {
 					Facade.getInstace().carregaMusicas(dialogOpenDisco.getListFiles(), atualizador, dialogOpenDisco.getListaTags());
@@ -419,16 +407,16 @@ public class TelaPrincipal extends JFrame implements
 					Logger.error(e.getMessage());
 				}
 			} catch (NullPointerException e) {
-				painelTagsGerais = new PainelTagsGeraisDoubleDisc();
-				painelFaixas = new PainelFaixas();
+				painelTagsGerais = PainelTagsGeraisDoubleDisc.getInstace();
+				painelFaixas = PainelFaixas.getInstace();
 				updateAtualizador(painelTagsGerais.getClass().getName(), painelFaixas.getClass().getName());
 			}
 		} else {
 			try {
 				// se essa lista for nula, cai no catch. Serve para verificar se algum disco já foi carregado
 				dialogOpenDisco.getListFiles();
-				painelTagsGerais = new PainelTagsGerais(true);
-				painelFaixas = new PainelFaixas();
+				painelTagsGerais = PainelTagsGerais.getInstace(true);
+				painelFaixas = PainelFaixas.getInstace();
 				updateAtualizador(painelTagsGerais.getClass().getName(), painelFaixas.getClass().getName());
 				try {
 					Facade.getInstace().carregaMusicas(dialogOpenDisco.getListFiles(), atualizador, dialogOpenDisco.getListaTags());
@@ -438,8 +426,8 @@ public class TelaPrincipal extends JFrame implements
 					Logger.error(e.getMessage());
 				}
 			} catch (Exception e) {
-				painelTagsGerais = new PainelTagsGerais();
-				painelFaixas = new PainelFaixas();
+				painelTagsGerais = PainelTagsGerais.getInstace();
+				painelFaixas = PainelFaixas.getInstace();
 				updateAtualizador(painelTagsGerais.getClass().getName(), painelFaixas.getClass().getName());
 			}
 		}
