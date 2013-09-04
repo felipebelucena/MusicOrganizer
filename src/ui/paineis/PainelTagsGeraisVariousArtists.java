@@ -72,7 +72,7 @@ public class PainelTagsGeraisVariousArtists extends JPanel implements HabilitarC
 	 */
 	private void initComponents() {
 
-		labelAlbum = new JLabel(ConstantesUI.LABEL_ARLBUM);
+		labelAlbum = new JLabel(ConstantesUI.LABEL_ALBUM);
 		labelAno = new JLabel(ConstantesUI.LABEL_ANO);
 		labelGenero = new JLabel(ConstantesUI.LABEL_GENERO);
 

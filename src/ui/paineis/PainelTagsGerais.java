@@ -75,7 +75,7 @@ public class PainelTagsGerais extends JPanel implements HabilitarComponentesList
 	private void initComponents() {
 
 		labelArtista = new JLabel(ConstantesUI.LABEL_ARTISTA);
-		labelAlbum = new JLabel(ConstantesUI.LABEL_ARLBUM);
+		labelAlbum = new JLabel(ConstantesUI.LABEL_ALBUM);
 		labelAno = new JLabel(ConstantesUI.LABEL_ANO);
 		labelGenero = new JLabel(ConstantesUI.LABEL_GENERO);
 

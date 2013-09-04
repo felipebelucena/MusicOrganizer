@@ -425,7 +425,7 @@ public class TelaPrincipal extends JFrame implements
 				} catch (ListaVaziaException e) {
 					Logger.error(e.getMessage());
 				}
-			} catch (Exception e) {
+			} catch (NullPointerException e) {
 				painelTagsGerais = PainelTagsGerais.getInstace();
 				painelFaixas = PainelFaixas.getInstace();
 				updateAtualizador(painelTagsGerais.getClass().getName(), painelFaixas.getClass().getName());

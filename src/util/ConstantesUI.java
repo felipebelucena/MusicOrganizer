@@ -24,7 +24,7 @@ public class ConstantesUI {
 	public static final int LARGURA_IMAGEM = 150;
 	public static final String TITULO = "Music Organizer 1.0";
 	public static final String LABEL_ARTISTA = "Artista";
-	public static final String LABEL_ARLBUM = "Album";
+	public static final String LABEL_ALBUM = "Album";
 	public static final String LABEL_ANO = "Ano";
 	public static final String LABEL_GENERO = "Genero";
 	public static final String BOTAO_SALVAR = "Salvar";
@@ -86,6 +86,7 @@ public class ConstantesUI {
 	public static final String POPUP_DIRETORIO_DE_MUSICA_INVALIDO = "Diretorio de Musica nao existe. Selecione um diretorio válido no meu de Settings";
 	public static final String POPUP_DIRETORIO_DE_MUSICA_VAZIO = "Diretório de Música não foi informado. Informe no menu de Settings";
 	public static final String POPUP_DIRETORIO_DE_MUSICA_SALVO = "Diretório salvo com sucesso";
+	public static final String POPUP_PAINEL_INVALIDO = "Opção de painel inválida";
 	
 	//Dialogs
 	public static final String DIALOG_ESCOLHA_UM_CD = "Escolha um CD";
