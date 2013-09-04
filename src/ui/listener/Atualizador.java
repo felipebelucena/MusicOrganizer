@@ -48,12 +48,12 @@ public class Atualizador {
 		}
 	}
 	
-	public void updateFaixas(ArrayList<JLabel> textFieldLabels,
-			ArrayList<JTextField> textFieldsNumero,
-			ArrayList<JTextField> textFieldsFaixas){
+	public void updateFaixas(ArrayList<JLabel> listLabels,
+			ArrayList<JTextField> listTextFieldNumero,
+			ArrayList<JTextField> listTextFieldFaixas){
 		
 		for (UpdateFaixasListener listener : listUpdateFaixasListener) {
-			listener.updateFaixas(textFieldLabels, textFieldsNumero, textFieldsFaixas);
+			listener.updateFaixas(listLabels, listTextFieldNumero, listTextFieldFaixas);
 		}
 	}
 	

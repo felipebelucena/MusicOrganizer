@@ -354,8 +354,7 @@ public class TelaPrincipal extends JFrame implements
 	 * Métodos Auxiliares
 	 * ---------------------------------------------------------------------
 	 */
-
-
+	
 	/**
 	 * Habilitar componentes dessa tela
 	 */

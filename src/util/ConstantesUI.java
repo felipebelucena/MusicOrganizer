@@ -96,6 +96,12 @@ public class ConstantesUI {
 	public static final String DIALOG_TIPO_DE_DISCO = "Choose a disc type";
 	public static final String DIALOG_TIPO_DE_DISCO_TITULO = "Disc Type";
 	
+	// Logs
+	public static final String LOG_DEBUG = "[DEBUG] ";
+	public static final String LOG_INFO = "[INFO] ";
+	public static final String LOG_WARNING = "[WARNING] ";
+	public static final String LOG_ERROR = "[ERROR] ";
+	
 	//Erros
 	public static final String ERRO_PROBLEMA_COM_A_INTERNET = "Problemas com a conexao com a internet";
 	public static final String ERRO_URL_INVALIDA = "Digite uma URL válida";

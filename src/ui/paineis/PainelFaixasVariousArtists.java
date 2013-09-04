@@ -25,9 +25,9 @@ import util.ConstantesUI;
 public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasListener {
 
 	private GridBagConstraints gbc;
-	private ArrayList<JLabel> textFieldLabels = null;
-	private ArrayList<JTextField> textFieldsNumero = null;
-	private ArrayList<JTextField> textFieldsFaixas = null;
+	private ArrayList<JLabel> listLabels = null;
+	private ArrayList<JTextField> listTextFieldNumero = null;
+	private ArrayList<JTextField> listTextFieldFaixas = null;
 
 	private static PainelFaixasVariousArtists instace;
 	
@@ -56,14 +56,14 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 	 * Constrói a UI do <code>PainelFaixas</code>, com os 3 ArrayList: de
 	 * JLabels, e os 2 de JTextFields
 	 * 
-	 * @param textFieldLabels
-	 * @param textFieldsNumero
-	 * @param textFieldsFaixas
+	 * @param listLabels
+	 * @param listtextFieldNumero
+	 * @param listtextFieldFaixas
 	 */
 	@Override
-	public void updateFaixas(ArrayList<JLabel> textFieldLabels,
-			ArrayList<JTextField> textFieldsNumero,
-			ArrayList<JTextField> textFieldsFaixas) {
+	public void updateFaixas(ArrayList<JLabel> listLabels,
+			ArrayList<JTextField> listtextFieldNumero,
+			ArrayList<JTextField> listtextFieldFaixas) {
 		this.removeAll();
 
 		/*
@@ -72,7 +72,7 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 		 * ---------------------------------------------------------------------
 		 */
 		List<JTextField> textFieldsArtistas = new ArrayList<JTextField>();
-		for (int i = 0; i < textFieldsFaixas.size(); i++) {
+		for (int i = 0; i < listtextFieldFaixas.size(); i++) {
 			textFieldsArtistas.add(i, new JTextField(15));
 		}
 		
@@ -105,10 +105,10 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 		gbc.anchor = GridBagConstraints.WEST;
 		painelNorte.add(labelLegenda, gbc);
 
-		this.textFieldsNumero = textFieldsNumero;
-		this.textFieldsFaixas = textFieldsFaixas;
-		this.textFieldLabels = textFieldLabels;
-		int quantidadeDeMusicas = textFieldLabels.size();
+		this.listTextFieldNumero = listtextFieldNumero;
+		this.listTextFieldFaixas = listtextFieldFaixas;
+		this.listLabels = listLabels;
+		int quantidadeDeMusicas = listLabels.size();
 		this.setBorder(BorderFactory
 				.createTitledBorder(ConstantesUI.BORDA_MUSICAS));
 		this.setLayout(new BorderLayout());
@@ -121,9 +121,9 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 		int len = quantidadeDeMusicas / 2;
 		for (int i = 0; i < len; i++) {
 
-			JLabel labelFaixa = textFieldLabels.get(i);
-			JTextField textFieldNumero = textFieldsNumero.get(i);
-			JTextField textFieldFaixa = textFieldsFaixas.get(i);
+			JLabel labelFaixa = listLabels.get(i);
+			JTextField textFieldNumero = listtextFieldNumero.get(i);
+			JTextField textFieldFaixa = listtextFieldFaixas.get(i);
 			JTextField textFieldArtista = textFieldsArtistas.get(i);
 
 			gbc.gridx = 0;
@@ -157,9 +157,9 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 		 * ---------------------------------------------------------------------
 		 */
 		for (int i = len; i < quantidadeDeMusicas; i++) {
-			JLabel labelFaixa = textFieldLabels.get(i);
-			JTextField textFieldNumero = textFieldsNumero.get(i);
-			JTextField textFieldFaixa = textFieldsFaixas.get(i);
+			JLabel labelFaixa = listLabels.get(i);
+			JTextField textFieldNumero = listtextFieldNumero.get(i);
+			JTextField textFieldFaixa = listtextFieldFaixas.get(i);
 			JTextField textFieldArtista = textFieldsArtistas.get(i);
 
 			gbc.gridx = 0;
@@ -199,16 +199,16 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 		this.repaint();
 	}
 
-	public ArrayList<JLabel> getTextFieldLabels() {
-		return textFieldLabels;
+	public ArrayList<JLabel> getlistLabels() {
+		return listLabels;
 	}
 
-	public ArrayList<JTextField> getTextFieldsNumero() {
-		return textFieldsNumero;
+	public ArrayList<JTextField> getlistTextFieldNumero() {
+		return listTextFieldNumero;
 	}
 
-	public ArrayList<JTextField> getTextFieldsFaixas() {
-		return textFieldsFaixas;
+	public ArrayList<JTextField> getlistTextFieldFaixas() {
+		return listTextFieldFaixas;
 	}
 
 }

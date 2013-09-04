@@ -13,25 +13,25 @@ public class Logger {
 	
 	public static void info(String msg){
 		if (INFO) {
-			System.out.println("[INFO] "+msg);
+			System.out.println(ConstantesUI.LOG_INFO+msg);
 		}
 	}
 	
 	public static void debug(String msg){
 		if (DEBUG) {
-			System.out.println("[DEBUG] "+msg);
+			System.out.println(ConstantesUI.LOG_DEBUG+msg);
 		}
 	}
 	
 	public static void error(String msg){
 		if (ERROR) {
-			System.out.println("[ERROR] "+msg);
+			System.out.println(ConstantesUI.LOG_ERROR+msg);
 		}
 	}
 	
 	public static void warning(String msg){
 		if (WARNING) {
-			System.out.println("[WARNING] "+msg);
+			System.out.println(ConstantesUI.LOG_WARNING+msg);
 		}
 	}
 

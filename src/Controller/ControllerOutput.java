@@ -95,73 +95,66 @@ public class ControllerOutput {
 			fillMusicArray(musicas, TipoDeDisco.NORMAL);
 		}
 		
-		/*
-		 * TODO essa linha é só pra garantir q o código não passe daqui,
-		 * e pra eu me lembrar onde eu parei.
-		 * Precisa-se testar, daqui pra cima
-		 */
-		System.exit(0);
 		
-		PainelFaixas painelFaixas = controllerInput.getPainelFaixas();
-		PainelTagsGerais painelTagsGerais = controllerInput.getPainelTagsGerais();
-		ControllerImage controllerImage = ControllerImage.getInstace();
-
-
-		/*
-		 * Maneira meio louca de garantir a informação dentro do listaTags,e ainda ordenado
-		 * FIXME melhorar isso aqui
-		 */
-		for (int i = 0; i < musicas.size(); i++) {
-			listaTags.get(i).setArtista(
-					painelTagsGerais.getTextFieldArtista().getText());
-			listaTags.get(i).setAlbum(
-					painelTagsGerais.getTextFieldAlbum().getText());
-			listaTags.get(i).setAno(
-					painelTagsGerais.getTextFieldAno().getText());
-			listaTags.get(i).setGenero(
-					painelTagsGerais.getTextFieldGenero().getText());
-			listaTags.get(i).setNumero(
-					painelFaixas.getTextFieldsNumero().get(i).getText());
-			listaTags.get(i).setNomeDaMusica(
-					painelFaixas.getTextFieldsFaixas().get(i).getText());
-			listaTags.get(i).setImage(controllerImage.getImagem());
-		}
-
-		// Seta todas as tags
-		try {
-			setTags(listaTags, musicas);
-		} catch (NullPointerException e) {
-			new PopUp(ConstantesUI.POPUP_CAMPOS_OBRIGATORIOS, TipoPopUp.WARNING);
-		} catch (ReadOnlyFileException e) {
-			new PopUp(ConstantesUI.POPUP_ARQUIVO_APENAS_DE_LEITURA,
-					TipoPopUp.ERROR);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		// Renomea os aquivos
-		controllerFile.renameFile(listaTags, musicas);
-
-		// Criação do diretorio
-		File tempDir = controllerFile.tempDirCreate(diretorioDeMusica, listaTags);
-		if (tempDir != null) {
-			if (!tempDir.mkdirs()) {
-				new PopUp(ConstantesUI.POPUP_FALHA_CRIACAO_DIRETORIO,
-						TipoPopUp.ERROR);
-				return;
-			}
-		}
-
-		// Movendo os arquivos para a pasta de musica
-		if (tempDir != null) {
-			controllerFile.moveFile(musicas, tempDir);
-			File diretorioDeOrigem = musicas.get(0).getParentFile();
-			Logger.debug("deletando: " + diretorioDeOrigem);
-			controllerFile.delete(diretorioDeOrigem);
-		}
-
-		new PopUp(ConstantesUI.POPUP_SALVO_COM_SUCESSO, TipoPopUp.INFO);
-
+//		PainelFaixas painelFaixas = controllerInput.getPainelFaixas();
+//		PainelTagsGerais painelTagsGerais = controllerInput.getPainelTagsGerais();
+//		ControllerImage controllerImage = ControllerImage.getInstace();
+//
+//
+//		/*
+//		 * Maneira meio louca de garantir a informação dentro do listaTags,e ainda ordenado
+//		 * FIXME melhorar isso aqui
+//		 */
+//		for (int i = 0; i < musicas.size(); i++) {
+//			listaTags.get(i).setArtista(
+//					painelTagsGerais.getTextFieldArtista().getText());
+//			listaTags.get(i).setAlbum(
+//					painelTagsGerais.getTextFieldAlbum().getText());
+//			listaTags.get(i).setAno(
+//					painelTagsGerais.getTextFieldAno().getText());
+//			listaTags.get(i).setGenero(
+//					painelTagsGerais.getTextFieldGenero().getText());
+//			listaTags.get(i).setNumero(
+//					painelFaixas.getTextFieldsNumero().get(i).getText());
+//			listaTags.get(i).setNomeDaMusica(
+//					painelFaixas.getTextFieldsFaixas().get(i).getText());
+//			listaTags.get(i).setImage(controllerImage.getImagem());
+//		}
+//
+//		// Seta todas as tags
+//		try {
+//			setTags(listaTags, musicas);
+//		} catch (NullPointerException e) {
+//			new PopUp(ConstantesUI.POPUP_CAMPOS_OBRIGATORIOS, TipoPopUp.WARNING);
+//		} catch (ReadOnlyFileException e) {
+//			new PopUp(ConstantesUI.POPUP_ARQUIVO_APENAS_DE_LEITURA,
+//					TipoPopUp.ERROR);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		// Renomea os aquivos
+//		controllerFile.renameFile(listaTags, musicas);
+//
+//		// Criação do diretorio
+//		File tempDir = controllerFile.tempDirCreate(diretorioDeMusica, listaTags);
+//		if (tempDir != null) {
+//			if (!tempDir.mkdirs()) {
+//				new PopUp(ConstantesUI.POPUP_FALHA_CRIACAO_DIRETORIO,
+//						TipoPopUp.ERROR);
+//				return;
+//			}
+//		}
+//
+//		// Movendo os arquivos para a pasta de musica
+//		if (tempDir != null) {
+//			controllerFile.moveFile(musicas, tempDir);
+//			File diretorioDeOrigem = musicas.get(0).getParentFile();
+//			Logger.debug("deletando: " + diretorioDeOrigem);
+//			controllerFile.delete(diretorioDeOrigem);
+//		}
+//
+//		new PopUp(ConstantesUI.POPUP_SALVO_COM_SUCESSO, TipoPopUp.INFO);
 	}
 
 	/**
@@ -175,11 +168,11 @@ public class ControllerOutput {
 		switch (tipoDeDisco) {
 		case VA:
 			painelFaixas = PainelFaixasVariousArtists.getInstace();
-			labelsList = ((PainelFaixasVariousArtists) painelFaixas).getTextFieldLabels();
+			labelsList = ((PainelFaixasVariousArtists) painelFaixas).getlistLabels();
 			break;
 		case NORMAL:
 			painelFaixas = PainelFaixas.getInstace();
-			labelsList = ((PainelFaixas) painelFaixas).getTextFieldLabels();
+			labelsList = ((PainelFaixas) painelFaixas).getlistLabels();
 			break;
 		default:
 			new PopUp(ConstantesUI.POPUP_PAINEL_INVALIDO, TipoPopUp.ERROR);
@@ -276,11 +269,11 @@ public class ControllerOutput {
 	 */
 	public void nome2Tags() {
 		PainelFaixas painelFaixas = controllerInput.getPainelFaixas();
-		ArrayList<JLabel> nomes = painelFaixas.getTextFieldLabels();
+		ArrayList<JLabel> nomes = painelFaixas.getlistLabels();
 
 		for (int i = 0; i < nomes.size(); i++) {
 			String faixa = nomes.get(i).getText();
-			painelFaixas.getTextFieldsFaixas().get(i).setText(faixa);
+			painelFaixas.getlistTextFieldFaixas().get(i).setText(faixa);
 		}
 	}
 

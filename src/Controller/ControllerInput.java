@@ -189,18 +189,18 @@ public class ControllerInput {
 				genero = listaTags.get(0).getGenero();
 			}
 
-			ArrayList<JLabel> labels = new ArrayList<JLabel>();
-			ArrayList<JTextField> textFieldsNumero = new ArrayList<JTextField>();
-			ArrayList<JTextField> textFieldsFaixas = new ArrayList<JTextField>();
+			ArrayList<JLabel> listLabels = new ArrayList<JLabel>();
+			ArrayList<JTextField> listTextFieldNumero = new ArrayList<JTextField>();
+			ArrayList<JTextField> listTextFieldFaixas = new ArrayList<JTextField>();
 
 			String nomeDoArquivo = ConstantesUI.STRING_VAZIA;
 			String numero = ConstantesUI.STRING_VAZIA;
 			String faixas = ConstantesUI.STRING_VAZIA;
 
 			for (int i = 0; i < listaTags.size(); i++) {
-				labels.add(new JLabel());
-				textFieldsNumero.add(new JTextField(3));
-				textFieldsFaixas.add(new JTextField(15));
+				listLabels.add(new JLabel());
+				listTextFieldNumero.add(new JTextField(3));
+				listTextFieldFaixas.add(new JTextField(15));
 			}
 
 			for (int i = 0; i < listaTags.size(); i++) {
@@ -209,34 +209,34 @@ public class ControllerInput {
 				numero = listaTags.get(i).getNumero();
 				faixas = listaTags.get(i).getNomeDaMusica();
 
-				labels.get(i).setText(nomeDoArquivo);
-				textFieldsNumero.get(i).setText(numero);
-				textFieldsFaixas.get(i).setText(faixas);
+				listLabels.get(i).setText(nomeDoArquivo);
+				listTextFieldNumero.get(i).setText(numero);
+				listTextFieldFaixas.get(i).setText(faixas);
 			}
 
 			// Ordenando a lista
 			int contador = 1;
 			do {
-				for (int i = 0; i < textFieldsNumero.size() - 1; i++) {
-					int valor = Integer.parseInt(textFieldsNumero.get(i)
+				for (int i = 0; i < listTextFieldNumero.size() - 1; i++) {
+					int valor = Integer.parseInt(listTextFieldNumero.get(i)
 							.getText());
-					int next = Integer.parseInt(textFieldsNumero.get(i + 1)
+					int next = Integer.parseInt(listTextFieldNumero.get(i + 1)
 							.getText());
 					if (valor > next) {
-						trocaValores(textFieldsNumero, i);
-						trocaValores(textFieldsFaixas, i);
-						trocaValores(labels, i);
+						trocaValores(listTextFieldNumero, i);
+						trocaValores(listTextFieldFaixas, i);
+						trocaValores(listLabels, i);
 					}
 				}
 				contador++;
-			} while (contador < textFieldsNumero.size());
+			} while (contador < listTextFieldNumero.size());
 
 			byte[] image = listaTags.get(0).getImage();
 			tag.setImage(image);
 
 			// Atualizando a UI
 			atualizador.habilitarTodosOsComponentes();
-			atualizador.updateFaixas(labels, textFieldsNumero,textFieldsFaixas);
+			atualizador.updateFaixas(listLabels, listTextFieldNumero,listTextFieldFaixas);
 			atualizador.updateImage(tag.getImage());
 			atualizador.updatetagsGerais(artista, album, ano, genero);
 			
