@@ -21,6 +21,8 @@ import ui.dialog.PopUp;
 import ui.paineis.PainelFaixas;
 import ui.paineis.PainelFaixasVariousArtists;
 import ui.paineis.PainelTagsGerais;
+import ui.paineis.PainelTagsGeraisDoubleDisc;
+import ui.paineis.PainelTagsGeraisVariousArtists;
 import util.ConstantesUI;
 import util.ControllerFile;
 import util.Logger;
@@ -78,48 +80,31 @@ public class ControllerOutput {
 			new PopUp(ConstantesUI.POPUP_CARREGUE_UM_DISCO, TipoPopUp.WARNING);
 			return;
 		}
-
+		
 		/*
 		 * carrega o tipo de disco, do arquivo de properties
 		 */
 		String tipoDeDisco = PropertiesFile.getTipoDeDisco();
-		List<File> musicas = new ArrayList<File>();
+		List<File> musicas = null;
 		
 		if (tipoDeDisco.equals(ConstantesUI.DISC_TYPE_VA)) {
-			fillMusicArray(musicas, TipoDeDisco.VA);
+			musicas = fillMusicArray(TipoDeDisco.VA);
+			listaTags = fillListaTags(musicas, TipoDeDisco.VA);
 		}else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DOUBLE)){
-			fillMusicArray(musicas, TipoDeDisco.NORMAL);
+			musicas = fillMusicArray(TipoDeDisco.DOUBLE);
+			listaTags = fillListaTags(musicas, TipoDeDisco.DOUBLE);
 		}else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_TRIBUTES)){
-			fillMusicArray(musicas, TipoDeDisco.NORMAL);
+			musicas = fillMusicArray(TipoDeDisco.TRIBUTES);
+			listaTags = fillListaTags(musicas, TipoDeDisco.TRIBUTES);
 		}else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DEFAULT)){
-			fillMusicArray(musicas, TipoDeDisco.NORMAL);
+			musicas = fillMusicArray(TipoDeDisco.NORMAL);
+			listaTags = fillListaTags(musicas, TipoDeDisco.NORMAL);
 		}
 		
 		
 //		PainelFaixas painelFaixas = controllerInput.getPainelFaixas();
 //		PainelTagsGerais painelTagsGerais = controllerInput.getPainelTagsGerais();
-//		ControllerImage controllerImage = ControllerImage.getInstace();
 //
-//
-//		/*
-//		 * Maneira meio louca de garantir a informação dentro do listaTags,e ainda ordenado
-//		 * FIXME melhorar isso aqui
-//		 */
-//		for (int i = 0; i < musicas.size(); i++) {
-//			listaTags.get(i).setArtista(
-//					painelTagsGerais.getTextFieldArtista().getText());
-//			listaTags.get(i).setAlbum(
-//					painelTagsGerais.getTextFieldAlbum().getText());
-//			listaTags.get(i).setAno(
-//					painelTagsGerais.getTextFieldAno().getText());
-//			listaTags.get(i).setGenero(
-//					painelTagsGerais.getTextFieldGenero().getText());
-//			listaTags.get(i).setNumero(
-//					painelFaixas.getTextFieldsNumero().get(i).getText());
-//			listaTags.get(i).setNomeDaMusica(
-//					painelFaixas.getTextFieldsFaixas().get(i).getText());
-//			listaTags.get(i).setImage(controllerImage.getImagem());
-//		}
 //
 //		// Seta todas as tags
 //		try {
@@ -158,18 +143,92 @@ public class ControllerOutput {
 	}
 
 	/**
-	 * Preenche uma lista de músicas com o path de todas as músicas
-	 * @param musicas - lista a ser preenchida
-	 * @param tipoDeDisco - Enum para identificar, de qual painel pegar as informações
+	 *  Preenche uma lista de Tags, pegando as informações da UI
+	 * @param musicas - lista de músicas carregadas
+	 * @param tipoDeDisco - enum com o tipo de disco, que vai salvar
+	 * @return lista de tags preenchida
 	 */
-	private void fillMusicArray(List<File> musicas, TipoDeDisco tipoDeDisco) {
-		JPanel painelFaixas = null;;
+	private ArrayList<Tags> fillListaTags(List<File> musicas, TipoDeDisco tipoDeDisco) {
+		ArrayList<Tags> listaTags = new ArrayList<Tags>();
+		ControllerImage controllerImage = ControllerImage.getInstace();
+		switch (tipoDeDisco) {
+		case VA: {
+			PainelFaixasVariousArtists painelFaixas = PainelFaixasVariousArtists.getInstace();
+			PainelTagsGeraisVariousArtists painelTagsGerais = PainelTagsGeraisVariousArtists.getInstace();
+			for (int i = 0; i < musicas.size(); i++) {
+				listaTags.get(i).setAlbum(painelTagsGerais.getTextFieldAlbum().getText());
+				listaTags.get(i).setAno(painelTagsGerais.getTextFieldAno().getText());
+				listaTags.get(i).setGenero(painelTagsGerais.getTextFieldGenero().getText());
+				listaTags.get(i).setNumero(painelFaixas.getlistTextFieldNumero().get(i).getText());
+				listaTags.get(i).setNomeDaMusica(painelFaixas.getlistTextFieldFaixas().get(i).getText());
+//				TODO implementar esse JTextField
+//				listaTags.get(i).setArtista(artista);
+				listaTags.get(i).setAlbumArtista(ConstantesUI.VARIOUS_ARTISTS);
+				listaTags.get(i).setImage(controllerImage.getImagem());
+				listaTags.get(i).setDiscoNumero(ConstantesUI.STRING_VAZIA);
+				listaTags.get(i).setDiscoTotal(ConstantesUI.STRING_VAZIA);
+			}
+			break;
+		}
+		case DOUBLE: {
+			PainelFaixas painelFaixas = PainelFaixas.getInstace();
+			PainelTagsGeraisDoubleDisc paineltagsGerais = PainelTagsGeraisDoubleDisc.getInstace();
+			for (int i = 0; i < musicas.size(); i++) {
+				listaTags.get(i).setAlbum(paineltagsGerais.getTextFieldAlbum().getText());
+				listaTags.get(i).setAno(paineltagsGerais.getTextFieldAno().getText());
+				listaTags.get(i).setGenero(paineltagsGerais.getTextFieldGenero().getText());
+				listaTags.get(i).setNumero(painelFaixas.getlistTextFieldNumero().get(i).getText());
+				listaTags.get(i).setNomeDaMusica(painelFaixas.getlistTextFieldFaixas().get(i).getText());
+				listaTags.get(i).setArtista(paineltagsGerais.getTextFieldArtista().getText());
+				listaTags.get(i).setAlbumArtista(ConstantesUI.STRING_VAZIA);
+				listaTags.get(i).setImage(controllerImage.getImagem());
+//				TODO implementar esses JTextField
+//				listaTags.get(i).setDiscoNumero(discoNumero);
+//				listaTags.get(i).setDiscoTotal(discoTotal)
+			}
+			break;
+		}
+		case NORMAL:
+		case TRIBUTES:{
+			PainelFaixas painelFaixas = PainelFaixas.getInstace();
+			PainelTagsGerais painelTagsGerais = PainelTagsGerais.getInstace();
+			for (int i = 0; i < musicas.size(); i++) {
+				listaTags.get(i).setAlbum(painelTagsGerais.getTextFieldAlbum().getText());
+				listaTags.get(i).setAno(painelTagsGerais.getTextFieldAno().getText());
+				listaTags.get(i).setGenero(painelTagsGerais.getTextFieldGenero().getText());
+				listaTags.get(i).setNumero(painelFaixas.getlistTextFieldNumero().get(i).getText());
+				listaTags.get(i).setNomeDaMusica(painelFaixas.getlistTextFieldFaixas().get(i).getText());
+				listaTags.get(i).setArtista(painelTagsGerais.getTextFieldArtista().getText());
+				listaTags.get(i).setAlbumArtista(ConstantesUI.STRING_VAZIA);
+				listaTags.get(i).setImage(controllerImage.getImagem());
+				listaTags.get(i).setDiscoNumero(ConstantesUI.STRING_VAZIA);
+				listaTags.get(i).setDiscoTotal(ConstantesUI.STRING_VAZIA);
+			}
+			break;
+		}
+		default:
+			new PopUp(ConstantesUI.POPUP_PAINEL_INVALIDO, TipoPopUp.ERROR);
+			break;
+		}
+		return listaTags;
+	}
+
+	/**
+	 * Preenche uma lista de músicas com o path de todas as músicas
+	 * @param tipoDeDisco - Enum para identificar, de qual painel pegar as informações
+	 * @return lista de musicas preenchida
+	 */
+	private List<File> fillMusicArray(TipoDeDisco tipoDeDisco) {
+		List<File> musicas = new ArrayList<File>();
+		JPanel painelFaixas = null;
 		List<JLabel> labelsList = null;
 		switch (tipoDeDisco) {
 		case VA:
 			painelFaixas = PainelFaixasVariousArtists.getInstace();
 			labelsList = ((PainelFaixasVariousArtists) painelFaixas).getlistLabels();
 			break;
+		case DOUBLE:
+		case TRIBUTES:
 		case NORMAL:
 			painelFaixas = PainelFaixas.getInstace();
 			labelsList = ((PainelFaixas) painelFaixas).getlistLabels();
@@ -192,6 +251,7 @@ public class ControllerOutput {
 			String path = discoPath + File.separator + faixaPath;
 			musicas.add(new File(path));
 		}
+		return musicas;
 	}
 
 	/**

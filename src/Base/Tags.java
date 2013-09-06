@@ -10,7 +10,10 @@ public class Tags {
 	private String numero;
 	private String nomeDaMusica;
 	private String artista;
+	private String albumArtista;
 	private String album;
+	private String discoNumero;
+	private String discoTotal;
 	private String ano;
 	private String genero;
 	private String nomeDoArquivo;
@@ -44,12 +47,36 @@ public class Tags {
 		this.artista = artista;
 	}
 
+	public String getAlbumArtista() {
+		return albumArtista;
+	}
+
+	public void setAlbumArtista(String albumArtista) {
+		this.albumArtista = albumArtista;
+	}
+
 	public String getAlbum() {
 		return album;
 	}
 
 	public void setAlbum(String album) {
 		this.album = album;
+	}
+
+	public String getDiscoNumero() {
+		return discoNumero;
+	}
+
+	public void setDiscoNumero(String discoNumero) {
+		this.discoNumero = discoNumero;
+	}
+
+	public String getDiscoTotal() {
+		return discoTotal;
+	}
+
+	public void setDiscoTotal(String discoTotal) {
+		this.discoTotal = discoTotal;
 	}
 
 	public String getAno() {
@@ -67,7 +94,7 @@ public class Tags {
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
-	
+
 	public String getNomeDoArquivo() {
 		return nomeDoArquivo;
 	}
@@ -75,7 +102,7 @@ public class Tags {
 	public void setNomeDoArquivo(String nomeDoArquivo) {
 		this.nomeDoArquivo = nomeDoArquivo;
 	}
-	
+
 	public byte[] getImage() {
 		return image;
 	}
@@ -84,4 +111,6 @@ public class Tags {
 		this.image = image;
 	}
 	
+	
+
 }

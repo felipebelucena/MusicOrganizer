@@ -40,6 +40,7 @@ public class ConstantesUI {
 	public static final String INFORME_URL_IMAGEM = "Informe a URL da imagem";
 	public static final String SELECIONE_ARQUIVO_IMAGEM = "Selecione o arquivo da imagem";
 	public static final String PROCURAR = "Procurar";
+	public static final String VARIOUS_ARTISTS = "Various Artists";
 	
 	//legenda
 	public static final String LEGENDA = "Legenda:";
