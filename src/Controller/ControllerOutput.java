@@ -87,36 +87,33 @@ public class ControllerOutput {
 		String tipoDeDisco = PropertiesFile.getTipoDeDisco();
 		List<File> musicas = null;
 		
+		/*
+		 * 1. pega todas as URL dos .mp3, preenchendo uma lista de File
+		 * 2. preenche uma lista de tags, baseado em cada .mp3
+		 * 3. seta todas as tags
+		 */
 		if (tipoDeDisco.equals(ConstantesUI.DISC_TYPE_VA)) {
 			musicas = fillMusicArray(TipoDeDisco.VA);
 			listaTags = fillListaTags(musicas, TipoDeDisco.VA);
+			setTags(listaTags, musicas, TipoDeDisco.VA);
 		}else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DOUBLE)){
 			musicas = fillMusicArray(TipoDeDisco.DOUBLE);
 			listaTags = fillListaTags(musicas, TipoDeDisco.DOUBLE);
+			setTags(listaTags, musicas, TipoDeDisco.DOUBLE);
 		}else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_TRIBUTES)){
 			musicas = fillMusicArray(TipoDeDisco.TRIBUTES);
 			listaTags = fillListaTags(musicas, TipoDeDisco.TRIBUTES);
+			setTags(listaTags, musicas, TipoDeDisco.TRIBUTES);
 		}else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DEFAULT)){
 			musicas = fillMusicArray(TipoDeDisco.NORMAL);
 			listaTags = fillListaTags(musicas, TipoDeDisco.NORMAL);
+			setTags(listaTags, musicas, TipoDeDisco.NORMAL);
 		}
 		
 		
 //		PainelFaixas painelFaixas = controllerInput.getPainelFaixas();
 //		PainelTagsGerais painelTagsGerais = controllerInput.getPainelTagsGerais();
 //
-//
-//		// Seta todas as tags
-//		try {
-//			setTags(listaTags, musicas);
-//		} catch (NullPointerException e) {
-//			new PopUp(ConstantesUI.POPUP_CAMPOS_OBRIGATORIOS, TipoPopUp.WARNING);
-//		} catch (ReadOnlyFileException e) {
-//			new PopUp(ConstantesUI.POPUP_ARQUIVO_APENAS_DE_LEITURA,
-//					TipoPopUp.ERROR);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
 //
 //		// Renomea os aquivos
 //		controllerFile.renameFile(listaTags, musicas);
@@ -259,33 +256,148 @@ public class ControllerOutput {
 	 * 
 	 * @param listaTags
 	 * @param musicas
-	 * @throws ReadOnlyFileException
-	 * @throws NullPointerException
-	 * @throws Exception
+	 * @param tipoDeDisco
 	 */
-	private void setTags(ArrayList<Tags> listaTags, List<File> musicas)
-			throws ReadOnlyFileException, NullPointerException, Exception {
-		int erro = 0;
-		for (int i = 0; i < musicas.size(); i++) {
-			AudioFile f = AudioFileIO.read(musicas.get(i));
-			Tag tag = f.getTag();
-			tag.setField(FieldKey.ARTIST, listaTags.get(i).getArtista());
-			tag.setField(FieldKey.ALBUM, listaTags.get(i).getAlbum());
-			tag.setField(FieldKey.YEAR, listaTags.get(i).getAno());
-			tag.setField(FieldKey.GENRE, listaTags.get(i).getGenero());
-			tag.setField(FieldKey.TRACK, listaTags.get(i).getNumero());
-			tag.setField(FieldKey.TITLE, listaTags.get(i).getNomeDaMusica());
+	private void setTags(ArrayList<Tags> listaTags, List<File> musicas,
+			TipoDeDisco tipoDeDisco) {
+
+		switch (tipoDeDisco) {
+		case DOUBLE:{
 			try {
-				Artwork art = setArtwork(listaTags.get(i).getImage());
-				tag.deleteArtworkField();
-				tag.setField(art);
-			} catch (ImagemVaziaException e) {
-				erro++; // Isso me garante, que o pop-up só vai ser exibido 1x
-				if (erro <= 1) {
-					new PopUp(ConstantesUI.POPUP_IMAGE_VAZIA, TipoPopUp.WARNING);
+				int erro = 0;
+				for (int i = 0; i < musicas.size(); i++) {
+					AudioFile f = AudioFileIO.read(musicas.get(i));
+					Tag tag = f.getTag();
+					tag.setField(FieldKey.ALBUM, listaTags.get(i).getAlbum());
+					tag.setField(FieldKey.YEAR, listaTags.get(i).getAno());
+					tag.setField(FieldKey.GENRE, listaTags.get(i).getGenero());
+					tag.setField(FieldKey.TRACK, listaTags.get(i).getNumero());
+					tag.setField(FieldKey.TITLE, listaTags.get(i).getNomeDaMusica());
+					tag.setField(FieldKey.ARTIST, listaTags.get(i).getArtista());
+					tag.setField(FieldKey.ALBUM_ARTIST, ConstantesUI.STRING_VAZIA);
+					//TODO trocar essas 2 linhas pelas linhas de baixo
+					// quando o TODO do método fillListaTags() for resolvido
+					tag.setField(FieldKey.DISC_NO, ConstantesUI.STRING_VAZIA);
+					tag.setField(FieldKey.DISC_TOTAL, ConstantesUI.STRING_VAZIA);
+//					tag.setField(FieldKey.DISC_NO, listaTags.get(i).getDiscoNumero());
+//					tag.setField(FieldKey.DISC_TOTAL, listaTags.get(i).getDiscoTotal());
+					try {
+						Artwork art = setArtwork(listaTags.get(i).getImage());
+						tag.deleteArtworkField();
+						tag.setField(art);
+					} catch (ImagemVaziaException e) {
+						// Isso me garante, que o pop-up só vai ser exibido 1x
+						erro++; 
+						if (erro <= 1) {
+							new PopUp(ConstantesUI.POPUP_IMAGE_VAZIA, TipoPopUp.WARNING);
+						}
+					}
+					f.commit();
 				}
+			} catch (ReadOnlyFileException e) {
+				new PopUp(ConstantesUI.POPUP_ARQUIVO_APENAS_DE_LEITURA,TipoPopUp.ERROR);
+				return;
+			} catch (NullPointerException e) {
+				new PopUp(ConstantesUI.POPUP_CAMPOS_OBRIGATORIOS, TipoPopUp.WARNING);
+				return;
+				// Esse Exception generico serve pra substituir os 4 Exception
+				// que o "AudioFile f = AudioFileIO.read(musicas.get(i));" gera
+			} catch (Exception e) {
+				Logger.error(ConstantesUI.ERRO_INESPERADO+e.getMessage());
+				return;
 			}
-			f.commit();
+			break;
+		}
+		case VA:{
+			try {
+				int erro = 0;
+				for (int i = 0; i < musicas.size(); i++) {
+					AudioFile f = AudioFileIO.read(musicas.get(i));
+					Tag tag = f.getTag();
+					tag.setField(FieldKey.ALBUM, listaTags.get(i).getAlbum());
+					tag.setField(FieldKey.YEAR, listaTags.get(i).getAno());
+					tag.setField(FieldKey.GENRE, listaTags.get(i).getGenero());
+					tag.setField(FieldKey.TRACK, listaTags.get(i).getNumero());
+					tag.setField(FieldKey.TITLE, listaTags.get(i).getNomeDaMusica());
+					//TODO trocar essa linha pela linha de baixo
+					// quando o TODO do método fillListaTags() for resolvido
+					tag.setField(FieldKey.ARTIST, ConstantesUI.STRING_VAZIA);
+//					tag.setField(FieldKey.ARTIST, listaTags.get(i).getArtista());
+					tag.setField(FieldKey.ALBUM_ARTIST, ConstantesUI.VARIOUS_ARTISTS);
+					tag.setField(FieldKey.DISC_NO, ConstantesUI.STRING_VAZIA);
+					tag.setField(FieldKey.DISC_TOTAL, ConstantesUI.STRING_VAZIA);
+					try {
+						Artwork art = setArtwork(listaTags.get(i).getImage());
+						tag.deleteArtworkField();
+						tag.setField(art);
+					} catch (ImagemVaziaException e) {
+						// Isso me garante, que o pop-up só vai ser exibido 1x
+						erro++; 
+						if (erro <= 1) {
+							new PopUp(ConstantesUI.POPUP_IMAGE_VAZIA, TipoPopUp.WARNING);
+						}
+					}
+					f.commit();
+				}
+			} catch (ReadOnlyFileException e) {
+				new PopUp(ConstantesUI.POPUP_ARQUIVO_APENAS_DE_LEITURA,TipoPopUp.ERROR);
+				return;
+			} catch (NullPointerException e) {
+				new PopUp(ConstantesUI.POPUP_CAMPOS_OBRIGATORIOS, TipoPopUp.WARNING);
+				return;
+				// Esse Exception generico serve pra substituir os 4 Exception
+				// que o "AudioFile f = AudioFileIO.read(musicas.get(i));" gera
+			} catch (Exception e) {
+				Logger.error(ConstantesUI.ERRO_INESPERADO+e.getMessage());
+				return;
+			}
+			break;
+		}
+		case NORMAL:
+		case TRIBUTES:{
+			try {
+				int erro = 0;
+				for (int i = 0; i < musicas.size(); i++) {
+					AudioFile f = AudioFileIO.read(musicas.get(i));
+					Tag tag = f.getTag();
+					tag.setField(FieldKey.ALBUM, listaTags.get(i).getAlbum());
+					tag.setField(FieldKey.YEAR, listaTags.get(i).getAno());
+					tag.setField(FieldKey.GENRE, listaTags.get(i).getGenero());
+					tag.setField(FieldKey.TRACK, listaTags.get(i).getNumero());
+					tag.setField(FieldKey.TITLE, listaTags.get(i).getNomeDaMusica());
+					tag.setField(FieldKey.ARTIST, listaTags.get(i).getArtista());
+					tag.setField(FieldKey.ALBUM_ARTIST, ConstantesUI.STRING_VAZIA);
+					tag.setField(FieldKey.DISC_NO, ConstantesUI.STRING_VAZIA);
+					tag.setField(FieldKey.DISC_TOTAL, ConstantesUI.STRING_VAZIA);
+					try {
+						Artwork art = setArtwork(listaTags.get(i).getImage());
+						tag.deleteArtworkField();
+						tag.setField(art);
+					} catch (ImagemVaziaException e) {
+						// Isso me garante, que o pop-up só vai ser exibido 1x
+						erro++; 
+						if (erro <= 1) {
+							new PopUp(ConstantesUI.POPUP_IMAGE_VAZIA, TipoPopUp.WARNING);
+						}
+					}
+					f.commit();
+				}
+			} catch (ReadOnlyFileException e) {
+				new PopUp(ConstantesUI.POPUP_ARQUIVO_APENAS_DE_LEITURA,TipoPopUp.ERROR);
+				return;
+			} catch (NullPointerException e) {
+				new PopUp(ConstantesUI.POPUP_CAMPOS_OBRIGATORIOS, TipoPopUp.WARNING);
+				return;
+				// Esse Exception generico serve pra substituir os 4 Exception
+				// que o "AudioFile f = AudioFileIO.read(musicas.get(i));" gera
+			} catch (Exception e) {
+				Logger.error(ConstantesUI.ERRO_INESPERADO+e.getMessage());
+				return;
+			}
+			break;
+		}
+		default:
+			break;
 		}
 	}
 

@@ -108,6 +108,7 @@ public class ConstantesUI {
 	public static final String ERRO_URL_INVALIDA = "Digite uma URL válida";
 	public static final String ERRO_LISTA_NULA = "Lista nula";
 	public static final String ERRO_LISTA_TAGS_VAZIA = "Lista de Tags Vazia";
+	public static final String ERRO_INESPERADO = "Erro Inesperado: ";
 	
 	//Arquivos
 	public static final String IMAGEM_PADRAO = "imagem-padrao.jpg";
