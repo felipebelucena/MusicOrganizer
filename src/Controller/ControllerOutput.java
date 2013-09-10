@@ -91,32 +91,41 @@ public class ControllerOutput {
 		 * 1. pega todas as URL dos .mp3, preenchendo uma lista de File
 		 * 2. preenche uma lista de tags, baseado em cada .mp3
 		 * 3. seta todas as tags
+		 * 4. renomeia os arquivos
 		 */
 		if (tipoDeDisco.equals(ConstantesUI.DISC_TYPE_VA)) {
+			
 			musicas = fillMusicArray(TipoDeDisco.VA);
 			listaTags = fillListaTags(musicas, TipoDeDisco.VA);
 			setTags(listaTags, musicas, TipoDeDisco.VA);
+			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.VA);
+			
 		}else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DOUBLE)){
+			
 			musicas = fillMusicArray(TipoDeDisco.DOUBLE);
 			listaTags = fillListaTags(musicas, TipoDeDisco.DOUBLE);
 			setTags(listaTags, musicas, TipoDeDisco.DOUBLE);
+			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.DOUBLE);
+		
 		}else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_TRIBUTES)){
+			
 			musicas = fillMusicArray(TipoDeDisco.TRIBUTES);
 			listaTags = fillListaTags(musicas, TipoDeDisco.TRIBUTES);
 			setTags(listaTags, musicas, TipoDeDisco.TRIBUTES);
+			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.TRIBUTES);
+		
 		}else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DEFAULT)){
+			
 			musicas = fillMusicArray(TipoDeDisco.NORMAL);
 			listaTags = fillListaTags(musicas, TipoDeDisco.NORMAL);
 			setTags(listaTags, musicas, TipoDeDisco.NORMAL);
+			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.NORMAL);
 		}
 		
 		
 //		PainelFaixas painelFaixas = controllerInput.getPainelFaixas();
 //		PainelTagsGerais painelTagsGerais = controllerInput.getPainelTagsGerais();
 //
-//
-//		// Renomea os aquivos
-//		controllerFile.renameFile(listaTags, musicas);
 //
 //		// Criação do diretorio
 //		File tempDir = controllerFile.tempDirCreate(diretorioDeMusica, listaTags);

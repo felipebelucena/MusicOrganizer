@@ -11,41 +11,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Base.Tags;
+import Base.TipoDeDisco;
 
 /**
  * 
  * @author FrankJunior
- *
+ * 
  */
 public class ControllerFile {
 
 	private static ControllerFile instance;
-	
+
 	/*
 	 * ---------------------------------------------------------------------
 	 * Construtor
 	 * ---------------------------------------------------------------------
 	 */
 	private ControllerFile() {
-		
+
 	}
-	
+
 	/*
 	 * ---------------------------------------------------------------------
 	 * Singleton
 	 * ---------------------------------------------------------------------
 	 */
-	public static ControllerFile getInstance(){
+	public static ControllerFile getInstance() {
 		if (instance == null) {
 			instance = new ControllerFile();
 		}
 		return instance;
 	}
-	
+
 	/**
 	 * Método auxiliar, para deletar uma pasta recursivamente
 	 * 
-	 * @param Arquivo a ser deletado
+	 * @param Arquivo
+	 *            a ser deletado
 	 */
 	public void delete(File file) {
 		if (file.isDirectory()) {
@@ -75,11 +77,10 @@ public class ControllerFile {
 		} else {
 			// se for arquivo, entao, delete ele
 			file.delete();
-			Logger.debug("Arquivo foi deletado: "
-					+ file.getAbsolutePath());
+			Logger.debug("Arquivo foi deletado: " + file.getAbsolutePath());
 		}
 	}
-	
+
 	/**
 	 * Método auxiliar para mover uma lsia de arquivo para um diretório
 	 * 
@@ -124,7 +125,7 @@ public class ControllerFile {
 			}
 		}
 	}
-	
+
 	/**
 	 * Método auxiliar, para criar a arvore de diretorio de acordo com a
 	 * necessidade.
@@ -144,7 +145,7 @@ public class ControllerFile {
 		if (search(diretorioDeMusica, artista)) {
 			String diretorioDoArtista = diretorioDeMusica + File.separator
 					+ artista;
-			/**
+			/*
 			 * O if está negado, pq se eu achar um album com o mesmo nome, eh pq
 			 * a minha pasta de origem é exatamente essa, entao, nao precisa
 			 * fazer nada ,basta setar as tags e pronto
@@ -162,25 +163,52 @@ public class ControllerFile {
 		}
 		return tempDir;
 	}
-	
+
 	/**
 	 * Método auxiliar, para renomar uma lista de arquivos, baseados em uma
 	 * lista de tags
 	 * 
 	 * @param listaTags
 	 * @param musicas
+	 * @param tipoDeDisco
 	 */
-	public void renameFile(ArrayList<Tags> listaTags, List<File> musicas) {
-		for (int i = 0; i < musicas.size(); i++) {
-			String path = musicas.get(i).getParent();
-			String nomeCorreto = path + File.separator
-					+ listaTags.get(i).getNumero() + " - "
-					+ listaTags.get(i).getNomeDaMusica() + ".mp3";
-			File nomeCorretoFile = new File(nomeCorreto);
-			musicas.get(i).renameTo(nomeCorretoFile);
+	public void renameFile(ArrayList<Tags> listaTags, List<File> musicas,
+			TipoDeDisco tipoDeDisco) {
+		
+		switch (tipoDeDisco) {
+		case DOUBLE:
+		case TRIBUTES:
+		case NORMAL:
+			for (int i = 0; i < musicas.size(); i++) {
+				String path = musicas.get(i).getParent();
+				String nomeCorreto = path + File.separator
+						+ listaTags.get(i).getNumero()
+						+ ConstantesUI.SEPARADOR_HIFEN
+						+ listaTags.get(i).getNomeDaMusica()
+						+ ConstantesUI.FORMATO_MP3;
+				File nomeCorretoFile = new File(nomeCorreto);
+				musicas.get(i).renameTo(nomeCorretoFile);
+			}
+			break;
+		case VA:
+			for (int i = 0; i < musicas.size(); i++) {
+				String path = musicas.get(i).getParent();
+				String nomeCorreto = path + File.separator
+						+ listaTags.get(i).getNumero()
+						+ ConstantesUI.SEPARADOR_HIFEN
+						+ listaTags.get(i).getArtista()
+						+ ConstantesUI.SEPARADOR_HIFEN
+						+ listaTags.get(i).getNomeDaMusica()
+						+ ConstantesUI.FORMATO_MP3;
+				File nomeCorretoFile = new File(nomeCorreto);
+				musicas.get(i).renameTo(nomeCorretoFile);
+			}
+			break;
+		default:
+			break;
 		}
 	}
-	
+
 	/**
 	 * Método auxiliar, para procurar um disco ou um album, no diretorio de
 	 * musica
@@ -213,5 +241,5 @@ public class ControllerFile {
 		}
 		return result;
 	}
-	
+
 }

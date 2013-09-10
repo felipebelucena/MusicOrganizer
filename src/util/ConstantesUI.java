@@ -123,9 +123,11 @@ public class ConstantesUI {
 	public static final String DISC_TYPE_TRIBUTES = "Tributes";
 	
 	//formatos
-	public static final String FORMATO_MP3 = "mp3";
+	public static final String FORMATO_MP3 = ".mp3";
 	public static final String FORMATO_JPG = "jpg";
 	public static final String FORMATO_PNG = "png";
+	
+	public static final String SEPARADOR_HIFEN = " - ";
 	
 	//cores
 	public static final Color COR_VERMELHO = new Color(255,0,0);
