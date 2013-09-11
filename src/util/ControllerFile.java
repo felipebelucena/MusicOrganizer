@@ -196,6 +196,8 @@ public class ControllerFile {
 				String nomeCorreto = path + File.separator
 						+ listaTags.get(i).getNumero()
 						+ ConstantesUI.SEPARADOR_HIFEN
+						// FIXME o getArtista() só vai deixar de vir null
+						// quando os TODO do ControllerOutput for resolvido
 						+ listaTags.get(i).getArtista()
 						+ ConstantesUI.SEPARADOR_HIFEN
 						+ listaTags.get(i).getNomeDaMusica()

@@ -100,21 +100,21 @@ public class ControllerOutput {
 			setTags(listaTags, musicas, TipoDeDisco.VA);
 			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.VA);
 			
-		}else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DOUBLE)){
+		} else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DOUBLE)){
 			
 			musicas = fillMusicArray(TipoDeDisco.DOUBLE);
 			listaTags = fillListaTags(musicas, TipoDeDisco.DOUBLE);
 			setTags(listaTags, musicas, TipoDeDisco.DOUBLE);
 			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.DOUBLE);
 		
-		}else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_TRIBUTES)){
+		} else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_TRIBUTES)){
 			
 			musicas = fillMusicArray(TipoDeDisco.TRIBUTES);
 			listaTags = fillListaTags(musicas, TipoDeDisco.TRIBUTES);
 			setTags(listaTags, musicas, TipoDeDisco.TRIBUTES);
 			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.TRIBUTES);
 		
-		}else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DEFAULT)){
+		} else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DEFAULT)){
 			
 			musicas = fillMusicArray(TipoDeDisco.NORMAL);
 			listaTags = fillListaTags(musicas, TipoDeDisco.NORMAL);
@@ -159,56 +159,65 @@ public class ControllerOutput {
 		ControllerImage controllerImage = ControllerImage.getInstace();
 		switch (tipoDeDisco) {
 		case VA: {
+			listaTags.clear();
 			PainelFaixasVariousArtists painelFaixas = PainelFaixasVariousArtists.getInstace();
 			PainelTagsGeraisVariousArtists painelTagsGerais = PainelTagsGeraisVariousArtists.getInstace();
 			for (int i = 0; i < musicas.size(); i++) {
-				listaTags.get(i).setAlbum(painelTagsGerais.getTextFieldAlbum().getText());
-				listaTags.get(i).setAno(painelTagsGerais.getTextFieldAno().getText());
-				listaTags.get(i).setGenero(painelTagsGerais.getTextFieldGenero().getText());
-				listaTags.get(i).setNumero(painelFaixas.getlistTextFieldNumero().get(i).getText());
-				listaTags.get(i).setNomeDaMusica(painelFaixas.getlistTextFieldFaixas().get(i).getText());
+				Tags tags = new Tags();
+				tags.setAlbum(painelTagsGerais.getTextFieldAlbum().getText());
+				tags.setAno(painelTagsGerais.getTextFieldAno().getText());
+				tags.setGenero(painelTagsGerais.getTextFieldGenero().getText());
+				tags.setNumero(painelFaixas.getlistTextFieldNumero().get(i).getText());
+				tags.setNomeDaMusica(painelFaixas.getlistTextFieldFaixas().get(i).getText());
 //				TODO implementar esse JTextField
-//				listaTags.get(i).setArtista(artista);
-				listaTags.get(i).setAlbumArtista(ConstantesUI.VARIOUS_ARTISTS);
-				listaTags.get(i).setImage(controllerImage.getImagem());
-				listaTags.get(i).setDiscoNumero(ConstantesUI.STRING_VAZIA);
-				listaTags.get(i).setDiscoTotal(ConstantesUI.STRING_VAZIA);
+//				tags.setArtista(artista);
+				tags.setAlbumArtista(ConstantesUI.VARIOUS_ARTISTS);
+				tags.setImage(controllerImage.getImagem());
+				tags.setDiscoNumero(ConstantesUI.STRING_VAZIA);
+				tags.setDiscoTotal(ConstantesUI.STRING_VAZIA);
+				listaTags.add(tags);
 			}
 			break;
 		}
 		case DOUBLE: {
+			listaTags.clear();
 			PainelFaixas painelFaixas = PainelFaixas.getInstace();
 			PainelTagsGeraisDoubleDisc paineltagsGerais = PainelTagsGeraisDoubleDisc.getInstace();
 			for (int i = 0; i < musicas.size(); i++) {
-				listaTags.get(i).setAlbum(paineltagsGerais.getTextFieldAlbum().getText());
-				listaTags.get(i).setAno(paineltagsGerais.getTextFieldAno().getText());
-				listaTags.get(i).setGenero(paineltagsGerais.getTextFieldGenero().getText());
-				listaTags.get(i).setNumero(painelFaixas.getlistTextFieldNumero().get(i).getText());
-				listaTags.get(i).setNomeDaMusica(painelFaixas.getlistTextFieldFaixas().get(i).getText());
-				listaTags.get(i).setArtista(paineltagsGerais.getTextFieldArtista().getText());
-				listaTags.get(i).setAlbumArtista(ConstantesUI.STRING_VAZIA);
-				listaTags.get(i).setImage(controllerImage.getImagem());
+				Tags tags = new Tags();
+				tags.setAlbum(paineltagsGerais.getTextFieldAlbum().getText());
+				tags.setAno(paineltagsGerais.getTextFieldAno().getText());
+				tags.setGenero(paineltagsGerais.getTextFieldGenero().getText());
+				tags.setNumero(painelFaixas.getlistTextFieldNumero().get(i).getText());
+				tags.setNomeDaMusica(painelFaixas.getlistTextFieldFaixas().get(i).getText());
+				tags.setArtista(paineltagsGerais.getTextFieldArtista().getText());
+				tags.setAlbumArtista(ConstantesUI.STRING_VAZIA);
+				tags.setImage(controllerImage.getImagem());
 //				TODO implementar esses JTextField
-//				listaTags.get(i).setDiscoNumero(discoNumero);
-//				listaTags.get(i).setDiscoTotal(discoTotal)
+//				tags.setDiscoNumero(discoNumero);
+//				tags.setDiscoTotal(discoTotal)
+				listaTags.add(tags);
 			}
 			break;
 		}
 		case NORMAL:
 		case TRIBUTES:{
+			listaTags.clear();
 			PainelFaixas painelFaixas = PainelFaixas.getInstace();
 			PainelTagsGerais painelTagsGerais = PainelTagsGerais.getInstace();
 			for (int i = 0; i < musicas.size(); i++) {
-				listaTags.get(i).setAlbum(painelTagsGerais.getTextFieldAlbum().getText());
-				listaTags.get(i).setAno(painelTagsGerais.getTextFieldAno().getText());
-				listaTags.get(i).setGenero(painelTagsGerais.getTextFieldGenero().getText());
-				listaTags.get(i).setNumero(painelFaixas.getlistTextFieldNumero().get(i).getText());
-				listaTags.get(i).setNomeDaMusica(painelFaixas.getlistTextFieldFaixas().get(i).getText());
-				listaTags.get(i).setArtista(painelTagsGerais.getTextFieldArtista().getText());
-				listaTags.get(i).setAlbumArtista(ConstantesUI.STRING_VAZIA);
-				listaTags.get(i).setImage(controllerImage.getImagem());
-				listaTags.get(i).setDiscoNumero(ConstantesUI.STRING_VAZIA);
-				listaTags.get(i).setDiscoTotal(ConstantesUI.STRING_VAZIA);
+				Tags tags = new Tags();
+				tags.setAlbum(painelTagsGerais.getTextFieldAlbum().getText());
+				tags.setAno(painelTagsGerais.getTextFieldAno().getText());
+				tags.setGenero(painelTagsGerais.getTextFieldGenero().getText());
+				tags.setNumero(painelFaixas.getlistTextFieldNumero().get(i).getText());
+				tags.setNomeDaMusica(painelFaixas.getlistTextFieldFaixas().get(i).getText());
+				tags.setArtista(painelTagsGerais.getTextFieldArtista().getText());
+				tags.setAlbumArtista(ConstantesUI.STRING_VAZIA);
+				tags.setImage(controllerImage.getImagem());
+				tags.setDiscoNumero(ConstantesUI.STRING_VAZIA);
+				tags.setDiscoTotal(ConstantesUI.STRING_VAZIA);
+				listaTags.add(tags);
 			}
 			break;
 		}
@@ -286,8 +295,6 @@ public class ControllerOutput {
 					tag.setField(FieldKey.ALBUM_ARTIST, ConstantesUI.STRING_VAZIA);
 					//TODO trocar essas 2 linhas pelas linhas de baixo
 					// quando o TODO do método fillListaTags() for resolvido
-					tag.setField(FieldKey.DISC_NO, ConstantesUI.STRING_VAZIA);
-					tag.setField(FieldKey.DISC_TOTAL, ConstantesUI.STRING_VAZIA);
 //					tag.setField(FieldKey.DISC_NO, listaTags.get(i).getDiscoNumero());
 //					tag.setField(FieldKey.DISC_TOTAL, listaTags.get(i).getDiscoTotal());
 					try {
@@ -333,8 +340,6 @@ public class ControllerOutput {
 					tag.setField(FieldKey.ARTIST, ConstantesUI.STRING_VAZIA);
 //					tag.setField(FieldKey.ARTIST, listaTags.get(i).getArtista());
 					tag.setField(FieldKey.ALBUM_ARTIST, ConstantesUI.VARIOUS_ARTISTS);
-					tag.setField(FieldKey.DISC_NO, ConstantesUI.STRING_VAZIA);
-					tag.setField(FieldKey.DISC_TOTAL, ConstantesUI.STRING_VAZIA);
 					try {
 						Artwork art = setArtwork(listaTags.get(i).getImage());
 						tag.deleteArtworkField();
@@ -376,8 +381,6 @@ public class ControllerOutput {
 					tag.setField(FieldKey.TITLE, listaTags.get(i).getNomeDaMusica());
 					tag.setField(FieldKey.ARTIST, listaTags.get(i).getArtista());
 					tag.setField(FieldKey.ALBUM_ARTIST, ConstantesUI.STRING_VAZIA);
-					tag.setField(FieldKey.DISC_NO, ConstantesUI.STRING_VAZIA);
-					tag.setField(FieldKey.DISC_TOTAL, ConstantesUI.STRING_VAZIA);
 					try {
 						Artwork art = setArtwork(listaTags.get(i).getImage());
 						tag.deleteArtworkField();
