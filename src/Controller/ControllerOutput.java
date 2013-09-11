@@ -99,6 +99,7 @@ public class ControllerOutput {
 			listaTags = fillListaTags(musicas, TipoDeDisco.VA);
 			setTags(listaTags, musicas, TipoDeDisco.VA);
 			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.VA);
+			controllerFile.tempDirCreate(diretorioDeMusica, listaTags, TipoDeDisco.VA);
 			
 		} else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DOUBLE)){
 			
@@ -106,6 +107,7 @@ public class ControllerOutput {
 			listaTags = fillListaTags(musicas, TipoDeDisco.DOUBLE);
 			setTags(listaTags, musicas, TipoDeDisco.DOUBLE);
 			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.DOUBLE);
+			controllerFile.tempDirCreate(diretorioDeMusica, listaTags, TipoDeDisco.DOUBLE);
 		
 		} else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_TRIBUTES)){
 			
@@ -113,6 +115,7 @@ public class ControllerOutput {
 			listaTags = fillListaTags(musicas, TipoDeDisco.TRIBUTES);
 			setTags(listaTags, musicas, TipoDeDisco.TRIBUTES);
 			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.TRIBUTES);
+			controllerFile.tempDirCreate(diretorioDeMusica, listaTags, TipoDeDisco.TRIBUTES);
 		
 		} else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DEFAULT)){
 			
@@ -120,22 +123,13 @@ public class ControllerOutput {
 			listaTags = fillListaTags(musicas, TipoDeDisco.NORMAL);
 			setTags(listaTags, musicas, TipoDeDisco.NORMAL);
 			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.NORMAL);
+			controllerFile.tempDirCreate(diretorioDeMusica, listaTags, TipoDeDisco.NORMAL);
 		}
 		
 		
 //		PainelFaixas painelFaixas = controllerInput.getPainelFaixas();
 //		PainelTagsGerais painelTagsGerais = controllerInput.getPainelTagsGerais();
 //
-//
-//		// Criação do diretorio
-//		File tempDir = controllerFile.tempDirCreate(diretorioDeMusica, listaTags);
-//		if (tempDir != null) {
-//			if (!tempDir.mkdirs()) {
-//				new PopUp(ConstantesUI.POPUP_FALHA_CRIACAO_DIRETORIO,
-//						TipoPopUp.ERROR);
-//				return;
-//			}
-//		}
 //
 //		// Movendo os arquivos para a pasta de musica
 //		if (tempDir != null) {
@@ -173,8 +167,8 @@ public class ControllerOutput {
 //				tags.setArtista(artista);
 				tags.setAlbumArtista(ConstantesUI.VARIOUS_ARTISTS);
 				tags.setImage(controllerImage.getImagem());
-				tags.setDiscoNumero(ConstantesUI.STRING_VAZIA);
-				tags.setDiscoTotal(ConstantesUI.STRING_VAZIA);
+				tags.setDiscoNumero(ConstantesUI.NUMERO_1);
+				tags.setDiscoTotal(ConstantesUI.NUMERO_1);
 				listaTags.add(tags);
 			}
 			break;
@@ -215,8 +209,8 @@ public class ControllerOutput {
 				tags.setArtista(painelTagsGerais.getTextFieldArtista().getText());
 				tags.setAlbumArtista(ConstantesUI.STRING_VAZIA);
 				tags.setImage(controllerImage.getImagem());
-				tags.setDiscoNumero(ConstantesUI.STRING_VAZIA);
-				tags.setDiscoTotal(ConstantesUI.STRING_VAZIA);
+				tags.setDiscoNumero(ConstantesUI.NUMERO_1);
+				tags.setDiscoTotal(ConstantesUI.NUMERO_1);
 				listaTags.add(tags);
 			}
 			break;

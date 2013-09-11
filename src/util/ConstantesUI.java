@@ -16,6 +16,7 @@ public class ConstantesUI {
 	public static String ESPACO = "   ";
 	
 	public static String STRING_VAZIA = "";
+	public static int NUMERO_1 = 1;
 	public static String AINDA_NAO_IMPLEMENTADO = "Ainda não implementado";
 	
 	public static final int LARGURA_TELA = 900;
@@ -41,6 +42,7 @@ public class ConstantesUI {
 	public static final String SELECIONE_ARQUIVO_IMAGEM = "Selecione o arquivo da imagem";
 	public static final String PROCURAR = "Procurar";
 	public static final String VARIOUS_ARTISTS = "Various Artists";
+	public static final String TRIBUTES = "Tributes";
 	
 	//legenda
 	public static final String LEGENDA = "Legenda:";

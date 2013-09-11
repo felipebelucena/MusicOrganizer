@@ -10,8 +10,11 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import ui.dialog.PopUp;
+
 import Base.Tags;
 import Base.TipoDeDisco;
+import Base.TipoPopUp;
 
 /**
  * 
@@ -82,7 +85,7 @@ public class ControllerFile {
 	}
 
 	/**
-	 * Método auxiliar para mover uma lsia de arquivo para um diretório
+	 * Método auxiliar para mover uma lista de arquivo para um diretório
 	 * 
 	 * @param musicas
 	 * @param tempDir
@@ -94,6 +97,7 @@ public class ControllerFile {
 			try {
 				File origem = new File(musicas.get(i).getPath());
 				String nomeDaMusica = musicas.get(i).getName();
+				// TODO verificar se tempDir é diferente de null
 				File destino = new File(tempDir.getPath() + File.separator
 						+ nomeDaMusica);
 
@@ -132,36 +136,181 @@ public class ControllerFile {
 	 * 
 	 * @param diretorioDeMusica
 	 * @param listaTags
-	 * @return Objeto File criado
+	 * @param tipoDeDisco
 	 */
-	public File tempDirCreate(String diretorioDeMusica,
-			ArrayList<Tags> listaTags) {
+	public void tempDirCreate(String diretorioDeMusica,
+			ArrayList<Tags> listaTags, TipoDeDisco tipoDeDisco) {
+
 		File tempDir = null;
-		String artista = listaTags.get(0).getArtista();
-		String album = listaTags.get(0).getAno() + " - "
-				+ listaTags.get(0).getAlbum();
-		// Verifica se existe um artista na psta de musica com esse nome, se
-		// existi, entra na pasta
-		if (search(diretorioDeMusica, artista)) {
-			String diretorioDoArtista = diretorioDeMusica + File.separator
-					+ artista;
-			/*
-			 * O if está negado, pq se eu achar um album com o mesmo nome, eh pq
-			 * a minha pasta de origem é exatamente essa, entao, nao precisa
-			 * fazer nada ,basta setar as tags e pronto
-			 */
-			if (!search(diretorioDoArtista, album)) {
-				Logger.debug("Existe artista, mas nao existe o album");
-				tempDir = new File(diretorioDoArtista + File.separator + album);
+		switch (tipoDeDisco) {
+		case NORMAL: {
+			String artista = listaTags.get(0).getArtista();
+			String album = listaTags.get(0).getAno()
+					+ ConstantesUI.SEPARADOR_HIFEN
+					+ listaTags.get(0).getAlbum();
+			// Verifica se existe um artista na pasta de musica com esse nome,
+			// se
+			// existi, entra na pasta
+			if (search(diretorioDeMusica, artista)) {
+				String diretorioDoArtista = diretorioDeMusica + File.separator
+						+ artista;
+				/*
+				 * O if está negado, pq se eu achar um album com o mesmo nome,
+				 * eh pq a minha pasta de origem é exatamente essa, entao, nao
+				 * precisa fazer nada ,basta setar as tags e pronto
+				 */
+				if (!search(diretorioDoArtista, album)) {
+					Logger.debug("Existe artista, mas nao existe o album");
+					tempDir = new File(diretorioDoArtista + File.separator
+							+ album);
+					Logger.debug("tempDir = " + tempDir.getPath());
+				}
+			} else {
+				Logger.debug("nao tem artista com esse nome");
+				tempDir = new File(diretorioDeMusica + File.separator + artista
+						+ File.separator + album);
 				Logger.debug("tempDir = " + tempDir.getPath());
 			}
-		} else {
-			Logger.debug("nao tem artista com esse nome");
-			tempDir = new File(diretorioDeMusica + File.separator + artista
-					+ File.separator + album);
-			Logger.debug("tempDir = " + tempDir.getPath());
+			break;
 		}
-		return tempDir;
+		case DOUBLE: {
+			String artista = listaTags.get(0).getArtista();
+			String album = listaTags.get(0).getAno()
+					+ ConstantesUI.SEPARADOR_HIFEN
+					+ listaTags.get(0).getAlbum();
+			String disco = Integer.toString(listaTags.get(0).getDiscoNumero());
+			/*
+			 * Verifica se existe um artista na pasta de musica com esse nome.
+			 * Se existir, entra na pasta
+			 */
+			if (search(diretorioDeMusica, artista)) {
+				String diretorioDoArtista = diretorioDeMusica + File.separator
+						+ artista;
+				/*
+				 * Verifica se existe o album na pasta do artista. Se existir,
+				 * entra na pasta
+				 */
+				if (search(diretorioDoArtista, album)) {
+					String diretorioDoAlbum = diretorioDoArtista
+							+ File.separator + album;
+					/*
+					 * O if está negado, pq se eu achar um CDx com o mesmo nome,
+					 * eh pq a minha pasta de origem é exatamente essa, entao,
+					 * nao precisa fazer nada ,basta setar as tags e pronto
+					 */
+					if (!search(diretorioDoAlbum, disco)) {
+						Logger.debug("Existe Album, mas não existe o CD1 e CD2");
+						tempDir = new File(diretorioDoAlbum + File.separator
+								+ disco);
+						Logger.debug("tempDir = " + tempDir.getPath());
+					}
+				} else {
+					Logger.debug("Existe artista, mas nao existe o album");
+					tempDir = new File(diretorioDoArtista + File.separator
+							+ album + File.separator + disco);
+					Logger.debug("tempDir = " + tempDir.getPath());
+				}
+			} else {
+				Logger.debug("nao tem artista com esse nome");
+				tempDir = new File(diretorioDeMusica + File.separator + artista
+						+ File.separator + album + File.separator + disco);
+				Logger.debug("tempDir = " + tempDir.getPath());
+			}
+			break;
+		}
+		case TRIBUTES: {
+			String artista = listaTags.get(0).getArtista();
+			String album = listaTags.get(0).getAno()
+					+ ConstantesUI.SEPARADOR_HIFEN
+					+ listaTags.get(0).getAlbum();
+			String tributos = ConstantesUI.TRIBUTES;
+			/*
+			 * Verifica se existe um diretorio cahamdo "tributes" na pasta de
+			 * musica Se existir, entra na pasta
+			 */
+			if (search(diretorioDeMusica, tributos)) {
+				String diretorioTributes = diretorioDeMusica + File.separator
+						+ tributos;
+
+				/*
+				 * Verifica se existe artista dentro de "Tributes". Se existir,
+				 * entra na pasta
+				 */
+				if (search(diretorioTributes, artista)) {
+					String diretorioArtista = diretorioTributes
+							+ File.separator + artista;
+
+					/*
+					 * O if está negado, pq se eu achar um album com o mesmo nome,
+					 * eh pq a minha pasta de origem é exatamente essa, entao,
+					 * nao precisa fazer nada ,basta setar as tags e pronto
+					 */
+					if (!search(diretorioArtista, album)) {
+						Logger.debug("nao tem album dentro de artista");
+						tempDir = new File(diretorioArtista + File.separator
+								+ album);
+						Logger.debug("tempDir = " + tempDir.getPath());
+					}
+				} else {
+					Logger.debug("nao tem artista dentro de Tributes");
+					tempDir = new File(diretorioTributes + File.separator
+							+ artista + File.separator + album);
+					Logger.debug("tempDir = " + tempDir.getPath());
+				}
+			} else {
+				Logger.debug("nao tem o diretorio Tributes");
+				tempDir = new File(diretorioDeMusica + File.separator
+						+ tributos + File.separator + artista + File.separator
+						+ album);
+				Logger.debug("tempDir = " + tempDir.getPath());
+			}
+			break;
+		}
+		case VA:{
+			String album = listaTags.get(0).getAno()
+					+ ConstantesUI.SEPARADOR_HIFEN
+					+ listaTags.get(0).getAlbum();
+			String variousArtists = ConstantesUI.VARIOUS_ARTISTS;
+			/*
+			 * Verifica se existe um diretorio cahamdo "Various Artists" na pasta de
+			 * musica Se existir, entra na pasta
+			 */
+			if (search(diretorioDeMusica, variousArtists)) {
+				String diretorioVA = diretorioDeMusica + File.separator
+						+ variousArtists;
+
+				/*
+				 * O if está negado, pq se eu achar um album com o mesmo nome,
+				 * eh pq a minha pasta de origem é exatamente essa, entao,
+				 * nao precisa fazer nada ,basta setar as tags e pronto
+				 */
+				if (!search(diretorioVA, album)) {
+					Logger.debug("nao tem album dentro de Various Artists");
+					tempDir = new File(diretorioVA + File.separator + album);
+					Logger.debug("tempDir = " + tempDir.getPath());
+				}
+			} else {
+				Logger.debug("nao tem o diretorio Various Artistas");
+				tempDir = new File(diretorioDeMusica + File.separator
+						+ variousArtists + File.separator + album);
+				Logger.debug("tempDir = " + tempDir.getPath());
+			}
+			break;
+		}
+
+		default:
+			break;
+		}
+
+		/*
+		 * Criando a arvore de Diretorio
+		 */
+		if (tempDir != null) {
+			if (!tempDir.mkdirs()) {
+				new PopUp(ConstantesUI.POPUP_FALHA_CRIACAO_DIRETORIO,TipoPopUp.ERROR);
+				return;
+			}
+		}
 	}
 
 	/**
@@ -174,7 +323,7 @@ public class ControllerFile {
 	 */
 	public void renameFile(ArrayList<Tags> listaTags, List<File> musicas,
 			TipoDeDisco tipoDeDisco) {
-		
+
 		switch (tipoDeDisco) {
 		case DOUBLE:
 		case TRIBUTES:
@@ -193,7 +342,8 @@ public class ControllerFile {
 		case VA:
 			for (int i = 0; i < musicas.size(); i++) {
 				String path = musicas.get(i).getParent();
-				String nomeCorreto = path + File.separator
+				String nomeCorreto = path
+						+ File.separator
 						+ listaTags.get(i).getNumero()
 						+ ConstantesUI.SEPARADOR_HIFEN
 						// FIXME o getArtista() só vai deixar de vir null
@@ -215,13 +365,13 @@ public class ControllerFile {
 	 * Método auxiliar, para procurar um disco ou um album, no diretorio de
 	 * musica
 	 * 
-	 * @param diretorioDeMusica
+	 * @param diretorio
 	 * @param name
 	 * @return true se encontrou a busca, e false se nao encontrou
 	 */
-	private boolean search(String diretorioDeMusica, String name) {
+	private boolean search(String diretorio, String name) {
 		boolean result = false;
-		File diretorioDeMusicaFile = new File(diretorioDeMusica);
+		File diretorioDeMusicaFile = new File(diretorio);
 
 		if (!diretorioDeMusicaFile.isDirectory()) {
 			Logger.error("Nao eh um diretorio");

@@ -12,8 +12,8 @@ public class Tags {
 	private String artista;
 	private String albumArtista;
 	private String album;
-	private String discoNumero;
-	private String discoTotal;
+	private int discoNumero;
+	private int discoTotal;
 	private String ano;
 	private String genero;
 	private String nomeDoArquivo;
@@ -63,19 +63,19 @@ public class Tags {
 		this.album = album;
 	}
 
-	public String getDiscoNumero() {
+	public int getDiscoNumero() {
 		return discoNumero;
 	}
 
-	public void setDiscoNumero(String discoNumero) {
+	public void setDiscoNumero(int discoNumero) {
 		this.discoNumero = discoNumero;
 	}
 
-	public String getDiscoTotal() {
+	public int getDiscoTotal() {
 		return discoTotal;
 	}
 
-	public void setDiscoTotal(String discoTotal) {
+	public void setDiscoTotal(int discoTotal) {
 		this.discoTotal = discoTotal;
 	}
 
