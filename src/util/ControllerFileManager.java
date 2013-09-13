@@ -21,16 +21,16 @@ import Base.TipoPopUp;
  * @author FrankJunior
  * 
  */
-public class ControllerFile {
+public class ControllerFileManager {
 
-	private static ControllerFile instance;
+	private static ControllerFileManager instance;
 
 	/*
 	 * ---------------------------------------------------------------------
 	 * Construtor
 	 * ---------------------------------------------------------------------
 	 */
-	private ControllerFile() {
+	private ControllerFileManager() {
 
 	}
 
@@ -39,9 +39,9 @@ public class ControllerFile {
 	 * Singleton
 	 * ---------------------------------------------------------------------
 	 */
-	public static ControllerFile getInstance() {
+	public static ControllerFileManager getInstance() {
 		if (instance == null) {
-			instance = new ControllerFile();
+			instance = new ControllerFileManager();
 		}
 		return instance;
 	}
@@ -137,20 +137,22 @@ public class ControllerFile {
 	 * @param diretorioDeMusica
 	 * @param listaTags
 	 * @param tipoDeDisco
+	 * @return 
 	 */
-	public void criarDiretorio(String diretorioDeMusica,
+	public File criarDiretorio(String diretorioDeMusica,
 			ArrayList<Tags> listaTags, TipoDeDisco tipoDeDisco) {
 
-		File tempDir = null;
+		File diretorioDeDestino = null;
 		switch (tipoDeDisco) {
 		case NORMAL: {
 			String artista = listaTags.get(0).getArtista();
 			String album = listaTags.get(0).getAno()
 					+ ConstantesUI.SEPARADOR_HIFEN
 					+ listaTags.get(0).getAlbum();
-			// Verifica se existe um artista na pasta de musica com esse nome,
-			// se
-			// existi, entra na pasta
+			/*
+			 * Verifica se existe um artista na pasta de musica com esse nome.
+			 * Se existir, entra na pasta
+			 */
 			if (search(diretorioDeMusica, artista)) {
 				String diretorioDoArtista = diretorioDeMusica + File.separator
 						+ artista;
@@ -160,16 +162,18 @@ public class ControllerFile {
 				 * precisa fazer nada ,basta setar as tags e pronto
 				 */
 				if (!search(diretorioDoArtista, album)) {
+					return new File(diretorioDoArtista + File.separator + album);
+				}else{
 					Logger.debug("Existe artista, mas nao existe o album");
-					tempDir = new File(diretorioDoArtista + File.separator
+					diretorioDeDestino = new File(diretorioDoArtista + File.separator
 							+ album);
-					Logger.debug("tempDir = " + tempDir.getPath());
+					Logger.debug("tempDir = " + diretorioDeDestino.getPath());
 				}
 			} else {
 				Logger.debug("nao tem artista com esse nome");
-				tempDir = new File(diretorioDeMusica + File.separator + artista
+				diretorioDeDestino = new File(diretorioDeMusica + File.separator + artista
 						+ File.separator + album);
-				Logger.debug("tempDir = " + tempDir.getPath());
+				Logger.debug("tempDir = " + diretorioDeDestino.getPath());
 			}
 			break;
 		}
@@ -199,22 +203,24 @@ public class ControllerFile {
 					 * nao precisa fazer nada ,basta setar as tags e pronto
 					 */
 					if (!search(diretorioDoAlbum, disco)) {
+						return new File(diretorioDoAlbum + File.separator + disco);
+					}else{
 						Logger.debug("Existe Album, mas não existe o CD1 e CD2");
-						tempDir = new File(diretorioDoAlbum + File.separator
+						diretorioDeDestino = new File(diretorioDoAlbum + File.separator
 								+ disco);
-						Logger.debug("tempDir = " + tempDir.getPath());
+						Logger.debug("tempDir = " + diretorioDeDestino.getPath());
 					}
 				} else {
 					Logger.debug("Existe artista, mas nao existe o album");
-					tempDir = new File(diretorioDoArtista + File.separator
+					diretorioDeDestino = new File(diretorioDoArtista + File.separator
 							+ album + File.separator + disco);
-					Logger.debug("tempDir = " + tempDir.getPath());
+					Logger.debug("tempDir = " + diretorioDeDestino.getPath());
 				}
 			} else {
 				Logger.debug("nao tem artista com esse nome");
-				tempDir = new File(diretorioDeMusica + File.separator + artista
+				diretorioDeDestino = new File(diretorioDeMusica + File.separator + artista
 						+ File.separator + album + File.separator + disco);
-				Logger.debug("tempDir = " + tempDir.getPath());
+				Logger.debug("tempDir = " + diretorioDeDestino.getPath());
 			}
 			break;
 		}
@@ -231,7 +237,6 @@ public class ControllerFile {
 			if (search(diretorioDeMusica, tributos)) {
 				String diretorioTributes = diretorioDeMusica + File.separator
 						+ tributos;
-
 				/*
 				 * Verifica se existe artista dentro de "Tributes". Se existir,
 				 * entra na pasta
@@ -239,30 +244,31 @@ public class ControllerFile {
 				if (search(diretorioTributes, artista)) {
 					String diretorioArtista = diretorioTributes
 							+ File.separator + artista;
-
 					/*
 					 * O if está negado, pq se eu achar um album com o mesmo nome,
 					 * eh pq a minha pasta de origem é exatamente essa, entao,
 					 * nao precisa fazer nada ,basta setar as tags e pronto
 					 */
 					if (!search(diretorioArtista, album)) {
+						return new File(diretorioArtista + File.separator + album);
+					}else{
 						Logger.debug("nao tem album dentro de artista");
-						tempDir = new File(diretorioArtista + File.separator
+						diretorioDeDestino = new File(diretorioArtista + File.separator
 								+ album);
-						Logger.debug("tempDir = " + tempDir.getPath());
+						Logger.debug("tempDir = " + diretorioDeDestino.getPath());
 					}
 				} else {
 					Logger.debug("nao tem artista dentro de Tributes");
-					tempDir = new File(diretorioTributes + File.separator
+					diretorioDeDestino = new File(diretorioTributes + File.separator
 							+ artista + File.separator + album);
-					Logger.debug("tempDir = " + tempDir.getPath());
+					Logger.debug("tempDir = " + diretorioDeDestino.getPath());
 				}
 			} else {
 				Logger.debug("nao tem o diretorio Tributes");
-				tempDir = new File(diretorioDeMusica + File.separator
+				diretorioDeDestino = new File(diretorioDeMusica + File.separator
 						+ tributos + File.separator + artista + File.separator
 						+ album);
-				Logger.debug("tempDir = " + tempDir.getPath());
+				Logger.debug("tempDir = " + diretorioDeDestino.getPath());
 			}
 			break;
 		}
@@ -284,16 +290,18 @@ public class ControllerFile {
 				 * eh pq a minha pasta de origem é exatamente essa, entao,
 				 * nao precisa fazer nada ,basta setar as tags e pronto
 				 */
-				if (!search(diretorioVA, album)) {
+				if (search(diretorioVA, album)) {
+					return new File(diretorioVA + File.separator + album);
+				}else{
 					Logger.debug("nao tem album dentro de Various Artists");
-					tempDir = new File(diretorioVA + File.separator + album);
-					Logger.debug("tempDir = " + tempDir.getPath());
+					diretorioDeDestino = new File(diretorioVA + File.separator + album);
+					Logger.debug("tempDir = " + diretorioDeDestino.getPath());
 				}
 			} else {
 				Logger.debug("nao tem o diretorio Various Artistas");
-				tempDir = new File(diretorioDeMusica + File.separator
+				diretorioDeDestino = new File(diretorioDeMusica + File.separator
 						+ variousArtists + File.separator + album);
-				Logger.debug("tempDir = " + tempDir.getPath());
+				Logger.debug("tempDir = " + diretorioDeDestino.getPath());
 			}
 			break;
 		}
@@ -305,12 +313,12 @@ public class ControllerFile {
 		/*
 		 * Criando a arvore de Diretorio
 		 */
-		if (tempDir != null) {
-			if (!tempDir.mkdirs()) {
+		if (diretorioDeDestino != null) {
+			if (!diretorioDeDestino.mkdirs()) {
 				new PopUp(ConstantesUI.POPUP_FALHA_CRIACAO_DIRETORIO,TipoPopUp.ERROR);
-				return;
 			}
 		}
+		return diretorioDeDestino;
 	}
 
 	/**
@@ -337,6 +345,7 @@ public class ControllerFile {
 						+ ConstantesUI.FORMATO_MP3;
 				File nomeCorretoFile = new File(nomeCorreto);
 				musicas.get(i).renameTo(nomeCorretoFile);
+				musicas.set(i, new File(nomeCorreto));
 			}
 			break;
 		case VA:
@@ -354,6 +363,7 @@ public class ControllerFile {
 						+ ConstantesUI.FORMATO_MP3;
 				File nomeCorretoFile = new File(nomeCorreto);
 				musicas.get(i).renameTo(nomeCorretoFile);
+				musicas.set(i, new File(nomeCorreto));
 			}
 			break;
 		default:
