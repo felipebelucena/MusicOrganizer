@@ -138,7 +138,7 @@ public class ControllerFile {
 	 * @param listaTags
 	 * @param tipoDeDisco
 	 */
-	public void tempDirCreate(String diretorioDeMusica,
+	public void criarDiretorio(String diretorioDeMusica,
 			ArrayList<Tags> listaTags, TipoDeDisco tipoDeDisco) {
 
 		File tempDir = null;

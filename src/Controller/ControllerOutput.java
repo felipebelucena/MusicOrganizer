@@ -44,8 +44,11 @@ public class ControllerOutput {
 
 	private ControllerInput controllerInput;
 	private ControllerFile controllerFile;
+	private String tipoDeDisco = null;;
 
 	public ControllerOutput() {
+		// carrega o tipo de disco do arquivo de properties
+		tipoDeDisco = PropertiesFile.getTipoDeDisco();
 		controllerInput = ControllerInput.getInstace();
 		controllerFile = ControllerFile.getInstance();
 	}
@@ -81,10 +84,6 @@ public class ControllerOutput {
 			return;
 		}
 		
-		/*
-		 * carrega o tipo de disco, do arquivo de properties
-		 */
-		String tipoDeDisco = PropertiesFile.getTipoDeDisco();
 		List<File> musicas = null;
 		
 		/*
@@ -92,6 +91,7 @@ public class ControllerOutput {
 		 * 2. preenche uma lista de tags, baseado em cada .mp3
 		 * 3. seta todas as tags
 		 * 4. renomeia os arquivos
+		 * 5. Cria a o diretório de destino do disco
 		 */
 		if (tipoDeDisco.equals(ConstantesUI.DISC_TYPE_VA)) {
 			
@@ -99,7 +99,7 @@ public class ControllerOutput {
 			listaTags = fillListaTags(musicas, TipoDeDisco.VA);
 			setTags(listaTags, musicas, TipoDeDisco.VA);
 			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.VA);
-			controllerFile.tempDirCreate(diretorioDeMusica, listaTags, TipoDeDisco.VA);
+			controllerFile.criarDiretorio(diretorioDeMusica, listaTags, TipoDeDisco.VA);
 			
 		} else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DOUBLE)){
 			
@@ -107,7 +107,7 @@ public class ControllerOutput {
 			listaTags = fillListaTags(musicas, TipoDeDisco.DOUBLE);
 			setTags(listaTags, musicas, TipoDeDisco.DOUBLE);
 			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.DOUBLE);
-			controllerFile.tempDirCreate(diretorioDeMusica, listaTags, TipoDeDisco.DOUBLE);
+			controllerFile.criarDiretorio(diretorioDeMusica, listaTags, TipoDeDisco.DOUBLE);
 		
 		} else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_TRIBUTES)){
 			
@@ -115,7 +115,7 @@ public class ControllerOutput {
 			listaTags = fillListaTags(musicas, TipoDeDisco.TRIBUTES);
 			setTags(listaTags, musicas, TipoDeDisco.TRIBUTES);
 			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.TRIBUTES);
-			controllerFile.tempDirCreate(diretorioDeMusica, listaTags, TipoDeDisco.TRIBUTES);
+			controllerFile.criarDiretorio(diretorioDeMusica, listaTags, TipoDeDisco.TRIBUTES);
 		
 		} else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DEFAULT)){
 			
@@ -123,7 +123,7 @@ public class ControllerOutput {
 			listaTags = fillListaTags(musicas, TipoDeDisco.NORMAL);
 			setTags(listaTags, musicas, TipoDeDisco.NORMAL);
 			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.NORMAL);
-			controllerFile.tempDirCreate(diretorioDeMusica, listaTags, TipoDeDisco.NORMAL);
+			controllerFile.criarDiretorio(diretorioDeMusica, listaTags, TipoDeDisco.NORMAL);
 		}
 		
 		
@@ -446,13 +446,33 @@ public class ControllerOutput {
 	 * Escreve os nomes dos arquivos, nos JTextfield do PainelFaixas
 	 */
 	public void nome2Tags() {
-		PainelFaixas painelFaixas = controllerInput.getPainelFaixas();
-		ArrayList<JLabel> nomes = painelFaixas.getlistLabels();
-
-		for (int i = 0; i < nomes.size(); i++) {
-			String faixa = nomes.get(i).getText();
-			painelFaixas.getlistTextFieldFaixas().get(i).setText(faixa);
+		JPanel painelFaixas = null;
+		List<JLabel> nomes = null;
+		
+		if (tipoDeDisco.equals(ConstantesUI.DISC_TYPE_VA)) {
+			
+			painelFaixas = PainelFaixasVariousArtists.getInstace();
+			nomes = ((PainelFaixasVariousArtists)painelFaixas).getlistLabels();
+			
+			for (int i = 0; i < nomes.size(); i++) {
+				String faixa = nomes.get(i).getText();
+				((PainelFaixasVariousArtists)painelFaixas).getlistTextFieldFaixas().get(i).setText(faixa);
+			}
+		
+		} else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DOUBLE) ||
+				tipoDeDisco.equals(ConstantesUI.DISC_TYPE_TRIBUTES) ||
+				tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DEFAULT)){
+			
+			painelFaixas = PainelFaixas.getInstace();
+			nomes = ((PainelFaixas)painelFaixas).getlistLabels();
+			
+			for (int i = 0; i < nomes.size(); i++) {
+				String faixa = nomes.get(i).getText();
+				((PainelFaixas)painelFaixas).getlistTextFieldFaixas().get(i).setText(faixa);
+			}
+		
 		}
+		
 	}
 
 }
