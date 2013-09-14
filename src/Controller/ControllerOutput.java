@@ -24,7 +24,7 @@ import ui.paineis.PainelTagsGerais;
 import ui.paineis.PainelTagsGeraisDoubleDisc;
 import ui.paineis.PainelTagsGeraisVariousArtists;
 import util.ConstantesUI;
-import util.ControllerFile;
+import util.ControllerFileManager;
 import util.Logger;
 import util.PropertiesFile;
 import Base.Tags;
@@ -43,14 +43,14 @@ import Exception.PastaDeMusicaVaziaException;
 public class ControllerOutput {
 
 	private ControllerInput controllerInput;
-	private ControllerFile controllerFile;
-	private String tipoDeDisco = null;;
+	private ControllerFileManager controllerFileManager;
+	private String tipoDeDisco = null;
 
 	public ControllerOutput() {
 		// carrega o tipo de disco do arquivo de properties
 		tipoDeDisco = PropertiesFile.getTipoDeDisco();
 		controllerInput = ControllerInput.getInstace();
-		controllerFile = ControllerFile.getInstance();
+		controllerFileManager = ControllerFileManager.getInstance();
 	}
 
 	/**
@@ -61,9 +61,7 @@ public class ControllerOutput {
 	 */
 	public void salvar() {
 		
-		/*
-		 * Verifica se o diretorio de musica é válido
-		 */
+		// Verifica se o diretorio de musica é válido
 		String diretorioDeMusica = PropertiesFile.getProperties(ConstantesUI.DIRETORIO_DE_MUSICA);
 		try {
 			PropertiesFile.verifyMusicFolder(diretorioDeMusica);
@@ -75,16 +73,17 @@ public class ControllerOutput {
 			return;
 		}
 
-		/*
-		 * Verifica se algum disco já foi carregado
-		 */
+		// Verifica se algum disco já foi carregado
 		ArrayList<Tags> listaTags = controllerInput.getListaTags();
 		if (listaTags == null) {
 			new PopUp(ConstantesUI.POPUP_CARREGUE_UM_DISCO, TipoPopUp.WARNING);
 			return;
 		}
 		
+		// inicializando variaveis
 		List<File> musicas = null;
+		File diretorioDeDestino = null;
+		File diretorioDeOrigem = null;
 		
 		/*
 		 * 1. pega todas as URL dos .mp3, preenchendo uma lista de File
@@ -92,54 +91,73 @@ public class ControllerOutput {
 		 * 3. seta todas as tags
 		 * 4. renomeia os arquivos
 		 * 5. Cria a o diretório de destino do disco
+		 * 6. move os arquivos para o diretório de destino
+		 * 7. deleta o diretório de origem
 		 */
 		if (tipoDeDisco.equals(ConstantesUI.DISC_TYPE_VA)) {
 			
 			musicas = fillMusicArray(TipoDeDisco.VA);
 			listaTags = fillListaTags(musicas, TipoDeDisco.VA);
 			setTags(listaTags, musicas, TipoDeDisco.VA);
-			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.VA);
-			controllerFile.criarDiretorio(diretorioDeMusica, listaTags, TipoDeDisco.VA);
+			controllerFileManager.renameFile(listaTags, musicas, TipoDeDisco.VA);
+			
+			diretorioDeDestino = controllerFileManager.criarDiretorio(diretorioDeMusica, listaTags, TipoDeDisco.VA);
+			diretorioDeOrigem = musicas.get(0).getParentFile();
+			if (!diretorioDeOrigem.equals(diretorioDeDestino)) {
+				controllerFileManager.moveFile(musicas, diretorioDeDestino);
+				controllerFileManager.delete(diretorioDeOrigem);
+			}
+			new PopUp(ConstantesUI.POPUP_SALVO_COM_SUCESSO, TipoPopUp.INFO);
 			
 		} else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DOUBLE)){
 			
 			musicas = fillMusicArray(TipoDeDisco.DOUBLE);
 			listaTags = fillListaTags(musicas, TipoDeDisco.DOUBLE);
 			setTags(listaTags, musicas, TipoDeDisco.DOUBLE);
-			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.DOUBLE);
-			controllerFile.criarDiretorio(diretorioDeMusica, listaTags, TipoDeDisco.DOUBLE);
+			controllerFileManager.renameFile(listaTags, musicas, TipoDeDisco.DOUBLE);
+			
+			diretorioDeDestino = controllerFileManager.criarDiretorio(diretorioDeMusica, listaTags, TipoDeDisco.DOUBLE);
+			diretorioDeOrigem = musicas.get(0).getParentFile();
+			
+			if (!diretorioDeOrigem.equals(diretorioDeDestino)) {
+				controllerFileManager.moveFile(musicas, diretorioDeDestino);
+				controllerFileManager.delete(diretorioDeOrigem);
+			}
+			new PopUp(ConstantesUI.POPUP_SALVO_COM_SUCESSO, TipoPopUp.INFO);
 		
 		} else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_TRIBUTES)){
 			
 			musicas = fillMusicArray(TipoDeDisco.TRIBUTES);
 			listaTags = fillListaTags(musicas, TipoDeDisco.TRIBUTES);
 			setTags(listaTags, musicas, TipoDeDisco.TRIBUTES);
-			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.TRIBUTES);
-			controllerFile.criarDiretorio(diretorioDeMusica, listaTags, TipoDeDisco.TRIBUTES);
+			controllerFileManager.renameFile(listaTags, musicas, TipoDeDisco.TRIBUTES);
+			
+			diretorioDeDestino = controllerFileManager.criarDiretorio(diretorioDeMusica, listaTags, TipoDeDisco.TRIBUTES);
+			diretorioDeOrigem = musicas.get(0).getParentFile();
+			
+			if (!diretorioDeOrigem.equals(diretorioDeDestino)) {
+				controllerFileManager.moveFile(musicas, diretorioDeDestino);
+				controllerFileManager.delete(diretorioDeOrigem);
+			}
+			new PopUp(ConstantesUI.POPUP_SALVO_COM_SUCESSO, TipoPopUp.INFO);
 		
 		} else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DEFAULT)){
 			
 			musicas = fillMusicArray(TipoDeDisco.NORMAL);
 			listaTags = fillListaTags(musicas, TipoDeDisco.NORMAL);
 			setTags(listaTags, musicas, TipoDeDisco.NORMAL);
-			controllerFile.renameFile(listaTags, musicas, TipoDeDisco.NORMAL);
-			controllerFile.criarDiretorio(diretorioDeMusica, listaTags, TipoDeDisco.NORMAL);
+			controllerFileManager.renameFile(listaTags, musicas, TipoDeDisco.NORMAL);
+			
+			diretorioDeDestino = controllerFileManager.criarDiretorio(diretorioDeMusica, listaTags, TipoDeDisco.NORMAL);
+			diretorioDeOrigem = musicas.get(0).getParentFile();
+			
+			if (!diretorioDeOrigem.equals(diretorioDeDestino)) {
+				controllerFileManager.moveFile(musicas, diretorioDeDestino);
+				controllerFileManager.delete(diretorioDeOrigem);
+			}
+			new PopUp(ConstantesUI.POPUP_SALVO_COM_SUCESSO, TipoPopUp.INFO);
 		}
 		
-		
-//		PainelFaixas painelFaixas = controllerInput.getPainelFaixas();
-//		PainelTagsGerais painelTagsGerais = controllerInput.getPainelTagsGerais();
-//
-//
-//		// Movendo os arquivos para a pasta de musica
-//		if (tempDir != null) {
-//			controllerFile.moveFile(musicas, tempDir);
-//			File diretorioDeOrigem = musicas.get(0).getParentFile();
-//			Logger.debug("deletando: " + diretorioDeOrigem);
-//			controllerFile.delete(diretorioDeOrigem);
-//		}
-//
-//		new PopUp(ConstantesUI.POPUP_SALVO_COM_SUCESSO, TipoPopUp.INFO);
 	}
 
 	/**
