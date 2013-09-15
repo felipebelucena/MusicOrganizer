@@ -7,13 +7,8 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import Base.LookAndFeelTipos;
-
-
 import ui.TelaPrincipal;
-
-
-import de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel;
+import Base.LookAndFeelTipos;
 
 /**
  * 
@@ -61,8 +56,6 @@ public class Main {
 				break;
 			case SYSTEM:
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			case BLACK_EYES:
-				UIManager.setLookAndFeel(new SyntheticaBlackEyeLookAndFeel());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

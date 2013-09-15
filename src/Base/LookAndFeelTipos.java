@@ -11,8 +11,7 @@ public enum LookAndFeelTipos {
     MOTIF("CDE/Motif"),
     MAC("Mac OS X"),
     SYSTEM("System"),
-    GTK("GTK"),
-    BLACK_EYES("Black Eyes");
+    GTK("GTK");
  
     private String valor;
     
