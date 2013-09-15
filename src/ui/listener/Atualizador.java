@@ -50,17 +50,17 @@ public class Atualizador {
 	
 	public void updateFaixas(ArrayList<JLabel> listLabels,
 			ArrayList<JTextField> listTextFieldNumero,
-			ArrayList<JTextField> listTextFieldFaixas){
+			ArrayList<JTextField> listTextFieldFaixas, ArrayList<JTextField> listTextFieldArtista){
 		
 		for (UpdateFaixasListener listener : listUpdateFaixasListener) {
-			listener.updateFaixas(listLabels, listTextFieldNumero, listTextFieldFaixas);
+			listener.updateFaixas(listLabels, listTextFieldNumero, listTextFieldFaixas, listTextFieldArtista);
 		}
 	}
 	
-	public void updatetagsGerais(String artista, String album, String ano, String genero){
+	public void updatetagsGerais(String artista, String album, String ano, String genero, int discoNumero, int discoTotal){
 		
 		for (UpdateTagsGeraisListener listener : listUpdateTagsGeraisListener) {
-			listener.updateTagsGerais(artista, album, ano, genero);
+			listener.updateTagsGerais(artista, album, ano, genero, discoNumero, discoTotal);
 		}
 	}
 	

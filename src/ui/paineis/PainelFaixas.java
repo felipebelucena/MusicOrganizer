@@ -58,11 +58,13 @@ public class PainelFaixas extends JPanel implements UpdateFaixasListener {
 	 * @param listLabels
 	 * @param listTextFieldNumero
 	 * @param listTextFieldFaixas
+	 * @param listTextFieldArtistas - parametro não usado por essa classe
 	 */
 	@Override
 	public void updateFaixas(ArrayList<JLabel> listLabels,
 			ArrayList<JTextField> listTextFieldNumero,
-			ArrayList<JTextField> listTextFieldFaixas) {
+			ArrayList<JTextField> listTextFieldFaixas,
+			ArrayList<JTextField> listTextFieldArtistas) {
 
 		/*
 		 * ---------------------------------------------------------------------

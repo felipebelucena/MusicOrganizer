@@ -13,5 +13,5 @@ public interface UpdateFaixasListener {
 	
 	public void updateFaixas(ArrayList<JLabel> textFieldLabels,
 			ArrayList<JTextField> textFieldsNumero,
-			ArrayList<JTextField> textFieldsFaixas);
+			ArrayList<JTextField> textFieldsFaixas, ArrayList<JTextField> listTextFieldArtista);
 }

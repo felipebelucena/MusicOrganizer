@@ -45,10 +45,20 @@ public class ControllerInput {
 	private PainelTagsGerais painelTagsGerais = null;
 	private PainelFaixas painelFaixas = null;
 
+	/*
+	 * ---------------------------------------------------------------------
+	 * Construtor
+	 * ---------------------------------------------------------------------
+	 */
 	private ControllerInput() {
 		tag = new Tags();
 	}
 	
+	/*
+	 * ---------------------------------------------------------------------
+	 * Singleton
+	 * ---------------------------------------------------------------------
+	 */
 	public static ControllerInput getInstace(){
 		if(controller == null){
 			controller = new ControllerInput();
@@ -84,6 +94,9 @@ public class ControllerInput {
 					String genero = tag.getFirst(FieldKey.GENRE);
 					String nomeDaMusica = tag.getFirst(FieldKey.TITLE);
 					String numero = tag.getFirst(FieldKey.TRACK);
+					String albumArtist = tag.getFirst(FieldKey.ALBUM_ARTIST);
+					String disco_numero = tag.getFirst(FieldKey.DISC_NO);
+					String disco_total = tag.getFirst(FieldKey.DISC_TOTAL);
 					String nomeDoArquivo = musicas[i].getName();
 
 					try {
@@ -99,8 +112,16 @@ public class ControllerInput {
 					tags.setGenero(genero);
 					tags.setNomeDaMusica(nomeDaMusica);
 					tags.setNumero(numero);
+					tags.setAlbumArtista(albumArtist);
 					tags.setNomeDoArquivo(nomeDoArquivo);
 					tags.setImage(image);
+					try {
+						tags.setDiscoNumero(Integer.parseInt(disco_numero));
+						tags.setDiscoTotal(Integer.parseInt(disco_total));
+					} catch (NumberFormatException e) {
+						tags.setDiscoNumero(ConstantesUI.NUMERO_1);
+						tags.setDiscoTotal(ConstantesUI.NUMERO_1);
+					}
 
 					listaTags.add(j, tags);
 					j++;
@@ -176,42 +197,57 @@ public class ControllerInput {
 	public void carregaMusicas(File[] arquivos,Atualizador atualizador, ArrayList<Tags> listaTags)
 			throws ListaNulaException, ListaVaziaException {
 
+		// declara variaveis
 		String artista = ConstantesUI.STRING_VAZIA;
 		String album = ConstantesUI.STRING_VAZIA;
 		String ano = ConstantesUI.STRING_VAZIA;
 		String genero = ConstantesUI.STRING_VAZIA;
+		int discoNumero = ConstantesUI.NUMERO_1;
+		int discoTotal = ConstantesUI.NUMERO_1;
 		try {
 
+			// preenche valores gerais
 			if (listaTags.get(0) != null) {
 				artista = listaTags.get(0).getArtista();
 				album = listaTags.get(0).getAlbum();
 				ano = listaTags.get(0).getAno();
 				genero = listaTags.get(0).getGenero();
+				discoNumero = listaTags.get(0).getDiscoNumero();
+				discoTotal = listaTags.get(0).getDiscoTotal();
 			}
 
+			// cria listas
 			ArrayList<JLabel> listLabels = new ArrayList<JLabel>();
 			ArrayList<JTextField> listTextFieldNumero = new ArrayList<JTextField>();
 			ArrayList<JTextField> listTextFieldFaixas = new ArrayList<JTextField>();
+			ArrayList<JTextField> listTextFieldArtista = new ArrayList<JTextField>();
 
+			// declara variáveis para o conteúdo das listas
 			String nomeDoArquivo = ConstantesUI.STRING_VAZIA;
 			String numero = ConstantesUI.STRING_VAZIA;
 			String faixas = ConstantesUI.STRING_VAZIA;
+			String artistas = ConstantesUI.STRING_VAZIA;
 
+			// popula as listas
 			for (int i = 0; i < listaTags.size(); i++) {
 				listLabels.add(new JLabel());
 				listTextFieldNumero.add(new JTextField(3));
 				listTextFieldFaixas.add(new JTextField(15));
+				listTextFieldArtista.add(new JTextField(15));
 			}
 
 			for (int i = 0; i < listaTags.size(); i++) {
 
+				//pegas os valores, e seta nas listas
 				nomeDoArquivo = listaTags.get(i).getNomeDoArquivo();
 				numero = listaTags.get(i).getNumero();
 				faixas = listaTags.get(i).getNomeDaMusica();
+				artistas = listaTags.get(i).getArtista();
 
 				listLabels.get(i).setText(nomeDoArquivo);
 				listTextFieldNumero.get(i).setText(numero);
 				listTextFieldFaixas.get(i).setText(faixas);
+				listTextFieldArtista.get(i).setText(artistas);
 			}
 
 			// Ordenando a lista
@@ -236,9 +272,9 @@ public class ControllerInput {
 
 			// Atualizando a UI
 			atualizador.habilitarTodosOsComponentes();
-			atualizador.updateFaixas(listLabels, listTextFieldNumero,listTextFieldFaixas);
+			atualizador.updateFaixas(listLabels, listTextFieldNumero,listTextFieldFaixas, listTextFieldArtista);
 			atualizador.updateImage(tag.getImage());
-			atualizador.updatetagsGerais(artista, album, ano, genero);
+			atualizador.updatetagsGerais(artista, album, ano, genero, discoNumero, discoTotal);
 			
 		} catch (NullPointerException e) {
 			throw new ListaNulaException();

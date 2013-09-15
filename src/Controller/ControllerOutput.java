@@ -30,6 +30,7 @@ import util.PropertiesFile;
 import Base.Tags;
 import Base.TipoDeDisco;
 import Base.TipoPopUp;
+import Exception.DiscoCarregadoException;
 import Exception.ImagemVaziaException;
 import Exception.PastaDeMusicaNaoExisteException;
 import Exception.PastaDeMusicaVaziaException;
@@ -104,8 +105,13 @@ public class ControllerOutput {
 			diretorioDeDestino = controllerFileManager.criarDiretorio(diretorioDeMusica, listaTags, TipoDeDisco.VA);
 			diretorioDeOrigem = musicas.get(0).getParentFile();
 			if (!diretorioDeOrigem.equals(diretorioDeDestino)) {
-				controllerFileManager.moveFile(musicas, diretorioDeDestino);
-				controllerFileManager.delete(diretorioDeOrigem);
+				try {
+					controllerFileManager.moveFile(musicas, diretorioDeDestino);
+					controllerFileManager.delete(diretorioDeOrigem);
+				} catch (DiscoCarregadoException e) {
+					new PopUp(ConstantesUI.POPUP_DISCO_SALVO, TipoPopUp.ERROR);
+					return;
+				}
 			}
 			new PopUp(ConstantesUI.POPUP_SALVO_COM_SUCESSO, TipoPopUp.INFO);
 			
@@ -120,8 +126,13 @@ public class ControllerOutput {
 			diretorioDeOrigem = musicas.get(0).getParentFile();
 			
 			if (!diretorioDeOrigem.equals(diretorioDeDestino)) {
-				controllerFileManager.moveFile(musicas, diretorioDeDestino);
-				controllerFileManager.delete(diretorioDeOrigem);
+				try {
+					controllerFileManager.moveFile(musicas, diretorioDeDestino);
+					controllerFileManager.delete(diretorioDeOrigem);
+				} catch (DiscoCarregadoException e) {
+					new PopUp(ConstantesUI.POPUP_DISCO_SALVO, TipoPopUp.ERROR);
+					return;
+				}
 			}
 			new PopUp(ConstantesUI.POPUP_SALVO_COM_SUCESSO, TipoPopUp.INFO);
 		
@@ -136,8 +147,13 @@ public class ControllerOutput {
 			diretorioDeOrigem = musicas.get(0).getParentFile();
 			
 			if (!diretorioDeOrigem.equals(diretorioDeDestino)) {
-				controllerFileManager.moveFile(musicas, diretorioDeDestino);
-				controllerFileManager.delete(diretorioDeOrigem);
+				try {
+					controllerFileManager.moveFile(musicas, diretorioDeDestino);
+					controllerFileManager.delete(diretorioDeOrigem);
+				} catch (DiscoCarregadoException e) {
+					new PopUp(ConstantesUI.POPUP_DISCO_SALVO, TipoPopUp.ERROR);
+					return;
+				}
 			}
 			new PopUp(ConstantesUI.POPUP_SALVO_COM_SUCESSO, TipoPopUp.INFO);
 		
@@ -152,8 +168,13 @@ public class ControllerOutput {
 			diretorioDeOrigem = musicas.get(0).getParentFile();
 			
 			if (!diretorioDeOrigem.equals(diretorioDeDestino)) {
-				controllerFileManager.moveFile(musicas, diretorioDeDestino);
-				controllerFileManager.delete(diretorioDeOrigem);
+				try {
+					controllerFileManager.moveFile(musicas, diretorioDeDestino);
+					controllerFileManager.delete(diretorioDeOrigem);
+				} catch (DiscoCarregadoException e) {
+					new PopUp(ConstantesUI.POPUP_DISCO_SALVO, TipoPopUp.ERROR);
+					return;
+				}
 			}
 			new PopUp(ConstantesUI.POPUP_SALVO_COM_SUCESSO, TipoPopUp.INFO);
 		}
@@ -181,8 +202,7 @@ public class ControllerOutput {
 				tags.setGenero(painelTagsGerais.getTextFieldGenero().getText());
 				tags.setNumero(painelFaixas.getlistTextFieldNumero().get(i).getText());
 				tags.setNomeDaMusica(painelFaixas.getlistTextFieldFaixas().get(i).getText());
-//				TODO implementar esse JTextField
-//				tags.setArtista(artista);
+				tags.setArtista(painelFaixas.getlistTextFieldArtistas().get(i).getText());
 				tags.setAlbumArtista(ConstantesUI.VARIOUS_ARTISTS);
 				tags.setImage(controllerImage.getImagem());
 				tags.setDiscoNumero(ConstantesUI.NUMERO_1);
@@ -195,6 +215,8 @@ public class ControllerOutput {
 			listaTags.clear();
 			PainelFaixas painelFaixas = PainelFaixas.getInstace();
 			PainelTagsGeraisDoubleDisc paineltagsGerais = PainelTagsGeraisDoubleDisc.getInstace();
+			int discoNumero = 0;
+			int discoTotal = 0;
 			for (int i = 0; i < musicas.size(); i++) {
 				Tags tags = new Tags();
 				tags.setAlbum(paineltagsGerais.getTextFieldAlbum().getText());
@@ -205,9 +227,10 @@ public class ControllerOutput {
 				tags.setArtista(paineltagsGerais.getTextFieldArtista().getText());
 				tags.setAlbumArtista(ConstantesUI.STRING_VAZIA);
 				tags.setImage(controllerImage.getImagem());
-//				TODO implementar esses JTextField
-//				tags.setDiscoNumero(discoNumero);
-//				tags.setDiscoTotal(discoTotal)
+				discoNumero = Integer.parseInt(paineltagsGerais.getTextFieldDiscoNumero().getText());
+				discoTotal = Integer.parseInt(paineltagsGerais.getTextFieldDiscoTotal().getText());
+				tags.setDiscoNumero(discoNumero);
+				tags.setDiscoTotal(discoTotal);
 				listaTags.add(tags);
 			}
 			break;
@@ -305,10 +328,8 @@ public class ControllerOutput {
 					tag.setField(FieldKey.TITLE, listaTags.get(i).getNomeDaMusica());
 					tag.setField(FieldKey.ARTIST, listaTags.get(i).getArtista());
 					tag.setField(FieldKey.ALBUM_ARTIST, ConstantesUI.STRING_VAZIA);
-					//TODO trocar essas 2 linhas pelas linhas de baixo
-					// quando o TODO do método fillListaTags() for resolvido
-//					tag.setField(FieldKey.DISC_NO, listaTags.get(i).getDiscoNumero());
-//					tag.setField(FieldKey.DISC_TOTAL, listaTags.get(i).getDiscoTotal());
+					tag.setField(FieldKey.DISC_NO, Integer.toString(listaTags.get(i).getDiscoNumero()));
+					tag.setField(FieldKey.DISC_TOTAL, Integer.toString(listaTags.get(i).getDiscoTotal()));
 					try {
 						Artwork art = setArtwork(listaTags.get(i).getImage());
 						tag.deleteArtworkField();
@@ -347,10 +368,7 @@ public class ControllerOutput {
 					tag.setField(FieldKey.GENRE, listaTags.get(i).getGenero());
 					tag.setField(FieldKey.TRACK, listaTags.get(i).getNumero());
 					tag.setField(FieldKey.TITLE, listaTags.get(i).getNomeDaMusica());
-					//TODO trocar essa linha pela linha de baixo
-					// quando o TODO do método fillListaTags() for resolvido
-					tag.setField(FieldKey.ARTIST, ConstantesUI.STRING_VAZIA);
-//					tag.setField(FieldKey.ARTIST, listaTags.get(i).getArtista());
+					tag.setField(FieldKey.ARTIST, listaTags.get(i).getArtista());
 					tag.setField(FieldKey.ALBUM_ARTIST, ConstantesUI.VARIOUS_ARTISTS);
 					try {
 						Artwork art = setArtwork(listaTags.get(i).getImage());

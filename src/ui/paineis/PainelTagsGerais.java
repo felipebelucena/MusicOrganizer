@@ -131,9 +131,11 @@ public class PainelTagsGerais extends JPanel implements HabilitarComponentesList
 	 * @param album
 	 * @param ano
 	 * @param genero
+	 * @param discoNumero - parametro não usado por essa classe
+	 * @param discoTotal - parametro não usado por essa classe
 	 */
 	@Override
-	public void updateTagsGerais(String artista, String album, String ano, String genero){
+	public void updateTagsGerais(String artista, String album, String ano, String genero, int discoNumero, int discoTotal){
 		textFieldArtista.setText(artista);
 		textFieldAlbum.setText(album);
 		textFieldAno.setText(ano);

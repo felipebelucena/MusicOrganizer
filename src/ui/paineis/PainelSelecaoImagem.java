@@ -127,7 +127,7 @@ public class PainelSelecaoImagem extends JPanel implements HabilitarComponentesL
 				labelSelecaoImagem.setText(ConstantesUI.SELECIONE_ARQUIVO_IMAGEM);
 				botaoSelecaoImagem.setText(ConstantesUI.PROCURAR);
 				textFieldSelecaoImagem.setText(ConstantesUI.STRING_VAZIA);
-				textFieldSelecaoImagem.setEnabled(false);
+				textFieldSelecaoImagem.setEnabled(true);
 			}
 		});
 	}

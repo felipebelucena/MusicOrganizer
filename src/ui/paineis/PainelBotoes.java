@@ -58,7 +58,7 @@ public class PainelBotoes extends JPanel implements HabilitarComponentesListener
 			public void actionPerformed(ActionEvent e) {
 				setCursor(new Cursor(Cursor.WAIT_CURSOR));
 				botaoSalvar.setEnabled(false);
-				facade.salvar();
+				Facade.getInstace().salvar();
 				botaoSalvar.setEnabled(true);
 				setCursor(null);
 			}

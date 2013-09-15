@@ -6,7 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -28,6 +27,7 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 	private ArrayList<JLabel> listLabels = null;
 	private ArrayList<JTextField> listTextFieldNumero = null;
 	private ArrayList<JTextField> listTextFieldFaixas = null;
+	private ArrayList<JTextField> listTextFieldArtistas = null;
 
 	private static PainelFaixasVariousArtists instace;
 	
@@ -57,13 +57,15 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 	 * JLabels, e os 2 de JTextFields
 	 * 
 	 * @param listLabels
-	 * @param listtextFieldNumero
-	 * @param listtextFieldFaixas
+	 * @param listTextFieldNumero
+	 * @param listTextFieldFaixas
+	 * @param listTextFieldArtistas
 	 */
 	@Override
 	public void updateFaixas(ArrayList<JLabel> listLabels,
-			ArrayList<JTextField> listtextFieldNumero,
-			ArrayList<JTextField> listtextFieldFaixas) {
+			ArrayList<JTextField> listTextFieldNumero,
+			ArrayList<JTextField> listTextFieldFaixas,
+			ArrayList<JTextField> listTextFieldArtistas) {
 		this.removeAll();
 
 		/*
@@ -71,11 +73,6 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 		 * Setup do Painel
 		 * ---------------------------------------------------------------------
 		 */
-		List<JTextField> textFieldsArtistas = new ArrayList<JTextField>();
-		for (int i = 0; i < listtextFieldFaixas.size(); i++) {
-			textFieldsArtistas.add(i, new JTextField(15));
-		}
-		
 		String stringLegenda = String.format(ConstantesUI.LEGENDA_FORMATO_VA, 
 				ConstantesUI.LEGENDA, ConstantesUI.LEGENDA_ARQUIVO, 
 				ConstantesUI.LEGENDA_NUMERO,ConstantesUI.LEGENDA_FAIXA, 
@@ -105,8 +102,9 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 		gbc.anchor = GridBagConstraints.WEST;
 		painelNorte.add(labelLegenda, gbc);
 
-		this.listTextFieldNumero = listtextFieldNumero;
-		this.listTextFieldFaixas = listtextFieldFaixas;
+		this.listTextFieldNumero = listTextFieldNumero;
+		this.listTextFieldFaixas = listTextFieldFaixas;
+		this.listTextFieldArtistas = listTextFieldArtistas;
 		this.listLabels = listLabels;
 		int quantidadeDeMusicas = listLabels.size();
 		this.setBorder(BorderFactory
@@ -122,9 +120,9 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 		for (int i = 0; i < len; i++) {
 
 			JLabel labelFaixa = listLabels.get(i);
-			JTextField textFieldNumero = listtextFieldNumero.get(i);
-			JTextField textFieldFaixa = listtextFieldFaixas.get(i);
-			JTextField textFieldArtista = textFieldsArtistas.get(i);
+			JTextField textFieldNumero = listTextFieldNumero.get(i);
+			JTextField textFieldFaixa = listTextFieldFaixas.get(i);
+			JTextField textFieldArtista = listTextFieldArtistas.get(i);
 
 			gbc.gridx = 0;
 			gbc.gridy = i+1;
@@ -145,7 +143,7 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 		gbc.gridx++;
 		gbc.weighty = 1;
 		gbc.weightx = 0;
-		painelEsquerda.add(textFieldsArtistas.get(len-1), gbc);
+		painelEsquerda.add(listTextFieldArtistas.get(len-1), gbc);
 		
 		painelEsquerda.revalidate();
 		painelEsquerda.repaint();
@@ -158,9 +156,9 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 		 */
 		for (int i = len; i < quantidadeDeMusicas; i++) {
 			JLabel labelFaixa = listLabels.get(i);
-			JTextField textFieldNumero = listtextFieldNumero.get(i);
-			JTextField textFieldFaixa = listtextFieldFaixas.get(i);
-			JTextField textFieldArtista = textFieldsArtistas.get(i);
+			JTextField textFieldNumero = listTextFieldNumero.get(i);
+			JTextField textFieldFaixa = listTextFieldFaixas.get(i);
+			JTextField textFieldArtista = listTextFieldArtistas.get(i);
 
 			gbc.gridx = 0;
 			gbc.gridy = i+1;
@@ -183,7 +181,7 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 		gbc.gridx++;
 		gbc.weighty = 1;
 		gbc.weightx = 0;
-		painelDireita.add(textFieldsArtistas.get(quantidadeDeMusicas - 1), gbc);
+		painelDireita.add(listTextFieldArtistas.get(quantidadeDeMusicas - 1), gbc);
 		
 		painelDireita.revalidate();
 		painelDireita.repaint();
@@ -209,6 +207,10 @@ public class PainelFaixasVariousArtists extends JPanel implements UpdateFaixasLi
 
 	public ArrayList<JTextField> getlistTextFieldFaixas() {
 		return listTextFieldFaixas;
+	}
+	
+	public ArrayList<JTextField> getlistTextFieldArtistas() {
+		return listTextFieldArtistas;
 	}
 
 }

@@ -120,9 +120,11 @@ public class PainelTagsGeraisVariousArtists extends JPanel implements HabilitarC
 	 * @param album
 	 * @param ano
 	 * @param genero
+	 * @param discoNumero - parametro nao usado nessa classe
+	 * @param discoTotal - parametro nao usado nessa classe
 	 */
 	@Override
-	public void updateTagsGerais(String artista, String album, String ano, String genero){
+	public void updateTagsGerais(String artista, String album, String ano, String genero, int discoNumero, int discoTotal){
 		textFieldAlbum.setText(album);
 		textFieldAno.setText(ano);
 		textFieldGenero.setText(genero);

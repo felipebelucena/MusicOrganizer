@@ -128,6 +128,7 @@ public class TelaPrincipal extends JFrame implements
 
 		JMenuItem menuItemSetDiscType = new JMenuItem(
 				ConstantesUI.MENU_ITEM_SET_DISC_TYPE);
+		menuItemSetDiscType.setAccelerator(ConstantesUI.CTRL_4);
 		final JLabel labelDiscType = new JLabel(ConstantesUI.ESPACO
 				+ PropertiesFile.getProperties(ConstantesUI.TIPO_DE_DISCO));
 		labelDiscType.setForeground(ConstantesUI.COR_DESABILITADO);
@@ -252,25 +253,28 @@ public class TelaPrincipal extends JFrame implements
 								ConstantesUI.DIALOG_TIPO_DE_DISCO_TITULO,
 								JOptionPane.PLAIN_MESSAGE, null, tiposDeDisco,
 								PropertiesFile.getTipoDeDisco());
-				PropertiesFile.setProperties(ConstantesUI.TIPO_DE_DISCO,
-						tipoDeDiscoSelecionado);
-				labelDiscType.setText(ConstantesUI.ESPACO
-						+ PropertiesFile
-								.getProperties(ConstantesUI.TIPO_DE_DISCO));
-
-				painelSul.remove(painelFaixas);
-				painelDireita.remove(painelTagsGerais);
-
-				updatePaineisFromTipoDeDisco();
-
-				painelDireita.add(painelTagsGerais, BorderLayout.CENTER);
-				painelDireita.revalidate();
-				painelDireita.repaint();
-				painelSul.add(painelFaixas, BorderLayout.CENTER);
-				painelSul.revalidate();
-				painelSul.repaint();
-				TelaPrincipal.this.revalidate();
-				TelaPrincipal.this.repaint();
+				
+				if (tipoDeDiscoSelecionado != null) {
+					PropertiesFile.setProperties(ConstantesUI.TIPO_DE_DISCO,
+							tipoDeDiscoSelecionado);
+					labelDiscType.setText(ConstantesUI.ESPACO
+							+ PropertiesFile
+							.getProperties(ConstantesUI.TIPO_DE_DISCO));
+					
+					painelSul.remove(painelFaixas);
+					painelDireita.remove(painelTagsGerais);
+					
+					updatePaineisFromTipoDeDisco();
+					
+					painelDireita.add(painelTagsGerais, BorderLayout.CENTER);
+					painelDireita.revalidate();
+					painelDireita.repaint();
+					painelSul.add(painelFaixas, BorderLayout.CENTER);
+					painelSul.revalidate();
+					painelSul.repaint();
+					TelaPrincipal.this.revalidate();
+					TelaPrincipal.this.repaint();
+				}
 			}
 		});
 
@@ -327,7 +331,7 @@ public class TelaPrincipal extends JFrame implements
 			public void actionPerformed(ActionEvent e) {
 				setCursor(new Cursor(Cursor.WAIT_CURSOR));
 				menuItemSalvar.setEnabled(false);
-				facade.salvar();
+				Facade.getInstace().salvar();
 				menuItemSalvar.setEnabled(true);
 				setCursor(null);
 			}

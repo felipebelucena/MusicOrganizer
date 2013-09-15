@@ -10,11 +10,9 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import ui.dialog.PopUp;
-
 import Base.Tags;
 import Base.TipoDeDisco;
-import Base.TipoPopUp;
+import Exception.DiscoCarregadoException;
 
 /**
  * 
@@ -89,15 +87,15 @@ public class ControllerFileManager {
 	 * 
 	 * @param musicas
 	 * @param tempDir
+	 * @throws DiscoCarregadoException 
 	 */
-	public void moveFile(List<File> musicas, File tempDir) {
+	public void moveFile(List<File> musicas, File tempDir) throws DiscoCarregadoException {
 		InputStream inStream = null;
 		OutputStream outStream = null;
 		for (int i = 0; i < musicas.size(); i++) {
 			try {
 				File origem = new File(musicas.get(i).getPath());
 				String nomeDaMusica = musicas.get(i).getName();
-				// TODO verificar se tempDir é diferente de null
 				File destino = new File(tempDir.getPath() + File.separator
 						+ nomeDaMusica);
 
@@ -123,7 +121,7 @@ public class ControllerFileManager {
 				Logger.debug("File is copied successful!");
 
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+				throw new DiscoCarregadoException();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -182,7 +180,7 @@ public class ControllerFileManager {
 			String album = listaTags.get(0).getAno()
 					+ ConstantesUI.SEPARADOR_HIFEN
 					+ listaTags.get(0).getAlbum();
-			String disco = Integer.toString(listaTags.get(0).getDiscoNumero());
+			String disco = ConstantesUI.CD+Integer.toString(listaTags.get(0).getDiscoNumero());
 			/*
 			 * Verifica se existe um artista na pasta de musica com esse nome.
 			 * Se existir, entra na pasta
@@ -314,9 +312,7 @@ public class ControllerFileManager {
 		 * Criando a arvore de Diretorio
 		 */
 		if (diretorioDeDestino != null) {
-			if (!diretorioDeDestino.mkdirs()) {
-				new PopUp(ConstantesUI.POPUP_FALHA_CRIACAO_DIRETORIO,TipoPopUp.ERROR);
-			}
+		diretorioDeDestino.mkdirs();
 		}
 		return diretorioDeDestino;
 	}
@@ -355,8 +351,6 @@ public class ControllerFileManager {
 						+ File.separator
 						+ listaTags.get(i).getNumero()
 						+ ConstantesUI.SEPARADOR_HIFEN
-						// FIXME o getArtista() só vai deixar de vir null
-						// quando os TODO do ControllerOutput for resolvido
 						+ listaTags.get(i).getArtista()
 						+ ConstantesUI.SEPARADOR_HIFEN
 						+ listaTags.get(i).getNomeDaMusica()

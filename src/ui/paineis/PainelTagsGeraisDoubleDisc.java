@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import ui.listener.HabilitarComponentesListener;
+import ui.listener.KeyAdapterNumbersOnly;
 import ui.listener.UpdateTagsGeraisListener;
 import util.ConstantesUI;
 /**
@@ -25,8 +26,8 @@ public class PainelTagsGeraisDoubleDisc extends JPanel implements HabilitarCompo
 	private JTextField textFieldAlbum;
 	private JTextField textFieldAno;
 	private JTextField textFieldGenero;
-	private JTextField textFieldDisco1;
-	private JTextField textFieldDisco2;
+	private JTextField textFieldDiscoNumero;
+	private JTextField textFieldDiscoTotal;
 	
 	private JLabel labelArtista;
 	private JLabel labelAlbum;
@@ -90,15 +91,17 @@ public class PainelTagsGeraisDoubleDisc extends JPanel implements HabilitarCompo
 		textFieldAlbum = new JTextField(10);
 		textFieldAno = new JTextField(10);
 		textFieldGenero = new JTextField(10);
-		textFieldDisco1 = new JTextField(2);
-		textFieldDisco2 = new JTextField(2);
+		textFieldDiscoNumero = new JTextField(2);
+		textFieldDiscoNumero.addKeyListener(new KeyAdapterNumbersOnly());
+		textFieldDiscoTotal = new JTextField(2);
+		textFieldDiscoTotal.addKeyListener(new KeyAdapterNumbersOnly());
 
 		labelArtista.setLabelFor(textFieldArtista);
 		labelAlbum.setLabelFor(textFieldAlbum);
 		labelAno.setLabelFor(textFieldAno);
 		labelGenero.setLabelFor(textFieldGenero);
-		labelDisco1.setLabelFor(textFieldDisco1);
-		labelDisco2.setLabelFor(textFieldDisco2);
+		labelDisco1.setLabelFor(textFieldDiscoNumero);
+		labelDisco2.setLabelFor(textFieldDiscoTotal);
 
 		habilitarComponentes(habilitarComponentes);
 		this.setLayout(new GridBagLayout());
@@ -140,14 +143,14 @@ public class PainelTagsGeraisDoubleDisc extends JPanel implements HabilitarCompo
 		gbc.gridx = 1;
 		gbc.gridy = 4;
 		gbc.insets = new Insets(10, 10, 0, 12);
-		this.add(textFieldDisco1, gbc);
+		this.add(textFieldDiscoNumero, gbc);
 		gbc.gridx = 2;
 		gbc.gridy = 4;
 		gbc.insets = new Insets(10, 10, 0, 0);
 		this.add(labelDisco2, gbc);
 		gbc.gridx = 3;
 		gbc.gridy = 4;
-		this.add(textFieldDisco2, gbc);
+		this.add(textFieldDiscoTotal, gbc);
 	}
 	
 	/**
@@ -156,13 +159,17 @@ public class PainelTagsGeraisDoubleDisc extends JPanel implements HabilitarCompo
 	 * @param album
 	 * @param ano
 	 * @param genero
+	 * @param discoNumero
+	 * @param discoTotal
 	 */
 	@Override
-	public void updateTagsGerais(String artista, String album, String ano, String genero){
+	public void updateTagsGerais(String artista, String album, String ano, String genero, int discoNumero, int discoTotal){
 		textFieldArtista.setText(artista);
 		textFieldAlbum.setText(album);
 		textFieldAno.setText(ano);
 		textFieldGenero.setText(genero);
+		textFieldDiscoNumero.setText(Integer.toString(discoNumero));
+		textFieldDiscoTotal.setText(Integer.toString(discoTotal));
 	}
 	
 	@Override
@@ -176,9 +183,9 @@ public class PainelTagsGeraisDoubleDisc extends JPanel implements HabilitarCompo
 		textFieldAno.setEnabled(habilitar);
 		textFieldGenero.setEnabled(habilitar);
 		labelDisco1.setEnabled(habilitar);
-		textFieldDisco1.setEnabled(habilitar);
+		textFieldDiscoNumero.setEnabled(habilitar);
 		labelDisco2.setEnabled(habilitar);
-		textFieldDisco2.setEnabled(habilitar);
+		textFieldDiscoTotal.setEnabled(habilitar);
 	}
 
 	public JTextField getTextFieldArtista() {
@@ -195,6 +202,14 @@ public class PainelTagsGeraisDoubleDisc extends JPanel implements HabilitarCompo
 
 	public JTextField getTextFieldGenero() {
 		return textFieldGenero;
+	}
+
+	public JTextField getTextFieldDiscoNumero() {
+		return textFieldDiscoNumero;
+	}
+
+	public JTextField getTextFieldDiscoTotal() {
+		return textFieldDiscoTotal;
 	}
 	
 }

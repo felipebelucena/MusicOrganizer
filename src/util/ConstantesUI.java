@@ -19,7 +19,7 @@ public class ConstantesUI {
 	public static int NUMERO_1 = 1;
 	public static String AINDA_NAO_IMPLEMENTADO = "Ainda não implementado";
 	
-	public static final int LARGURA_TELA = 900;
+	public static final int LARGURA_TELA = 950;
 	public static final int ALTURA_TELA = 550;
 	public static final int ALTURA_IMAGEM = 150;
 	public static final int LARGURA_IMAGEM = 150;
@@ -72,6 +72,7 @@ public class ConstantesUI {
 	public static final KeyStroke CTRL_1 = KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.CTRL_MASK);
 	public static final KeyStroke CTRL_2 = KeyStroke.getKeyStroke(KeyEvent.VK_2, InputEvent.CTRL_MASK);
 	public static final KeyStroke CTRL_3 = KeyStroke.getKeyStroke(KeyEvent.VK_3, InputEvent.CTRL_MASK);
+	public static final KeyStroke CTRL_4 = KeyStroke.getKeyStroke(KeyEvent.VK_4, InputEvent.CTRL_MASK);
 	
 	//pop-ups
 	public static final String POPUP_CARREGUE_UM_DISCO = "Nenhum disco carregado. Carregue um disco primeiro";
@@ -90,6 +91,7 @@ public class ConstantesUI {
 	public static final String POPUP_DIRETORIO_DE_MUSICA_VAZIO = "Diretório de Música não foi informado. Informe no menu de Settings";
 	public static final String POPUP_DIRETORIO_DE_MUSICA_SALVO = "Diretório salvo com sucesso";
 	public static final String POPUP_PAINEL_INVALIDO = "Opção de painel inválida";
+	public static final String POPUP_DISCO_SALVO = "Arquivos não encontrados, talvez esse disco já tenha sido salvo";
 	
 	//Dialogs
 	public static final String DIALOG_ESCOLHA_UM_CD = "Escolha um CD";
@@ -111,6 +113,7 @@ public class ConstantesUI {
 	public static final String ERRO_LISTA_NULA = "Lista nula";
 	public static final String ERRO_LISTA_TAGS_VAZIA = "Lista de Tags Vazia";
 	public static final String ERRO_INESPERADO = "Erro Inesperado: ";
+	public static final String ERRO_DISCO_SALVO = "Arquivos não encontrados";
 	
 	//Arquivos
 	public static final String IMAGEM_PADRAO = "imagem-padrao.jpg";
@@ -129,7 +132,9 @@ public class ConstantesUI {
 	public static final String FORMATO_JPG = "jpg";
 	public static final String FORMATO_PNG = "png";
 	
+	//file manager
 	public static final String SEPARADOR_HIFEN = " - ";
+	public static final String CD = "CD";
 	
 	//cores
 	public static final Color COR_VERMELHO = new Color(255,0,0);
