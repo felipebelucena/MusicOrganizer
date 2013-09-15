@@ -105,6 +105,9 @@ public class TelaPrincipal extends JFrame implements
 		JMenu menuInfo = new JMenu(ConstantesUI.MENU_INFO);
 		JMenuItem menuItemAbout = new JMenuItem(ConstantesUI.MENU_ITEM_ABOUT);
 		menuItemAbout.setAccelerator(ConstantesUI.CTRL_I);
+		
+		JMenuItem menuItemShortcut = new JMenuItem(ConstantesUI.MENU_ITEM_SHORTCUT);
+		menuItemShortcut.setAccelerator(ConstantesUI.CTRL_T);
 
 		final JMenu menuSettings = new JMenu(ConstantesUI.MENU_SETTINGS);
 		JMenuItem menuItemSetMusicFolder = new JMenuItem(
@@ -118,17 +121,9 @@ public class TelaPrincipal extends JFrame implements
 				+ ConstantesUI.AINDA_NAO_IMPLEMENTADO);
 		idioma.setForeground(ConstantesUI.COR_DESABILITADO);
 
-		JMenuItem menuItemChangeLookAndFeel = new JMenuItem(
-				ConstantesUI.MENU_ITEM_CHANGE_LOOKANDFEEL);
-		menuItemChangeLookAndFeel.setAccelerator(ConstantesUI.CTRL_3);
-		String lookAndFeel = ConstantesUI.ESPACO
-				+ ConstantesUI.AINDA_NAO_IMPLEMENTADO;
-		JLabel labelLookAndFeel = new JLabel(lookAndFeel);
-		labelLookAndFeel.setForeground(ConstantesUI.COR_DESABILITADO);
-
 		JMenuItem menuItemSetDiscType = new JMenuItem(
 				ConstantesUI.MENU_ITEM_SET_DISC_TYPE);
-		menuItemSetDiscType.setAccelerator(ConstantesUI.CTRL_4);
+		menuItemSetDiscType.setAccelerator(ConstantesUI.CTRL_3);
 		final JLabel labelDiscType = new JLabel(ConstantesUI.ESPACO
 				+ PropertiesFile.getProperties(ConstantesUI.TIPO_DE_DISCO));
 		labelDiscType.setForeground(ConstantesUI.COR_DESABILITADO);
@@ -165,14 +160,11 @@ public class TelaPrincipal extends JFrame implements
 		menuSettings.add(idioma);
 		menuSettings.addSeparator();
 
-		menuSettings.add(menuItemChangeLookAndFeel);
-		menuSettings.add(labelLookAndFeel);
-		menuSettings.addSeparator();
-
 		menuSettings.add(menuItemSetDiscType);
 		menuSettings.add(labelDiscType);
 
 		menuInfo.add(menuItemAbout);
+		menuInfo.add(menuItemShortcut);
 
 		menuBar.add(menuFile);
 		menuBar.add(menuInfo);
@@ -304,22 +296,23 @@ public class TelaPrincipal extends JFrame implements
 		});
 
 		/**
-		 * Evento do item de menu de Settings: Set LookAndFeel
-		 */
-		menuItemChangeLookAndFeel.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new PopUp(ConstantesUI.AINDA_NAO_IMPLEMENTADO, TipoPopUp.INFO);
-			}
-		});
-
-		/**
 		 * Evento do item de menu About
 		 */
 		menuItemAbout.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new PopUp(ConstantesUI.AINDA_NAO_IMPLEMENTADO, TipoPopUp.INFO);
+				JOptionPane.showMessageDialog(null, ConstantesUI.INFO);
+			}
+		});
+		
+		/**
+		 * Evento do item de menu: Shortcuts
+		 */
+		menuItemShortcut.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, ConstantesUI.SHORTCUTS);
 			}
 		});
 
