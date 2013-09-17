@@ -52,7 +52,6 @@ public class ControllerImage {
 	public byte[] loadImage(String url,TipoBotaoImagem tipoBotaoImagem) {
 			switch (tipoBotaoImagem) {
 			case URL:
-				//TODO adicionar uma JProgressBar
 				imagem = downloadImage(url);
 				break;
 			case ARQUIVO:

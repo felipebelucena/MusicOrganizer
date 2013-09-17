@@ -1,4 +1,9 @@
 package ui;
+/**
+ * 
+ * @author frank
+ *
+ */
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -18,11 +23,7 @@ import Base.TipoPopUp;
 import Exception.ListaNulaException;
 import Exception.ListaVaziaException;
 import Facade.Facade;
-/**
- * 
- * @author frank
- *
- */
+
 public class ProgressOpen implements PropertyChangeListener {
 
 	private ProgressMonitor pbar;
@@ -55,8 +56,8 @@ public class ProgressOpen implements PropertyChangeListener {
 	}
 
 	/**
-	 * Classe interna, que executa uma Thread separa para
-	 * alimentar o ProgressMonitor, e carregar o disco na UI
+	 * Classe interna, que executa uma Thread separada (SwingWorker)
+	 *  para alimentar o ProgressMonitor, e carregar o disco na UI
 	 * @author frank
 	 *
 	 */
@@ -85,11 +86,13 @@ public class ProgressOpen implements PropertyChangeListener {
 					listaTags = null;
 					atualizador = null;
 					Logger.error(e.getMessage());
+					done();
 				} catch (ListaVaziaException e) {
 					listFiles = null;
 					listaTags = null;
 					atualizador = null;
 					Logger.error(e.getMessage());
+					done();
 					new PopUp(ConstantesUI.POPUP_DISCO_INVALIDO, TipoPopUp.ERROR);
 				}
 			}

@@ -1,11 +1,11 @@
 package ui.paineis;
 
+import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Cursor;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -16,21 +16,20 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-
-import ui.dialog.DialogOpenImage;
+import ui.ProgressLoadImage;
 import ui.listener.Atualizador;
 import ui.listener.HabilitarComponentesListener;
 import util.ConstantesUI;
-
 import Base.TipoBotaoImagem;
-import Facade.Facade;
+
 /**
  * 
  * @author FrankJunior
- *
+ * 
  */
 @SuppressWarnings("serial")
-public class PainelSelecaoImagem extends JPanel implements HabilitarComponentesListener {
+public class PainelSelecaoImagem extends JPanel implements
+		HabilitarComponentesListener {
 
 	private GridBagConstraints gbc;
 	private JLabel labelSelecaoImagem;
@@ -39,12 +38,10 @@ public class PainelSelecaoImagem extends JPanel implements HabilitarComponentesL
 	private JRadioButton radioURL;
 	private JRadioButton radioArquivo;
 	private Atualizador atualizador;
-	private Facade facade;
 
 	public PainelSelecaoImagem(Atualizador atualizador) {
 		this.atualizador = atualizador;
 		gbc = new GridBagConstraints();
-		facade = Facade.getInstace();
 		initComponents();
 	}
 
@@ -84,29 +81,20 @@ public class PainelSelecaoImagem extends JPanel implements HabilitarComponentesL
 		this.add(boxRadios, gbc);
 		
 		botaoSelecaoImagem.addActionListener(new ActionListener() {
-			byte[] imagem = null;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				if(radioURL.isSelected()){
 					setCursor(new Cursor(Cursor.WAIT_CURSOR));
 					String url = textFieldSelecaoImagem.getText();
-					imagem = facade.loadImage(url, TipoBotaoImagem.URL);
+					ProgressLoadImage progressLoadImage = new ProgressLoadImage(url, TipoBotaoImagem.URL, atualizador);
+					progressLoadImage.start();
 					setCursor(null);
-					if(imagem != null){
-						atualizador.updateImage(imagem);
-					}
 				}else if(radioArquivo.isSelected()){
-					if(ConstantesUI.STRING_VAZIA.equals(textFieldSelecaoImagem.getText())){
-						new DialogOpenImage(textFieldSelecaoImagem);
-					}
-					String url = textFieldSelecaoImagem.getText();
-					imagem = facade.loadImage(url, TipoBotaoImagem.ARQUIVO);
-					if(imagem != null){
-						atualizador.updateImage(imagem);
-					}else{
-						textFieldSelecaoImagem.setText(ConstantesUI.STRING_VAZIA);
-					}
+					setCursor(new Cursor(Cursor.WAIT_CURSOR));
+					ProgressLoadImage progressLoadImage = new ProgressLoadImage(TipoBotaoImagem.ARQUIVO, atualizador, textFieldSelecaoImagem);
+					progressLoadImage.start();
+					setCursor(null);
 				}
 			}
 		});
@@ -127,17 +115,20 @@ public class PainelSelecaoImagem extends JPanel implements HabilitarComponentesL
 				labelSelecaoImagem.setText(ConstantesUI.SELECIONE_ARQUIVO_IMAGEM);
 				botaoSelecaoImagem.setText(ConstantesUI.PROCURAR);
 				textFieldSelecaoImagem.setText(ConstantesUI.STRING_VAZIA);
-				textFieldSelecaoImagem.setEnabled(true);
+				textFieldSelecaoImagem.setEnabled(false);
 			}
 		});
 	}
+
 	/**
-	 * Método para habilitar e desabilitar todos os componentes do <code>PainelSelececaoImagem</code>. 
-	 * Habilita se já tiver carregado um disco, e desabilita se nao tiver nenhum disco carregado
+	 * Método para habilitar e desabilitar todos os componentes do
+	 * <code>PainelSelececaoImagem</code>. Habilita se já tiver carregado um
+	 * disco, e desabilita se nao tiver nenhum disco carregado
+	 * 
 	 * @param boolean
 	 */
 	@Override
-	public void habilitarComponentes(boolean habilitar){
+	public void habilitarComponentes(boolean habilitar) {
 		textFieldSelecaoImagem.setEnabled(habilitar);
 		labelSelecaoImagem.setEnabled(habilitar);
 		botaoSelecaoImagem.setEnabled(habilitar);

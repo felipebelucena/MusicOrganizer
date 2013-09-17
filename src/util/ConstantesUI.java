@@ -127,7 +127,11 @@ public class ConstantesUI {
 	public static final String DIALOG_TIPO_DE_DISCO = "Choose a disc type";
 	public static final String DIALOG_TIPO_DE_DISCO_TITULO = "Disc Type";
 	
+	// Progress dialog
 	public static final String PROGRESS_CARREGANDO = "Carregando Arquivos...";
+	public static final String PROGRESS_DONWLOAD_IMAGE = "Donwload image...";
+	public static final String PROGRESS_LOADING_IMAGE = "Loading image...";
+	public static final String PROGRESS_UPDATE_IMAGE = "Updating image...";
 	public static final String PROGRESS_INICIANDO = "iniciando...";
 	public static final String PROGRESS_NOTE_EXTRAINDO_TAGS = "Extraindo Tags";
 	public static final String PROGRESS_NOTE_EXIBINDO_VALORES = "Exibindo Valores";
@@ -136,6 +140,7 @@ public class ConstantesUI {
 	public static final int PROGRESS_20 = 20;
 	public static final int PROGRESS_50 = 50;
 	public static final int PROGRESS_100 = 100;
+	public static final int PROGRESS_80 = 80;
 
 	// Logs
 	public static final String LOG_DEBUG = "[DEBUG] ";
