@@ -36,13 +36,12 @@ public class PainelImagem extends JPanel implements UpdateImageListener {
 	 * Inicializa componentes visuais
 	 */
 	private void initComponents(){
-		
 		Image imagem = getScaledImage(imagemOriginal, ConstantesUI.LARGURA_IMAGEM, ConstantesUI.ALTURA_IMAGEM);
 		this.setBorder(BorderFactory.createTitledBorder(ConstantesUI.BORDA_IMAGEM));
 		this.setLayout(new BorderLayout());
 		this.add(new JLabel(new ImageIcon(imagem)),BorderLayout.CENTER);
 		this.repaint();
-		this.validate();
+		this.revalidate();
 	}
 	
 	/**

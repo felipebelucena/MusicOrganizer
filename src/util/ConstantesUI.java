@@ -34,7 +34,7 @@ public class ConstantesUI {
 			"mudar o idioma:                CTRL+2\n" +
 			"mudar o tipo de disco:       CTRL+3";
 
-	public static final int LARGURA_TELA = 950;
+	public static final int LARGURA_TELA = 980;
 	public static final int ALTURA_TELA = 550;
 	public static final int ALTURA_IMAGEM = 150;
 	public static final int LARGURA_IMAGEM = 150;
@@ -126,6 +126,16 @@ public class ConstantesUI {
 	public static final String DIALOG_FILTRO = "JPG & PNG Images";
 	public static final String DIALOG_TIPO_DE_DISCO = "Choose a disc type";
 	public static final String DIALOG_TIPO_DE_DISCO_TITULO = "Disc Type";
+	
+	public static final String PROGRESS_CARREGANDO = "Carregando Arquivos...";
+	public static final String PROGRESS_INICIANDO = "iniciando...";
+	public static final String PROGRESS_NOTE_EXTRAINDO_TAGS = "Extraindo Tags";
+	public static final String PROGRESS_NOTE_EXIBINDO_VALORES = "Exibindo Valores";
+	public static final int PROGRESS_5 = 5;
+	public static final int PROGRESS_10 = 10;
+	public static final int PROGRESS_20 = 20;
+	public static final int PROGRESS_50 = 50;
+	public static final int PROGRESS_100 = 100;
 
 	// Logs
 	public static final String LOG_DEBUG = "[DEBUG] ";

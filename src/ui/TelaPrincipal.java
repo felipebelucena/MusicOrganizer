@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -16,7 +17,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import ui.dialog.DialogOpenDisco;
 import ui.dialog.DialogSetMusicFolder;
 import ui.dialog.PopUp;
 import ui.listener.Atualizador;
@@ -59,7 +59,7 @@ public class TelaPrincipal extends JFrame implements
 	private JPanel painelFaixas;
 	private JPanel painelDireita;
 	private JPanel painelSul;
-	private DialogOpenDisco dialogOpenDisco;
+	private ProgressOpen progressOpen;
 
 	public TelaPrincipal() {
 		facade = Facade.getInstace();
@@ -225,7 +225,12 @@ public class TelaPrincipal extends JFrame implements
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				atualizador.addHabilitarComponentesListener(TelaPrincipal.this);
-				dialogOpenDisco = new DialogOpenDisco(atualizador);
+				
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setDialogTitle(ConstantesUI.DIALOG_ESCOLHA_UM_CD);
+				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				progressOpen = new ProgressOpen(fileChooser, atualizador);
+				progressOpen.start();
 			}
 		});
 
@@ -372,12 +377,12 @@ public class TelaPrincipal extends JFrame implements
 		if (tipoDeDisco.equals(ConstantesUI.DISC_TYPE_VA)) {
 			try {
 				// se essa lista for nula, cai no catch. Serve para verificar se algum disco já foi carregado
-				dialogOpenDisco.getListFiles();
+				progressOpen.getListFiles();
 				painelFaixas = PainelFaixasVariousArtists.getInstace();
 				painelTagsGerais = PainelTagsGeraisVariousArtists.getInstace(true);
 				updateAtualizador(painelTagsGerais.getClass().getName(), painelFaixas.getClass().getName());
 				try {
-					Facade.getInstace().carregaMusicas(dialogOpenDisco.getListFiles(), atualizador, dialogOpenDisco.getListaTags());
+					Facade.getInstace().carregaMusicas(progressOpen.getListFiles(), atualizador, progressOpen.getListaTags());
 				} catch (ListaNulaException e) {
 					Logger.error(e.getMessage());
 				} catch (ListaVaziaException e) {
@@ -391,12 +396,12 @@ public class TelaPrincipal extends JFrame implements
 		} else if (tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DOUBLE)) {
 			try {
 				// se essa lista for nula, cai no catch. Serve para verificar se algum disco já foi carregado
-				dialogOpenDisco.getListFiles();
+				progressOpen.getListFiles();
 				painelTagsGerais = PainelTagsGeraisDoubleDisc.getInstace(true);
 				painelFaixas = PainelFaixas.getInstace();
 				updateAtualizador(painelTagsGerais.getClass().getName(), painelFaixas.getClass().getName());
 				try {
-					Facade.getInstace().carregaMusicas(dialogOpenDisco.getListFiles(), atualizador, dialogOpenDisco.getListaTags());
+					Facade.getInstace().carregaMusicas(progressOpen.getListFiles(), atualizador, progressOpen.getListaTags());
 				} catch (ListaNulaException e) {
 					Logger.error(e.getMessage());
 				} catch (ListaVaziaException e) {
@@ -410,12 +415,12 @@ public class TelaPrincipal extends JFrame implements
 		} else {
 			try {
 				// se essa lista for nula, cai no catch. Serve para verificar se algum disco já foi carregado
-				dialogOpenDisco.getListFiles();
+				progressOpen.getListFiles();
 				painelTagsGerais = PainelTagsGerais.getInstace(true);
 				painelFaixas = PainelFaixas.getInstace();
 				updateAtualizador(painelTagsGerais.getClass().getName(), painelFaixas.getClass().getName());
 				try {
-					Facade.getInstace().carregaMusicas(dialogOpenDisco.getListFiles(), atualizador, dialogOpenDisco.getListaTags());
+					Facade.getInstace().carregaMusicas(progressOpen.getListFiles(), atualizador, progressOpen.getListaTags());
 				} catch (ListaNulaException e) {
 					Logger.error(e.getMessage());
 				} catch (ListaVaziaException e) {
