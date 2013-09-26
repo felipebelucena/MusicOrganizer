@@ -1,4 +1,4 @@
-package util;
+package Controller;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,6 +9,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import util.ConstantesUI;
+import util.Logger;
 
 import model.Tags;
 import model.TipoDeDisco;

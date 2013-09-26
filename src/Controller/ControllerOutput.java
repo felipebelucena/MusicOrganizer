@@ -22,7 +22,6 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.datatype.Artwork;
 
 import util.ConstantesUI;
-import util.ControllerFileManager;
 import util.Logger;
 import util.PropertiesFile;
 import view.dialog.PopUp;

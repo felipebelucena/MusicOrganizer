@@ -1,5 +1,7 @@
 package app;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -7,19 +9,19 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import model.LookAndFeelTipos;
-
 import view.TelaPrincipal;
 
 /**
  * 
  * @author FrankJunior
- *
+ * 
  */
 
 public class Main {
-	
+
 	/**
 	 * Método Main da Aplicação
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -27,16 +29,19 @@ public class Main {
 			@Override
 			public void run() {
 				setLookAndFeel(LookAndFeelTipos.NIMBUS);
-					new TelaPrincipal();
+				// linha mágica para retirar o log do JaudioTagger
+				Logger.getLogger("org.jaudiotagger").setLevel(Level.OFF);
+				new TelaPrincipal();
 			}
 		});
 	}
-	
+
 	/**
 	 * Método para setar o LookAndFeel
+	 * 
 	 * @param lookAndFeel
 	 */
-	private static void setLookAndFeel(LookAndFeelTipos lookAndFeel){
+	private static void setLookAndFeel(LookAndFeelTipos lookAndFeel) {
 		try {
 			switch (lookAndFeel) {
 			case NIMBUS:
@@ -55,7 +60,8 @@ public class Main {
 				installLookAndFeel(lookAndFeel);
 				break;
 			case SYSTEM:
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				UIManager.setLookAndFeel(UIManager
+						.getSystemLookAndFeelClassName());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,6 +70,7 @@ public class Main {
 
 	/**
 	 * Seta o LookAndFeel, baseado nos LookAndFeel instalados no S.O
+	 * 
 	 * @param lookAndFeel
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
@@ -73,13 +80,14 @@ public class Main {
 	private static void installLookAndFeel(LookAndFeelTipos lookAndFeel)
 			throws ClassNotFoundException, InstantiationException,
 			IllegalAccessException, UnsupportedLookAndFeelException {
-		for(LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
-			if(lookAndFeel.getValor().equals(info.getName())){
+		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+			if (lookAndFeel.getValor().equals(info.getName())) {
 				UIManager.setLookAndFeel(info.getClassName());
 				break;
 			}
-			//Caso queira setar uma fonte padrao
-//			UIManager.getLookAndFeelDefaults().put("defaultFont", new Font("Segoei UI", Font.TRUETYPE_FONT, 12));
+			// Caso queira setar uma fonte padrao
+			// UIManager.getLookAndFeelDefaults().put("defaultFont", new
+			// Font("Segoei UI", Font.TRUETYPE_FONT, 12));
 		}
 	}
 
