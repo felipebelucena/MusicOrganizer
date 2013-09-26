@@ -67,7 +67,8 @@ public class ProgressLoadImage implements PropertyChangeListener {
 		protected Void doInBackground() throws Exception {
 			pbar = new ProgressMonitor(null,
 					ConstantesUI.PROGRESS_LOADING_IMAGE,
-					ConstantesUI.PROGRESS_INICIANDO, 0, 100);
+					ConstantesUI.PROGRESS_INICIANDO, ConstantesUI.PROGRESS_0,
+					ConstantesUI.PROGRESS_100);
 
 			switch (tipoBotaoImagem) {
 			case URL:
@@ -90,6 +91,7 @@ public class ProgressLoadImage implements PropertyChangeListener {
 				String url = textFieldSelecaoImagem.getText();
 				imagem = Facade.getInstace().loadImage(url,
 						TipoBotaoImagem.ARQUIVO);
+				pbar.setNote(ConstantesUI.PROGRESS_UPDATE_IMAGE);
 				if (imagem != null) {
 					pbar.setProgress(ConstantesUI.PROGRESS_80);
 					pbar.setNote(ConstantesUI.PROGRESS_UPDATE_IMAGE);

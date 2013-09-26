@@ -329,7 +329,7 @@ public class TelaPrincipal extends JFrame implements
 			public void actionPerformed(ActionEvent e) {
 				setCursor(new Cursor(Cursor.WAIT_CURSOR));
 				menuItemSalvar.setEnabled(false);
-				Facade.getInstace().salvar();
+				new ProgressSave().start();
 				menuItemSalvar.setEnabled(true);
 				setCursor(null);
 			}

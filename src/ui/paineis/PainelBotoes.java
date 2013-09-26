@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import ui.ProgressSave;
 import ui.listener.HabilitarComponentesListener;
 import util.ConstantesUI;
 import Facade.Facade;
@@ -58,7 +59,7 @@ public class PainelBotoes extends JPanel implements HabilitarComponentesListener
 			public void actionPerformed(ActionEvent e) {
 				setCursor(new Cursor(Cursor.WAIT_CURSOR));
 				botaoSalvar.setEnabled(false);
-				Facade.getInstace().salvar();
+				new ProgressSave().start();
 				botaoSalvar.setEnabled(true);
 				setCursor(null);
 			}

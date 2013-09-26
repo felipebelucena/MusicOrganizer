@@ -133,14 +133,21 @@ public class ConstantesUI {
 	public static final String PROGRESS_LOADING_IMAGE = "Loading image...";
 	public static final String PROGRESS_UPDATE_IMAGE = "Updating image...";
 	public static final String PROGRESS_INICIANDO = "iniciando...";
+	public static final String PROGRESS_SALVANDO = "saving...";
 	public static final String PROGRESS_NOTE_EXTRAINDO_TAGS = "Extraindo Tags";
 	public static final String PROGRESS_NOTE_EXIBINDO_VALORES = "Exibindo Valores";
+	public static final int PROGRESS_0 = 0;
 	public static final int PROGRESS_5 = 5;
 	public static final int PROGRESS_10 = 10;
 	public static final int PROGRESS_20 = 20;
+	public static final int PROGRESS_30 = 30;
+	public static final int PROGRESS_40 = 40;
 	public static final int PROGRESS_50 = 50;
-	public static final int PROGRESS_100 = 100;
+	public static final int PROGRESS_60 = 60;
+	public static final int PROGRESS_70 = 70;
 	public static final int PROGRESS_80 = 80;
+	public static final int PROGRESS_90 = 90;
+	public static final int PROGRESS_100 = 100;
 
 	// Logs
 	public static final String LOG_DEBUG = "[DEBUG] ";

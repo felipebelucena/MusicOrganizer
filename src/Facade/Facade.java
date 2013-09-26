@@ -3,6 +3,7 @@ package Facade;
 import java.io.File;
 import java.util.ArrayList;
 
+import ui.ProgressSave.Save;
 import ui.listener.Atualizador;
 import Base.Tags;
 import Base.TipoBotaoImagem;
@@ -87,8 +88,8 @@ public class Facade {
 		return controllerInput.loadDefaultImage();
 	}
 
-	public void salvar() {
-		controllerOutput.salvar();
+	public void salvar(Save save) {
+		controllerOutput.salvar(save);
 	}
 
 	public void nome2Tags() {

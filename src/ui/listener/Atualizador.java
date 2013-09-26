@@ -6,8 +6,6 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import util.Logger;
-
 /**
  * 
  * @author FrankJunior

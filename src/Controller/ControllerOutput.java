@@ -17,6 +17,7 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.datatype.Artwork;
 
+import ui.ProgressSave.Save;
 import ui.dialog.PopUp;
 import ui.paineis.PainelFaixas;
 import ui.paineis.PainelFaixasVariousArtists;
@@ -59,9 +60,11 @@ public class ControllerOutput {
 	 * 1 - Seta as tags 
 	 * 2 - Cria a arvore de diretorio de acordo com a necessidade 
 	 * 3 - move os .mp3 corrigidos para a arvore
+	 * @param save 
 	 */
-	public void salvar() {
+	public void salvar(Save save) {
 		
+		save.atualizaProgresso(ConstantesUI.PROGRESS_10);
 		// Verifica se o diretorio de musica é válido
 		String diretorioDeMusica = PropertiesFile.getProperties(ConstantesUI.DIRETORIO_DE_MUSICA);
 		try {
@@ -97,15 +100,24 @@ public class ControllerOutput {
 		 */
 		if (tipoDeDisco.equals(ConstantesUI.DISC_TYPE_VA)) {
 			
+			save.atualizaProgresso(ConstantesUI.PROGRESS_40);
 			musicas = fillMusicArray(TipoDeDisco.VA);
+			
+			save.atualizaProgresso(ConstantesUI.PROGRESS_50);
 			listaTags = fillListaTags(musicas, TipoDeDisco.VA);
+			
+			save.atualizaProgresso(ConstantesUI.PROGRESS_60);
 			setTags(listaTags, musicas, TipoDeDisco.VA);
+			
+			save.atualizaProgresso(ConstantesUI.PROGRESS_70);
 			controllerFileManager.renameFile(listaTags, musicas, TipoDeDisco.VA);
 			
+			save.atualizaProgresso(ConstantesUI.PROGRESS_80);
 			diretorioDeDestino = controllerFileManager.criarDiretorio(diretorioDeMusica, listaTags, TipoDeDisco.VA);
 			diretorioDeOrigem = musicas.get(0).getParentFile();
 			if (!diretorioDeOrigem.equals(diretorioDeDestino)) {
 				try {
+					save.atualizaProgresso(ConstantesUI.PROGRESS_90);
 					controllerFileManager.moveFile(musicas, diretorioDeDestino);
 					controllerFileManager.delete(diretorioDeOrigem);
 				} catch (DiscoCarregadoException e) {
@@ -113,6 +125,7 @@ public class ControllerOutput {
 					return;
 				}
 			}
+			save.atualizaProgresso(ConstantesUI.PROGRESS_100);
 			new PopUp(ConstantesUI.POPUP_SALVO_COM_SUCESSO, TipoPopUp.INFO);
 			
 		} else if(tipoDeDisco.equals(ConstantesUI.DISC_TYPE_DOUBLE)){
@@ -317,7 +330,6 @@ public class ControllerOutput {
 		switch (tipoDeDisco) {
 		case DOUBLE:{
 			try {
-				int erro = 0;
 				for (int i = 0; i < musicas.size(); i++) {
 					AudioFile f = AudioFileIO.read(musicas.get(i));
 					Tag tag = f.getTag();
@@ -335,11 +347,7 @@ public class ControllerOutput {
 						tag.deleteArtworkField();
 						tag.setField(art);
 					} catch (ImagemVaziaException e) {
-						// Isso me garante, que o pop-up só vai ser exibido 1x
-						erro++; 
-						if (erro <= 1) {
-							new PopUp(ConstantesUI.POPUP_IMAGE_VAZIA, TipoPopUp.WARNING);
-						}
+						
 					}
 					f.commit();
 				}
@@ -359,7 +367,6 @@ public class ControllerOutput {
 		}
 		case VA:{
 			try {
-				int erro = 0;
 				for (int i = 0; i < musicas.size(); i++) {
 					AudioFile f = AudioFileIO.read(musicas.get(i));
 					Tag tag = f.getTag();
@@ -375,11 +382,7 @@ public class ControllerOutput {
 						tag.deleteArtworkField();
 						tag.setField(art);
 					} catch (ImagemVaziaException e) {
-						// Isso me garante, que o pop-up só vai ser exibido 1x
-						erro++; 
-						if (erro <= 1) {
-							new PopUp(ConstantesUI.POPUP_IMAGE_VAZIA, TipoPopUp.WARNING);
-						}
+						
 					}
 					f.commit();
 				}
@@ -400,7 +403,6 @@ public class ControllerOutput {
 		case NORMAL:
 		case TRIBUTES:{
 			try {
-				int erro = 0;
 				for (int i = 0; i < musicas.size(); i++) {
 					AudioFile f = AudioFileIO.read(musicas.get(i));
 					Tag tag = f.getTag();
@@ -416,11 +418,7 @@ public class ControllerOutput {
 						tag.deleteArtworkField();
 						tag.setField(art);
 					} catch (ImagemVaziaException e) {
-						// Isso me garante, que o pop-up só vai ser exibido 1x
-						erro++; 
-						if (erro <= 1) {
-							new PopUp(ConstantesUI.POPUP_IMAGE_VAZIA, TipoPopUp.WARNING);
-						}
+						
 					}
 					f.commit();
 				}

@@ -1,4 +1,5 @@
 package ui;
+
 /**
  * 
  * @author frank
@@ -32,7 +33,7 @@ public class ProgressOpen implements PropertyChangeListener {
 	private Atualizador atualizador = null;
 	private File[] listFiles = null;
 	ArrayList<Tags> listaTags = null;
-	
+
 	/*
 	 * ---------------------------------------------------------------------
 	 * Construtor
@@ -56,16 +57,18 @@ public class ProgressOpen implements PropertyChangeListener {
 	}
 
 	/**
-	 * Classe interna, que executa uma Thread separada (SwingWorker)
-	 *  para alimentar o ProgressMonitor, e carregar o disco na UI
+	 * Classe interna, que executa uma Thread separada (SwingWorker) para
+	 * alimentar o ProgressMonitor, e carregar o disco na UI
+	 * 
 	 * @author frank
-	 *
+	 * 
 	 */
 	class Open extends SwingWorker<Void, Void> {
 
 		protected Void doInBackground() throws Exception {
 			pbar = new ProgressMonitor(null, ConstantesUI.PROGRESS_CARREGANDO,
-					ConstantesUI.PROGRESS_INICIANDO, 0, 100);
+					ConstantesUI.PROGRESS_INICIANDO, ConstantesUI.PROGRESS_0,
+					ConstantesUI.PROGRESS_100);
 			int returnFile = fileChooser.showOpenDialog(null);
 			if (returnFile == JFileChooser.APPROVE_OPTION) {
 				pbar.setProgress(ConstantesUI.PROGRESS_5);
@@ -74,7 +77,7 @@ public class ProgressOpen implements PropertyChangeListener {
 				pbar.setNote(ConstantesUI.PROGRESS_NOTE_EXTRAINDO_TAGS);
 				listaTags = facade.parserFileToTagsList(disco);
 				pbar.setProgress(ConstantesUI.PROGRESS_20);
-				
+
 				try {
 					listFiles = disco.listFiles();
 					pbar.setProgress(ConstantesUI.PROGRESS_50);
@@ -93,29 +96,29 @@ public class ProgressOpen implements PropertyChangeListener {
 					atualizador = null;
 					Logger.error(e.getMessage());
 					done();
-					new PopUp(ConstantesUI.POPUP_DISCO_INVALIDO, TipoPopUp.ERROR);
+					new PopUp(ConstantesUI.POPUP_DISCO_INVALIDO,
+							TipoPopUp.ERROR);
 				}
 			}
 			return null;
 		}
-		
+
 		@Override
 		protected void done() {
 			pbar.close();
 		}
-		
+
 	}
 
 	/*
-	 * Evento que captura as mudanças no ProgressMonitor.
-	 * Caso o setProgress(), nao seja mais alimentado no
-	 * doInBackground(). COlocar aqui
+	 * Evento que captura as mudanças no ProgressMonitor. Caso o setProgress(),
+	 * nao seja mais alimentado no doInBackground(). COlocar aqui
 	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		
+
 	}
-	
+
 	public File[] getListFiles() {
 		return listFiles;
 	}
