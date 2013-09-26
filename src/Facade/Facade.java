@@ -3,10 +3,11 @@ package Facade;
 import java.io.File;
 import java.util.ArrayList;
 
-import ui.ProgressSave.Save;
-import ui.listener.Atualizador;
-import Base.Tags;
-import Base.TipoBotaoImagem;
+import model.Tags;
+import model.TipoBotaoImagem;
+
+import view.listener.Atualizador;
+import view.progress.ProgressSave.Save;
 import Controller.ControllerImage;
 import Controller.ControllerInput;
 import Controller.ControllerOutput;

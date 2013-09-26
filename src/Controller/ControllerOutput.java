@@ -10,6 +10,10 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import model.Tags;
+import model.TipoDeDisco;
+import model.TipoPopUp;
+
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
@@ -17,20 +21,17 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.datatype.Artwork;
 
-import ui.ProgressSave.Save;
-import ui.dialog.PopUp;
-import ui.paineis.PainelFaixas;
-import ui.paineis.PainelFaixasVariousArtists;
-import ui.paineis.PainelTagsGerais;
-import ui.paineis.PainelTagsGeraisDoubleDisc;
-import ui.paineis.PainelTagsGeraisVariousArtists;
 import util.ConstantesUI;
 import util.ControllerFileManager;
 import util.Logger;
 import util.PropertiesFile;
-import Base.Tags;
-import Base.TipoDeDisco;
-import Base.TipoPopUp;
+import view.dialog.PopUp;
+import view.paineis.PainelFaixas;
+import view.paineis.PainelFaixasVariousArtists;
+import view.paineis.PainelTagsGerais;
+import view.paineis.PainelTagsGeraisDoubleDisc;
+import view.paineis.PainelTagsGeraisVariousArtists;
+import view.progress.ProgressSave.Save;
 import Exception.DiscoCarregadoException;
 import Exception.ImagemVaziaException;
 import Exception.PastaDeMusicaNaoExisteException;

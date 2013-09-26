@@ -6,8 +6,9 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import ui.TelaPrincipal;
-import Base.LookAndFeelTipos;
+import model.LookAndFeelTipos;
+
+import view.TelaPrincipal;
 
 /**
  * 

@@ -10,8 +10,9 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import Base.Tags;
-import Base.TipoDeDisco;
+import model.Tags;
+import model.TipoDeDisco;
+
 import Exception.DiscoCarregadoException;
 
 /**

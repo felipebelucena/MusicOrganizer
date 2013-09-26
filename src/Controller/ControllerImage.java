@@ -12,13 +12,14 @@ import java.net.UnknownHostException;
 
 import javax.imageio.ImageIO;
 
-import ui.dialog.PopUp;
+import model.TipoBotaoImagem;
+import model.TipoImagemFile;
+import model.TipoPopUp;
+
 import util.ConstantesUI;
 import util.Logger;
+import view.dialog.PopUp;
 
-import Base.TipoBotaoImagem;
-import Base.TipoImagemFile;
-import Base.TipoPopUp;
 
 /**
  * 

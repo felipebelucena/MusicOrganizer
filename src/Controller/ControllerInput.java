@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import model.Tags;
+
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
@@ -20,12 +22,11 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.datatype.Artwork;
 
-import ui.listener.Atualizador;
-import ui.paineis.PainelFaixas;
-import ui.paineis.PainelTagsGerais;
 import util.ConstantesUI;
 import util.Logger;
-import Base.Tags;
+import view.listener.Atualizador;
+import view.paineis.PainelFaixas;
+import view.paineis.PainelTagsGerais;
 import Exception.ListaNulaException;
 import Exception.ListaVaziaException;
 
