@@ -56,8 +56,8 @@ public class ConstantesUI {
 	public static final String INFORME_URL_IMAGEM = "Informe a URL da imagem";
 	public static final String SELECIONE_ARQUIVO_IMAGEM = "Selecione o arquivo da imagem";
 	public static final String PROCURAR = "Procurar";
-	public static final String VARIOUS_ARTISTS = "Various Artists";
-	public static final String TRIBUTES = "Tributes";
+	public static final String VARIOUS_ARTISTS = "Coletânia";
+	public static final String TRIBUTES = "Tributos";
 
 	// legenda
 	public static final String LEGENDA = "Legenda:";
@@ -69,16 +69,15 @@ public class ConstantesUI {
 	public static final String LEGENDA_ARTISTA = "Artista";
 
 	// Barra de Menu
-	public static final String MENU_FILE = "File";
-	public static final String MENU_SETTINGS = "Settings";
+	public static final String MENU_FILE = "Arquivo";
+	public static final String MENU_SETTINGS = "Configurações";
 	public static final String MENU_INFO = "Info";
-	public static final String MENU_ITEM_OPEN = "Open";
-	public static final String MENU_ITEM_SET_MUSIC_FOLDER = "Set Music Folder";
-	public static final String MENU_ITEM_SET_LANGUAGE = "Set Language";
-	public static final String MENU_ITEM_CHANGE_LOOKANDFEEL = "Change LookAndFeel";
-	public static final String MENU_ITEM_SET_DISC_TYPE = "Disc Type";
-	public static final String MENU_ITEM_ABOUT = "About";
-	public static final String MENU_ITEM_SHORTCUT = "Shortcuts";
+	public static final String MENU_ITEM_OPEN = "Abrir";
+	public static final String MENU_ITEM_SET_MUSIC_FOLDER = "Informar diretório de música";
+	public static final String MENU_ITEM_SET_LANGUAGE = "mudar o idioma";
+	public static final String MENU_ITEM_SET_DISC_TYPE = "Tipo De Disco";
+	public static final String MENU_ITEM_ABOUT = "Sobre";
+	public static final String MENU_ITEM_SHORTCUT = "Teclas de Atalho";
 
 	// Shortcuts
 	public static final KeyStroke CTRL_A = KeyStroke.getKeyStroke(
@@ -107,7 +106,7 @@ public class ConstantesUI {
 	public static final String POPUP_CAMPOS_OBRIGATORIOS = "Todos os campos são obrigatórios";
 	public static final String POPUP_ERRO = "Erro";
 	public static final String POPUP_INFO = "Info";
-	public static final String POPUP_WARNING = "Warning";
+	public static final String POPUP_WARNING = "Aviso";
 	public static final String POPUP_IMAGE_VAZIA = "O campo image, está vazio";
 	public static final String POPUP_ARQUIVO_APENAS_DE_LEITURA = "Arquivo apenas de leitura";
 	public static final String POPUP_FALHA_CRIACAO_DIRETORIO = "Falha na criação do Diretório na sua pasta de música";
@@ -123,17 +122,17 @@ public class ConstantesUI {
 	public static final String DIALOG_ESCOLHA_UM_CD = "Escolha um CD";
 	public static final String DIALOG_SET_MUSIC_FOLDER = "Informe sua pasta de música";
 	public static final String DIALOG_ESCOLHA_UMA_IMAGEM = "Escolha uma imagem";
-	public static final String DIALOG_FILTRO = "JPG & PNG Images";
-	public static final String DIALOG_TIPO_DE_DISCO = "Choose a disc type";
-	public static final String DIALOG_TIPO_DE_DISCO_TITULO = "Disc Type";
+	public static final String DIALOG_FILTRO = "JPG & PNG Imagens";
+	public static final String DIALOG_TIPO_DE_DISCO = "escolha um tipo de disco";
+	public static final String DIALOG_TIPO_DE_DISCO_TITULO = "Tipo de Disco";
 	
 	// Progress dialog
 	public static final String PROGRESS_CARREGANDO = "Carregando Arquivos...";
-	public static final String PROGRESS_DONWLOAD_IMAGE = "Donwload image...";
-	public static final String PROGRESS_LOADING_IMAGE = "Loading image...";
-	public static final String PROGRESS_UPDATE_IMAGE = "Updating image...";
+	public static final String PROGRESS_DONWLOAD_IMAGE = "Baixando imagem...";
+	public static final String PROGRESS_LOADING_IMAGE = "Carregando imagem...";
+	public static final String PROGRESS_UPDATE_IMAGE = "Atualizando imagem...";
 	public static final String PROGRESS_INICIANDO = "iniciando...";
-	public static final String PROGRESS_SALVANDO = "saving...";
+	public static final String PROGRESS_SALVANDO = "salvando...";
 	public static final String PROGRESS_NOTE_EXTRAINDO_TAGS = "Extraindo Tags";
 	public static final String PROGRESS_NOTE_EXIBINDO_VALORES = "Exibindo Valores";
 	public static final int PROGRESS_0 = 0;
