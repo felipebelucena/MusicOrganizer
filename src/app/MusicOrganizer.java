@@ -17,7 +17,7 @@ import view.TelaPrincipal;
  * 
  */
 
-public class Main {
+public class MusicOrganizer {
 
 	/**
 	 * Método Main da Aplicação
