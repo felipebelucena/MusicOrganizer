@@ -7,6 +7,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
@@ -14,6 +15,8 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import Facade.Facade;
 
 import util.ConstantesUI;
 import util.Logger;
@@ -26,7 +29,7 @@ import view.listener.UpdateImageListener;
 @SuppressWarnings("serial")
 public class PainelImagem extends JPanel implements UpdateImageListener {
 
-	private Image imagemOriginal = null;
+	private Image imagemOriginal = convertImage(Facade.getInstace().loadDefaultImage());
 	
 	public PainelImagem() {
 		initComponents();
@@ -42,6 +45,24 @@ public class PainelImagem extends JPanel implements UpdateImageListener {
 		this.add(new JLabel(new ImageIcon(imagem)),BorderLayout.CENTER);
 		this.repaint();
 		this.revalidate();
+	}
+	
+	/**
+	 * Método para converter um byte[] para um BufferedImage.
+	 * Usado para pegar a imagem default da Facade, e passar pra classe
+	 * de PainelImagem como um BufferedImage
+	 * @param defaultImage
+	 * @return
+	 */
+	private Image convertImage(byte[] defaultImage) {
+		InputStream in = new ByteArrayInputStream(defaultImage);
+		BufferedImage bi = null;
+		try {
+			bi = ImageIO.read(in);
+		} catch (IOException e) {
+			Logger.error(e.getMessage());
+		}
+		return bi;
 	}
 	
 	/**
