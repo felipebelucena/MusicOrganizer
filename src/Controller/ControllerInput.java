@@ -147,7 +147,9 @@ public class ControllerInput {
 			Logger.error(e.getMessage());
 		} catch (InvalidAudioFrameException e) {
 			Logger.error(e.getMessage());
-		}
+		} catch (NullPointerException e) {
+		    Logger.error(e.getMessage());
+        }
 
 		return listaTags;
 	}
