@@ -2,9 +2,7 @@ package Controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -12,6 +10,7 @@ import javax.swing.JTextField;
 
 import model.Tags;
 
+import org.apache.commons.io.IOUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
@@ -160,12 +159,14 @@ public class ControllerInput {
 	 */
 	public byte[] loadDefaultImage() {
 		byte[] image = null;
-		Path path = Paths.get(ConstantesUI.IMAGEM_PADRAO);
+		
 		try {
-			image = Files.readAllBytes(path);
+			InputStream imageInputStream = ControllerInput.class.getResourceAsStream(ConstantesUI.IMAGEM_PADRAO); 
+			image = IOUtils.toByteArray(imageInputStream);
 		} catch (IOException e) {
 			Logger.error(e.getMessage());
 		}
+		
 		return image;
 	}
 
