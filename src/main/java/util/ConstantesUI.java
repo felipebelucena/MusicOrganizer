@@ -163,7 +163,7 @@ public class ConstantesUI {
 	public static final String ERRO_DISCO_SALVO = "Arquivos não encontrados";
 
 	// Arquivos
-	public static final String IMAGEM_PADRAO = "imagem-padrao.jpg";
+	public static final String IMAGEM_PADRAO = "/images/imagem-padrao.jpg";
 
 	// Properties
 	public static final String ARQUIVO_DE_PROPERTIES = "config.properties";
