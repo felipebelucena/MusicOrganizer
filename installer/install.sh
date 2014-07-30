@@ -44,12 +44,22 @@ function validacoes(){
 		PATH_DESTINO="/usr/local/share/MusicOrganizer"
 		PATH_BIN="/usr/bin"
 	fi
+	
+	# se o .jar nao existir, builde o codigo
+	if [ ! -e "$(dirname $0)/../target/$JAR" ];then
+		# se o maven nao tievr sido instalado, instale
+		 if [ $(which mvn > /dev/null; echo $?) != "0" ];then
+			sudo apt-get install mvn	 
+		 fi
+		cd ../
+		mvn clean install
+		cd $OLDPWD
+	fi
 
 }
 
 # verificando se o path já existe
 function verifica_path(){
-
 	path="$1"
 	if [ ! -d $path ]; then
 		mkdir -p $path
@@ -60,7 +70,6 @@ function verifica_path(){
 }
 
 function create_shortcut(){
-
 echo "[Desktop Entry]
 Exec="$PATH_BIN"/MusicOrganizer
 Name=MusicOrganizer
@@ -73,7 +82,6 @@ MimeType=text/plain;
 }
 
 function install(){
-
 	verifica_path "$PATH_DESTINO/"
 	verifica_path "$PATH_BIN/"
 	cp "$(dirname $0)/../target/$JAR" "$PATH_DESTINO/"
@@ -84,7 +92,6 @@ function install(){
 	cp "$LAUNCH" "$PATH_BIN"
 	mv "$PATH_BIN/$LAUNCH" "$PATH_BIN/MusicOrganizer"
 	chmod 777 "$PATH_BIN/MusicOrganizer"
-
 }
 
 # Main
@@ -93,5 +100,4 @@ function install(){
 validacoes
 install
 create_shortcut
-
 
