@@ -40,9 +40,11 @@ function validacoes(){
 	if [ ! $(id -u) -eq 0 ];then
 		PATH_DESTINO="$HOME/MusicOrganizer"
 		PATH_BIN="$HOME/bin"
+		PATH_DESKTOP_ICON="$HOME/.local/share/applications"
 	else
 		PATH_DESTINO="/usr/local/share/MusicOrganizer"
 		PATH_BIN="/usr/bin"
+		PATH_DESKTOP_ICON="/usr/share/applications"
 	fi
 	
 	# se o .jar nao existir, builde o codigo
@@ -70,6 +72,7 @@ function verifica_path(){
 }
 
 function create_shortcut(){
+desktop_file="MusicOrganizer.desktop"
 echo "[Desktop Entry]
 Exec="$PATH_BIN"/MusicOrganizer
 Name=MusicOrganizer
@@ -78,7 +81,10 @@ Type=Application
 Terminal=false
 StartupNotify=true
 MimeType=text/plain;
-" > MusicOrganizer.desktop
+" > $desktop_file
+
+cp $desktop_file $PATH_DESKTOP_ICON
+rm $desktop_file
 }
 
 function install(){
